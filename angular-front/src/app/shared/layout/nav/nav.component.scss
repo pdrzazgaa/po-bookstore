@@ -1,0 +1,16 @@
+@use '../../../../variables.scss' as *;
+
+nav {
+    display: flex;
+    padding: 0 5vw;
+    background-color: $green;
+    height: 100px;
+    align-items: center;
+    justify-content: space-between;
+    color: $font-color-light;
+    
+    .catalog {
+        display: flex;
+        gap: 20px;
+    }
+}
