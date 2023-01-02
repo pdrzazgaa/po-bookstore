@@ -1,4 +1,6 @@
 <button (click)="onButtonClick()">{{ title }}</button>
 <nav *ngIf="navIsOpen && categories.length">
-  <a *ngFor="let category of categories" class="link" [routerLink]="category.category">{{ category.category }}</a>
+  <a *ngFor="let category of categories" class="link" [routerLink]="category.category">{{
+    category.category
+  }}</a>
 </nav>

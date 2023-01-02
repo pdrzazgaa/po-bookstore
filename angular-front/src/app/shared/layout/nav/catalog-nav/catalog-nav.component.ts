@@ -3,15 +3,15 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'app-catalog-nav',
   templateUrl: './catalog-nav.component.html',
-  styleUrls: ['./catalog-nav.component.scss']
+  styleUrls: ['./catalog-nav.component.scss'],
 })
 export class CatalogNavComponent implements OnInit {
-  @Input() title: string = ''; 
-  navIsOpen: boolean = false;
+  @Input() title: string = '';
   private categoriesService: CategoriesService;
+  navIsOpen: boolean = false;
   categories: Category[] = [];
 
-  constructor(categoriesService: CategoriesService) { 
+  constructor(categoriesService: CategoriesService) {
     this.categoriesService = categoriesService;
   }
 
@@ -22,5 +22,4 @@ export class CatalogNavComponent implements OnInit {
   onButtonClick() {
     this.navIsOpen = !this.navIsOpen;
   }
-
 }

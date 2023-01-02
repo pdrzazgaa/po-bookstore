@@ -5,7 +5,6 @@ import { OrderPageComponent } from './order-page';
 import { OrdersPageComponent } from './orders-page';
 import { ReclamationPageComponent } from './reclamation-page';
 
-
 @NgModule({
   declarations: [OrdersPageComponent, OrderPageComponent, ReclamationPageComponent],
   imports: [CommonModule, HistoryRoutingModule],

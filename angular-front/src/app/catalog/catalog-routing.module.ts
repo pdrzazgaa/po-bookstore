@@ -4,12 +4,12 @@ import { BooksPageComponent } from './books-page';
 import { NgModule } from '@angular/core';
 
 const routes: Routes = [
-  {path: 'book', component: BookPageComponent},
-  {path: 'books', component: BooksPageComponent}
+  { path: 'book', component: BookPageComponent },
+  { path: 'books', component: BooksPageComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CatalogRoutingModule { }
+export class CatalogRoutingModule {}
