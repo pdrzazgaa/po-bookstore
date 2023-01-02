@@ -9,7 +9,7 @@
         <a
           class="category--nav-subcategory"
           *ngFor="let subcategory of category.subcategories"
-          routerLink="products/{{ subcategory | url }}"
+          routerLink="products/{{ category.category | url }}/{{ subcategory | url }}"
           >{{ subcategory }}</a
         >
       </nav>

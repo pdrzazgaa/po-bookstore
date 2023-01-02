@@ -1,6 +1,8 @@
 @use '../../../../variables.scss' as *;
 
 nav {
+  position: sticky;
+  z-index: 1;
   display: flex;
   background-color: $green;
   height: 100px;
@@ -8,6 +10,7 @@ nav {
   justify-content: space-between;
   color: $font-color-light;
   font-size: 25px;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.5);
 
   .catalog {
     display: flex;
@@ -21,13 +24,19 @@ nav {
   }
 
   .title {
-    letter-spacing: 2px;
-    color: $font-color-light;
-    font-size: 1.5em;
-    text-transform: uppercase;
+    display: flex;
+    gap: 10px;
+    align-items: center;
 
-    &:hover {
-      color: $font-color-dark;
+    img {
+      height: 50px;
+    }
+
+    span {
+      letter-spacing: 2px;
+      color: $font-color-light;
+      font-size: 1.5em;
+      text-transform: uppercase;
     }
   }
 
@@ -37,7 +46,7 @@ nav {
     height: 100%;
     gap: 10px;
 
-    a {
+    & > a {
       color: $font-color-light;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -60,20 +69,29 @@ nav {
     }
 
     &--dropdown {
+      cursor: pointer;
       position: relative;
       padding-right: 5vw;
-      
+
       nav {
         display: none;
         position: absolute;
         right: 0;
-        top: 100px;
-        width: 300px;
+        top: 101.5px;
+        width: max-content;
+        height: max-content;
+        background-color: $grey;
 
         a {
-          padding: 0;
+          color: $font-color-dark;
           width: 100%;
-          font-size: 20px;
+          font-size: 0.8em;
+          padding: 15px 5vw 15px 20px;
+
+          &:hover {
+            background-color: $green;
+            color: $font-color-light;
+          }
         }
       }
 
@@ -81,7 +99,6 @@ nav {
         nav {
           display: flex;
           flex-direction: column;
-          gap: 5px;
         }
       }
     }
