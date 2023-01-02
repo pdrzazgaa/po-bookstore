@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { UrlPipe } from './pipes';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { RouterModule } from '@angular/router';
     ParcelMachineFormComponent,
     CatalogNavComponent,
     SearchBarComponent,
+    UrlPipe,
   ],
   imports: [
     CommonModule,
@@ -39,6 +41,7 @@ import { RouterModule } from '@angular/router';
     NavComponent,
     PageNotFoundComponent,
     ParcelMachineFormComponent,
+    UrlPipe,
   ],
 })
 export class SharedModule {}
