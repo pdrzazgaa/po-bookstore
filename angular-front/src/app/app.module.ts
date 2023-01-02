@@ -1,28 +1,39 @@
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import { AngularSvgIconPreloaderModule } from 'angular-svg-icon-preloader';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AuthorizationModule } from './authorization';
 import { BrowserModule } from '@angular/platform-browser';
+import { CatalogModule } from './catalog';
+import { HistoryModule } from './history';
+import { HomePageComponent } from './home';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FooterComponent } from './shared/layout/footer/footer.component';
-import { NavComponent } from './shared/layout/nav/nav.component';
-import { PageNotFoundComponent } from './shared/layout/page-not-found/page-not-found.component';
-import { MessagePopupComponent } from './shared/layout/message-popup/message-popup.component';
-import { ParcelMachineFormComponent } from './shared/layout/parcel-machine-form/parcel-machine-form.component';
-
+import { SharedModule } from './shared/shared.module';
+import { ShoppingCartModule } from './shopping-cart';
+import { WildcardRoutingModule } from './wildcard-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent,
-    NavComponent,
-    PageNotFoundComponent,
-    MessagePopupComponent,
-    ParcelMachineFormComponent,
+    HomePageComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SharedModule,
+    ShoppingCartModule,
+    CatalogModule,
+    HistoryModule,
+    WildcardRoutingModule,
+    AngularSvgIconModule.forRoot(),
+    AngularSvgIconPreloaderModule.forRoot({
+      configUrl: './assets/svgs.json',
+    }),
+    HttpClientModule,
+    AuthorizationModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

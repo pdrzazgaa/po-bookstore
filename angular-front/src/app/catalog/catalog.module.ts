@@ -1,5 +1,5 @@
-import { BookPageComponent } from './book-page/book-page.component';
-import { BooksPageComponent } from './books-page/books-page.component';
+import { BookPageComponent } from './book-page';
+import { BooksPageComponent } from './books-page';
 import { CatalogRoutingModule } from './catalog-routing.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -14,6 +14,10 @@ import { NgModule } from '@angular/core';
   imports: [
     CommonModule,
     CatalogRoutingModule
+  ],
+  exports: [
+    BookPageComponent,
+    BooksPageComponent
   ]
 })
 export class CatalogModule { }
