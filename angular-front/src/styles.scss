@@ -12,11 +12,11 @@
 a,
 button {
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
-// .btn {
-//   border: none;
-//   background-color: transparent;
-//   color: $font-color-light;
-// }
+.btn-default {
+  border: none;
+  background-color: transparent;
+  color: $font-color-light;
+}

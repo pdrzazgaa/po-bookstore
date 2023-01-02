@@ -1,19 +1,21 @@
 <nav>
   <div class="catalog">
-    <app-catalog-nav title="PRODUKTY"></app-catalog-nav>
+    <app-catalog-nav ngClass="catalog--nav" title="Produkty"></app-catalog-nav>
     <app-search-bar></app-search-bar>
   </div>
-  <h2>ZACZYTANI</h2>
+  <a class="title" routerLink="/">Zaczytani</a>
   <div class="user">
-    <a routerLink="contact">KONTAKT</a>
+    <a routerLink="contact">Kontakt</a>
     <a routerLink="shopping-cart"
-      ><svg-icon name="shopping-cart" svgClass="svg-shopping-cart"></svg-icon
+      ><svg-icon name="shopping-cart"></svg-icon
     ></a>
-    <svg-icon name="user" svgClass="user--svg"></svg-icon>
-    <nav class="user--menu">
-      <a routerLink="user-profile">Mój profil</a>
-      <a routerLink="orders">Moje zamówienia</a>
-      <a routerLink="loyalty-program">Moje punkty</a>
-    </nav>
+    <div class="user--dropdown">
+      <svg-icon name="user"></svg-icon>
+      <nav>
+        <a routerLink="user-profile">Mój profil</a>
+        <a routerLink="orders">Moje zamówienia</a>
+        <a routerLink="loyalty-program">Moje punkty</a>
+      </nav>
+    </div>
   </div>
 </nav>

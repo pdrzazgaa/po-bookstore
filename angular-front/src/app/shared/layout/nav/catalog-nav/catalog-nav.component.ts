@@ -8,7 +8,6 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CatalogNavComponent implements OnInit {
   @Input() title: string = '';
   private categoriesService: CategoriesService;
-  navIsOpen: boolean = false;
   categories: Category[] = [];
 
   constructor(categoriesService: CategoriesService) {
@@ -17,9 +16,5 @@ export class CatalogNavComponent implements OnInit {
 
   ngOnInit(): void {
     this.categories = this.categoriesService.getCategories();
-  }
-
-  onButtonClick() {
-    this.navIsOpen = !this.navIsOpen;
   }
 }
