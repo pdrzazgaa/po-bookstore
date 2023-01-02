@@ -1,16 +1,89 @@
 @use '../../../../variables.scss' as *;
 
 nav {
+  display: flex;
+  background-color: $green;
+  height: 100px;
+  align-items: center;
+  justify-content: space-between;
+  color: $font-color-light;
+  font-size: 25px;
+
+  .catalog {
     display: flex;
-    padding: 0 5vw;
-    background-color: $green;
-    height: 100px;
+    height: 100%;
+    gap: 20px;
     align-items: center;
-    justify-content: space-between;
-    color: $font-color-light;
-    
-    .catalog {
-        display: flex;
-        gap: 20px;
+
+    &--nav {
+      height: 100%;
     }
+  }
+
+  .title {
+    letter-spacing: 2px;
+    color: $font-color-light;
+    font-size: 1.5em;
+    text-transform: uppercase;
+
+    &:hover {
+      color: $font-color-dark;
+    }
+  }
+
+  .user {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 10px;
+
+    a {
+      color: $font-color-light;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 30px 10px;
+
+      &:hover {
+        color: $font-color-dark;
+      }
+    }
+
+    svg {
+      height: 100px;
+      width: 60px;
+      padding: 30px 10px;
+      @include svg();
+
+      &:hover {
+        @include svg($color: $grey-dark);
+      }
+    }
+
+    &--dropdown {
+      position: relative;
+      padding-right: 5vw;
+      
+      nav {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 100px;
+        width: 300px;
+
+        a {
+          padding: 0;
+          width: 100%;
+          font-size: 20px;
+        }
+      }
+
+      &:hover {
+        nav {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+        }
+      }
+    }
+  }
 }

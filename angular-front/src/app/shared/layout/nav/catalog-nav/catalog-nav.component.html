@@ -1,16 +1,18 @@
-<button (click)="onButtonClick()">{{ title }}</button>
-<nav *ngIf="navIsOpen && categories.length">
-  <a
-    *ngFor="let category of categories"
-    class="link"
-    routerLink="products/{{ category.category | url }}"
-    >{{ category.category }}
-    <div *ngIf="category.subcategories.length">
-      <a
-        *ngFor="let subcategory of category.subcategories"
-        routerLink="products/{{ subcategory | url }}"
-        >{{ subcategory }}</a
-      >
+<div class="catalog-nav">
+  <button class="btn-default">{{ title }}</button>
+  <nav class="categories" *ngIf="categories.length">
+    <div *ngFor="let category of categories" class="category">
+      <a class="category--a" routerLink="products/{{ category.category | url }}"
+        >{{ category.category }}
+      </a>
+      <nav class="category--nav" *ngIf="category.subcategories.length">
+        <a
+          class="category--nav-subcategory"
+          *ngFor="let subcategory of category.subcategories"
+          routerLink="products/{{ subcategory | url }}"
+          >{{ subcategory }}</a
+        >
+      </nav>
     </div>
-  </a>
-</nav>
+  </nav>
+</div>

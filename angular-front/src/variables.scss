@@ -19,6 +19,7 @@ $red-light: #e39898;
 $red-dark: #b85b5b;
 $brown: #9f5b4a;
 $grey-dark: #2b2b2b;
+$grey-mid: #919191;
 $grey-light: #f9f9f9;
 $grey: #e5e5e5;
 
@@ -74,7 +75,8 @@ $font-color-green: $green;
   }
 }
 
-@mixin svg-hover($color: $green, $strokeWidth: 0.5px) {
+
+@mixin svg($color: $grey-light, $strokeWidth: 0.5px) {
   path {
     fill: $color;
     stroke: $color;
