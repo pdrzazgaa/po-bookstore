@@ -5,8 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthorizationModule } from './authorization';
 import { BrowserModule } from '@angular/platform-browser';
 import { CatalogModule } from './catalog';
+import { CategoriesService } from './core';
 import { HistoryModule } from './history';
-import { HomePageComponent } from './home';
+import { HomeModule } from './home';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { SharedModule } from './shared/shared.module';
@@ -14,10 +15,7 @@ import { ShoppingCartModule } from './shopping-cart';
 import { WildcardRoutingModule } from './wildcard-routing.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomePageComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,15 +23,16 @@ import { WildcardRoutingModule } from './wildcard-routing.module';
     ShoppingCartModule,
     CatalogModule,
     HistoryModule,
-    WildcardRoutingModule,
+    HomeModule,
     AngularSvgIconModule.forRoot(),
     AngularSvgIconPreloaderModule.forRoot({
       configUrl: './assets/svgs.json',
     }),
     HttpClientModule,
-    AuthorizationModule
+    AuthorizationModule,
+    WildcardRoutingModule,
   ],
-  providers: [],
+  providers: [CategoriesService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
