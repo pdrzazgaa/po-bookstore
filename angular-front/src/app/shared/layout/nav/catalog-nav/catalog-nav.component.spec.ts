@@ -1,18 +1,18 @@
 // import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { HomePageComponent } from './home-page.component';
+// import { CatalogNavComponent } from './catalog-nav.component';
 
-// describe('HomePageComponent', () => {
-//   let component: HomePageComponent;
-//   let fixture: ComponentFixture<HomePageComponent>;
+// describe('CatalogNavComponent', () => {
+//   let component: CatalogNavComponent;
+//   let fixture: ComponentFixture<CatalogNavComponent>;
 
 //   beforeEach(async () => {
 //     await TestBed.configureTestingModule({
-//       declarations: [ HomePageComponent ]
+//       declarations: [ CatalogNavComponent ]
 //     })
 //     .compileComponents();
 
-//     fixture = TestBed.createComponent(HomePageComponent);
+//     fixture = TestBed.createComponent(CatalogNavComponent);
 //     component = fixture.componentInstance;
 //     fixture.detectChanges();
 //   });
