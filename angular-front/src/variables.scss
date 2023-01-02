@@ -75,7 +75,6 @@ $font-color-green: $green;
   }
 }
 
-
 @mixin svg($color: $grey-light, $strokeWidth: 0.5px) {
   path {
     fill: $color;
