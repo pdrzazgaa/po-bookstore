@@ -1,12 +1,12 @@
-import { BookPageComponent } from './book-page';
-import { BooksPageComponent } from './books-page';
 import { CatalogRoutingModule } from './catalog-routing.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ProductPageComponent } from './product-page/product-page.component';
+import { ProductsPageComponent } from './products-page/products-page.component';
 
 @NgModule({
-  declarations: [BookPageComponent, BooksPageComponent],
+  declarations: [ProductPageComponent, ProductsPageComponent],
   imports: [CommonModule, CatalogRoutingModule],
-  exports: [BookPageComponent, BooksPageComponent],
+  exports: [ProductPageComponent, ProductsPageComponent],
 })
 export class CatalogModule {}
