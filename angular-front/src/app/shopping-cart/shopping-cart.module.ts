@@ -4,7 +4,6 @@ import { OrderingPageComponent } from './ordering-page';
 import { ShoppingCartPageComponent } from './shopping-cart-page';
 import { ShoppingCartRoutingModule } from './shopping-cart-routing.module';
 
-
 @NgModule({
   declarations: [ShoppingCartPageComponent, OrderingPageComponent],
   imports: [CommonModule, ShoppingCartRoutingModule],

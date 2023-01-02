@@ -56,14 +56,5 @@
   },
     "lint-staged": {
     "src/**/*.{ts,html,scss}": "prettier --write --ignore-unknown"
-  },
-  "prettier": {
-    "trailingComma": "es5",
-    "printWidth": 90,
-    "singleQuote": true,
-    "tabWidth": 2,
-    "useTabs": false,
-    "semi": true,
-    "bracketSpacing": true
   }
 }

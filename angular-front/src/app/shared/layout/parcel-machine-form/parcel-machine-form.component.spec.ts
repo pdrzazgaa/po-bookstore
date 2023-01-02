@@ -8,9 +8,8 @@ describe('ParcelMachineFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ParcelMachineFormComponent ]
-    })
-    .compileComponents();
+      declarations: [ParcelMachineFormComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ParcelMachineFormComponent);
     component = fixture.componentInstance;
