@@ -1,5 +1,6 @@
 import { CategoriesService, Category } from 'src/app/core';
 import { Component, Input, OnInit } from '@angular/core';
+
 @Component({
   selector: 'app-catalog-nav',
   templateUrl: './catalog-nav.component.html',
