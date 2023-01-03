@@ -1,10 +1,24 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
+import { of } from 'rxjs';
 
 @Injectable()
 export class AuthorizationService {
-  private isLoggedIn: boolean = false;
+  private isloggedIn: boolean = false;
+  isLoggedInChanged = new EventEmitter<{ loggedIn: boolean }>();
 
-  getIsLoggedIn() {
-    return this.isLoggedIn;
+  login(username: string, password: string) {
+    console.log(username, password);
+    this.isloggedIn = true;
+    this.isLoggedInChanged.emit({ loggedIn: true });
+    return of(this.isLoggedIn());
+  }
+
+  isLoggedIn(): boolean {
+    return this.isloggedIn;
+  }
+
+  logout() {
+    this.isloggedIn = false;
+    this.isLoggedInChanged.emit({ loggedIn: false });
   }
 }
