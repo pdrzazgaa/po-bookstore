@@ -1,7 +1,7 @@
 import { Category } from '../models';
 import { Injectable } from '@angular/core';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class CategoriesService {
   private categories: Category[] = [
     new Category('Poradniki i albumy', [
