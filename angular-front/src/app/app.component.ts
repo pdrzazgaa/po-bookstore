@@ -16,7 +16,6 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    console.log(data);
     data.svgs.forEach(({ svgName, src }) => {
       this.registry.addSvg(svgName, src);
     });
