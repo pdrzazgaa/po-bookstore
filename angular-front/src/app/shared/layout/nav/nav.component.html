@@ -9,9 +9,7 @@
   </a>
   <div class="user">
     <a routerLink="contact">Kontakt</a>
-    <a [routerLink]="isLoggedIn ? 'shopping-cart' : 'log-in'"
-      ><svg-icon name="shopping-cart"></svg-icon
-    ></a>
+    <a routerLink="shopping-cart"><svg-icon name="shopping-cart"></svg-icon></a>
     <div class="user--dropdown" *ngIf="isLoggedIn; else login">
       <svg-icon name="user"></svg-icon>
       <nav>
