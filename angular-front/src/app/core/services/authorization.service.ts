@@ -3,7 +3,7 @@ import { of } from 'rxjs';
 
 @Injectable()
 export class AuthorizationService {
-  private isloggedIn: boolean = true;
+  private isloggedIn: boolean = false;
   isLoggedInChanged = new EventEmitter<{ loggedIn: boolean }>();
 
   login(username: string, password: string) {
