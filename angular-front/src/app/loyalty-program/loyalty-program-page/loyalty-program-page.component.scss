@@ -1,0 +1,57 @@
+@use '../../../variables.scss' as *;
+
+main {
+  height: calc(100vh - 150px);
+  background-color: $grey-mid;
+  padding: 5vh 15vw;
+}
+.wrapper {
+  background-color: $grey-light;
+  height: 100%;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.4);
+  padding: 40px 20px;
+  border-radius: 10px;
+  font-size: 40px;
+  color: $font-color-dark;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.title {
+    font-size: 1.5em;
+    letter-spacing: 2px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.subtitle {
+    letter-spacing: 1.5px;
+
+}
+
+.action {
+    background-color: transparent;
+    border: 1px solid $grey-dark;
+    padding: 15px 20px;
+    min-width: 300px;
+    font-size: 20px;
+    color: $font-color-dark;
+    margin-top: 100px;
+    letter-spacing: 1.5px;
+    border-radius: 5px;
+    text-align: center;
+
+    &:hover {
+        background-color: $green-light;
+        border: 1px solid $green-light;
+    }
+}
+
+.bookcoins {
+    font-size: 1.5em;
+    color: $green;
+    margin: 30px 0;
+}
