@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthorizationService } from 'src/app/core';
 
 @Component({
   selector: 'app-nav',
@@ -6,7 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
-  constructor() {}
+  private authorizationService: AuthorizationService;
+  isLoggedIn: boolean = false;
 
-  ngOnInit(): void {}
+  constructor(authorizationService: AuthorizationService) {
+    this.authorizationService = authorizationService;
+  }
+
+  ngOnInit(): void {
+    this.isLoggedIn = this.authorizationService.getIsLoggedIn();
+  }
 }

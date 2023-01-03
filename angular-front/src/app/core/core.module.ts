@@ -1,4 +1,5 @@
 import {
+  AuthorizationService,
   CategoriesService,
   ProductService,
   ProductsService,
@@ -8,7 +9,13 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 
 @NgModule({
   imports: [],
-  providers: [CategoriesService, ProductService, ProductsService, UserService],
+  providers: [
+    AuthorizationService,
+    CategoriesService,
+    ProductService,
+    ProductsService,
+    UserService,
+  ],
   declarations: [],
 })
 export class CoreModule {
