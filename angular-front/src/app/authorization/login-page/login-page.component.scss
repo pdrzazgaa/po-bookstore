@@ -1,31 +1,11 @@
 @use '../../../variables.scss' as *;
-$purple: rgb(134, 31, 194);
-$purple-dark: rgb(99, 25, 142);
-$green-grey: rgb(110, 156, 141);
-$red: rgb(175, 1, 1);
 
 .container {
-  height: 100vh;
-  background: $green;
-  background-color: rgba(178, 218, 142, 1);
-  background-image: linear-gradient(
-    119deg,
-    rgb(70, 97, 138) 0%,
-    rgb(138, 111, 70) 50%,
-    rgb(25, 34, 47) 100%
-  );
+  @include full-page-container();
 }
 
 .inner {
-  height: 100%;
-  background-image: radial-gradient(
-    circle,
-    rgba(142, 218, 200, 0.6) 0%,
-    rgba(38, 50, 34, 0.3) 100%
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include inner-page-container();
 }
 
 form {
