@@ -1,0 +1,39 @@
+@use '../../../../variables.scss' as *;
+
+aside {
+    height: calc(100vh - 60px);
+    position: fixed;
+    top: 30px;
+    left: 0;
+    bottom: 30px;
+    background-color: $grey;
+    color: $font-color-dark;
+    padding: 20px;
+    padding-top: 120px;
+    font-size: 20px;
+    width: 300px;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+a {
+    display: block;
+    padding: 5px 0;
+    color: $font-color-dark;
+}
+
+.category {
+
+}
+
+.subcategory {
+    padding-left: 30px;
+    font-size: 0.9em;
+}
+
+form {
+    margin-top: 30px;
+}
