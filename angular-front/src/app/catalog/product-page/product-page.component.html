@@ -1,12 +1,17 @@
 <app-nav></app-nav>
 <div class="container">
+  <app-message-popup
+    *ngIf="showPopup"
+    [mode]="popupMode"
+    [message]="popupMessage"
+  ></app-message-popup>
   <article>
     <section class="image">
       <figure>
         <img [src]="product.image.path" [alt]="product.image.alt" />
         <figcaption class="price">{{ product.price | number : '.2-2' }} zł</figcaption>
       </figure>
-      <button>Dodaj produkt do koszyka</button>
+      <button (click)="onButtonClick()" [disabled]="disabledButton">Dodaj produkt do koszyka</button>
     </section>
     <section class="details">
       <h2>{{ product.title || product.name }}</h2>

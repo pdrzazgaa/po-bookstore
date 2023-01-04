@@ -1,1 +1,11 @@
-<p>message-popup works!</p>
+<div
+  [ngClass]="{
+    appear: appear,
+    disappear: disappear,
+    accept: mode === 'accept',
+    deny: mode === 'deny'
+  }"
+>
+  <span>{{ message }}</span>
+  <img [src]="'../../../../assets/' + mode + '.png'" [alt]="mode + ' icon'" />
+</div>

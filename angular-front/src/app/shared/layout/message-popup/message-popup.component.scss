@@ -1,0 +1,45 @@
+@use "../../../../variables.scss" as *;
+
+div {
+    position: fixed;
+    z-index: 2;
+    bottom: 10vh;
+    left: calc(50vw - 250px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    padding: 10px 0;
+    width: 500px;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.5);  
+    border-radius: 4px;
+    height: 80px;
+    transition: opacity 0.3s;
+    opacity: 0;
+}
+
+.appear {
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+.disappear {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.accept {
+    background-color: $green-light;
+}
+
+.deny {
+    background-color: $red-light;
+}
+
+span {
+    font-size: 20px;
+}
+
+img {
+    height: 40px;
+}
