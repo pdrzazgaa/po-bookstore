@@ -1,1 +1,12 @@
-<p>book-page works!</p>
+<app-nav></app-nav>
+<div class="container">
+    <article>
+        <section class="image">
+            <img [src]="product.image.path" [alt]="product.image.alt">
+            <span class='price'>{{product.price}}</span>
+            <button>Dodaj produkt do koszyka</button>
+        </section>
+        <section class="details"></section>
+    </article>
+</div>
+<footer></footer>
