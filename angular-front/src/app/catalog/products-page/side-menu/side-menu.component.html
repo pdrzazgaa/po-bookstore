@@ -1,0 +1,43 @@
+<aside>
+  <section class="categories">
+    <h2>Ksiązki</h2>
+    <a *ngIf="category" [routerLink]="'/products/' + category" class="category">
+      > {{ category }}</a
+    >
+    <a
+      *ngIf="subcategory"
+      [routerLink]="'/products/' + (category | url) + '/' + (subcategory | url)"
+      class="subcategory"
+    >
+      > {{ subcategory }}</a
+    >
+  </section>
+  <form>
+    <h2>Filtry</h2>
+    <section class="filters--price">
+      <div *ngFor="let price of priceRanges">
+        <input type="radio" name="price" [value]="price" [id]="price" />
+        <label for="">&lt; {{ price }} zł</label>
+      </div>
+      <div>
+        <input type="radio" name="price" value="pokaz wszystko" id="pokaz-wszystko" />
+        <label for="pokaz-wszystko">pokaz wszystko</label>
+      </div>
+    </section>
+    <section class="filters--cover">
+      <div>
+        <input type="radio" name="cover" value="twarda" id="twarda" />
+        <label for="twarda">twarda</label>
+      </div>
+      <div>
+        <input type="radio" name="cover" value="miękka" id="miekka" />
+        <label for="miekka">miękka</label>
+      </div>
+      <div>
+        <input type="radio" name="cover" value="pokaz wszystko" id="pokaz-wszystko" />
+        <label for="pokaz-wszystko">pokaz wszystko</label>
+      </div>
+    </section>
+    <button type="submit">Filtruj</button>
+  </form>
+</aside>
