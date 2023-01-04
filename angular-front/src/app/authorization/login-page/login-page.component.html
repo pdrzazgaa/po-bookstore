@@ -1,9 +1,39 @@
-<h3>Login Form</h3>
- 
-<div>
- <form #loginForm="ngForm" (ngSubmit)="onFormSubmit(loginForm)">
-   <p>User Name: <input type='text'  name='username' ngModel></p>
-   <p>Password: <input type="password"  name="password" ngModel></p>
-   <p><button type="submit">Submit</button></p> 
- </form>
-</div> 
+<div class="container">
+  <div class="inner">
+    <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()" novalidate>
+      <svg-icon name="user"></svg-icon>
+      <h2>Zaloguj się</h2>
+      <p class="input-container">
+        <span *ngIf="isEmailInvalid()" class="error-message"
+          >Please, enter correct email</span
+        >
+        <input
+          type="text"
+          name="email"
+          formControlName="email"
+          placeholder="Email"
+          ngModel
+          [class]="isEmailInvalid() ? 'invalid' : ''"
+        />
+      </p>
+      <p class="input-container">
+        <span *ngIf="isPasswordInvalid()" class="error-message"
+          >Password must contain at least 8 chars</span
+        >
+        <input
+          type="password"
+          name="password"
+          formControlName="password"
+          placeholder="Password"
+          [class]="isPasswordInvalid() ? 'invalid' : ''"
+          ngModel
+        />
+      </p>
+      <button type="submit" [disabled]="!loginForm.valid">Login</button>
+      <p class="register">
+        <span>Nie masz konta?</span>
+        <a routerLink="/register">Zarejestruj się</a>
+      </p>
+    </form>
+  </div>
+</div>

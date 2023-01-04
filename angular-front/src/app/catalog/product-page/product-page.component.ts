@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductDetails, ProductService } from 'src/app/core';
 
 @Component({
   selector: 'app-product-page',
@@ -6,7 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product-page.component.scss'],
 })
 export class ProductPageComponent implements OnInit {
-  constructor() {}
+  private productService: ProductService;
+  product!: ProductDetails;
 
-  ngOnInit(): void {}
+  constructor(productService: ProductService) {
+    this.productService = productService;
+  }
+
+  ngOnInit(): void {
+    this.product = this.productService.getProduct();
+  }
 }

@@ -1,7 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthorizationService } from 'src/app/core';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login-page',
@@ -13,6 +13,15 @@ export class LoginPageComponent implements OnInit {
   private authorizationService: AuthorizationService;
   private router: Router;
   private activatedRoute: ActivatedRoute;
+
+  public loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(20),
+    ]),
+  });
 
   constructor(
     authorizationService: AuthorizationService,
@@ -31,9 +40,12 @@ export class LoginPageComponent implements OnInit {
     });
   }
 
-  onFormSubmit(loginForm: NgForm) {
+  onFormSubmit() {
     this.authorizationService
-      .login(loginForm.value.username, loginForm.value.password)
+      .login(
+        this.loginForm.controls.email.value!,
+        this.loginForm.controls.password.value!
+      )
       .subscribe((data) => {
         console.log(data);
         console.log('return to ' + this.retUrl);
@@ -43,5 +55,15 @@ export class LoginPageComponent implements OnInit {
           this.router.navigate(['']);
         }
       });
+  }
+
+  isEmailInvalid() {
+    const emailControl = this.loginForm.controls.email;
+    return !emailControl.valid && (emailControl.dirty || emailControl.touched);
+  }
+
+  isPasswordInvalid() {
+    const passwordControl = this.loginForm.controls.password;
+    return !passwordControl.valid && (passwordControl.dirty || passwordControl.touched);
   }
 }

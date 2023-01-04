@@ -1,0 +1,134 @@
+@use '../../../variables.scss' as *;
+$purple: rgb(134, 31, 194);
+$purple-dark: rgb(99, 25, 142);
+$green-grey: rgb(110, 156, 141);
+$red: rgb(175, 1, 1);
+
+.container {
+  height: 100vh;
+  background: $green;
+  background-color: rgba(178, 218, 142, 1);
+  background-image: linear-gradient(
+    119deg,
+    rgb(70, 97, 138) 0%,
+    rgb(138, 111, 70) 50%,
+    rgb(25, 34, 47) 100%
+  );
+}
+
+.inner {
+  height: 100%;
+  background-image: radial-gradient(
+    circle,
+    rgba(142, 218, 200, 0.6) 0%,
+    rgba(38, 50, 34, 0.3) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+form {
+  background-color: rgba($grey-light, 0.2);
+  width: max-content;
+  height: max-content;
+  padding: 40px;
+  border-radius: 5px;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  font-size: 20px;
+  color: $font-color-dark;
+
+  h2 {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+  }
+
+  svg {
+    height: 60px;
+    @include svg($color: $grey-dark);
+  }
+
+  input {
+    line-height: 40px;
+    padding-left: 15px;
+    width: 300px;
+    background-color: $grey;
+    border: 1.5px solid $grey-dark;
+    border-radius: 4px;
+    color: $font-color-dark;
+    font-size: 0.8em;
+    letter-spacing: 1px;
+
+    &:focus {
+      border-color: $purple;
+      outline: 1px solid $purple;
+      box-shadow: 0px 6px 10px rgba($green, 0.5);
+    }
+
+    &.invalid {
+      border-color: $red;
+      outline: 1px solid $red;
+    }
+  }
+
+  button {
+    color: $font-color-dark;
+    font-size: 0.9em;
+    font-weight: bold;
+    letter-spacing: 2px;
+    line-height: 45px;
+    padding: 0 40px;
+    text-transform: uppercase;
+    background-color: rgb(110, 156, 141);
+    border: 1.5px solid $grey-dark;
+    border-radius: 5px;
+    margin-top: 20px;
+
+    &:enabled:hover {
+      background-color: $grey-dark;
+      color: $font-color-light;
+    }
+
+    &:disabled {
+      opacity: 0.7;
+    }
+  }
+
+  .input-container {
+    position: relative;
+    padding-top: 20px;
+  }
+
+  .error-message {
+    position: absolute;
+    top: 0;
+    color: $red;
+    font-size: 0.7em;
+    margin-bottom: 5px;
+  }
+
+  .register {
+    margin-top: 10px;
+    font-size: 0.8em;
+    font-style: italic;
+    letter-spacing: 0.5px;
+
+    a {
+      color: $purple;
+      margin-right: 5px;
+      padding: 10px;
+      font-weight: bold;
+      letter-spacing: 1px;
+
+      &:hover {
+        color: $purple-dark;
+      }
+    }
+  }
+}
