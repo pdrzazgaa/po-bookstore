@@ -26,10 +26,11 @@ form {
     text-transform: uppercase;
     letter-spacing: 2px;
     font-size: 1.2em;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 
   svg {
+    margin-top: 20px;
     height: 60px;
     @include svg($color: $grey-dark);
   }

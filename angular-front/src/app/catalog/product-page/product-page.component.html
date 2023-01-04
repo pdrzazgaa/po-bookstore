@@ -1,12 +1,40 @@
 <app-nav></app-nav>
 <div class="container">
-    <article>
-        <section class="image">
-            <img [src]="product.image.path" [alt]="product.image.alt">
-            <span class='price'>{{product.price}}</span>
-            <button>Dodaj produkt do koszyka</button>
-        </section>
-        <section class="details"></section>
-    </article>
+  <article>
+    <section class="image">
+      <figure>
+        <img [src]="product.image.path" [alt]="product.image.alt" />
+        <figcaption class="price">{{ product.price | number : '.2-2' }} zł</figcaption>
+      </figure>
+      <button>Dodaj produkt do koszyka</button>
+    </section>
+    <section class="details">
+      <h2>{{ product.title || product.name }}</h2>
+      <div *ngIf="product.publisher" class="details--container">
+        <span class="detail">Wydawnictwo:</span>
+        <span class="detail-info">{{ product.publisher }}</span>
+      </div>
+      <div *ngIf="product.productionDate" class="details--container">
+        <span class="detail">Data wydania:</span>
+        <span class="detail-info">{{ product.productionDate | date : 'd.M.y r.' }}</span>
+      </div>
+      <div *ngIf="product.pagesNr" class="details--container">
+        <span class="detail">Liczba stron:</span>
+        <span class="detail-info">{{ product.pagesNr }}</span>
+      </div>
+      <div *ngIf="product.author" class="details--container">
+        <span class="detail">Autor:</span>
+        <span class="detail-info">{{ product.author }}</span>
+      </div>
+      <div *ngIf="product.cover" class="details--container">
+        <span class="detail">Okładka:</span>
+        <span class="detail-info">{{ product.cover }}</span>
+      </div>
+      <div class="details--container">
+        <span class="detail">Opis:</span>
+        <p class="description">{{ product.description }}</p>
+      </div>
+    </section>
+  </article>
 </div>
-<footer></footer>
+<app-footer></app-footer>

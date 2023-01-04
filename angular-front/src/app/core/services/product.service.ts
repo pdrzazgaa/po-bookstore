@@ -6,7 +6,7 @@ export class ProductService {
     'Bardzo małe rzeczy',
     22.99,
     new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),
-    'Reflekse o zyciu i przyjaźni podniosą na duchu czytelników w kazdym wieku dzięki prostym i pięknie ilustrowanym afirmacjom. Chwile spędzone na wędrĻwce po Stumilowym Lesie w towarzystwie Kubusia Puchatka przypominają, ze nawet najmniejsze rzeczy są źródłem szczęścia i wdzięczności.',
+    'Refleksje o zyciu i przyjaźni podniosą na duchu czytelników w kazdym wieku dzięki prostym i pięknie ilustrowanym afirmacjom. Chwile spędzone na wędrówce po Stumilowym Lesie w towarzystwie Kubusia Puchatka przypominają, ze nawet najmniejsze rzeczy są źródłem szczęścia i wdzięczności.',
     'Catherine Hapka',
     'Olesiejuk',
     new Date('2022-05-20'),
