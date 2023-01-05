@@ -6,102 +6,72 @@ export class ProductsService {
   private products: Product[] = [
     new Product(
       1,
-      'Bardzo małe rzeczy',
+      'Bardzo małe rzeczy w stumilowym lesie',
       22.99,
-      new Image(
-        'https://drive.google.com/file/d/1PmYJuLbcUmeS2QC6OWZfEQlKoJ2k0FZE/view?usp=sharing',
-        'ksiazka'
-      ),
+      new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),
       'Catherine Hapka'
     ),
     new Product(
       2,
-      'Bardzo małe rzeczy',
+      'Nad niemnem',
       22.99,
-      new Image(
-        'https://drive.google.com/file/d/1PmYJuLbcUmeS2QC6OWZfEQlKoJ2k0FZE/view?usp=sharing',
-        'ksiazka'
-      ),
-      'Catherine Hapka'
+      new Image('../../../assets/nad-niemnem.jpg', 'ksiazka'),
+      'Eliza Orzeszkowa'
     ),
     new Product(
       3,
-      'Bardzo małe rzeczy',
-      22.99,
-      new Image(
-        'https://drive.google.com/file/d/1PmYJuLbcUmeS2QC6OWZfEQlKoJ2k0FZE/view?usp=sharing',
-        'ksiazka'
-      ),
-      'Catherine Hapka'
+      'Lalka',
+      122.99,
+      new Image('../../../assets/lalka.jpeg', 'ksiazka'),
+      'Bolesław Prus'
     ),
     new Product(
       4,
       'Bardzo małe rzeczy',
-      22.99,
-      new Image(
-        'https://drive.google.com/file/d/1PmYJuLbcUmeS2QC6OWZfEQlKoJ2k0FZE/view?usp=sharing',
-        'ksiazka'
-      ),
+      24.99,
+      new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),
       'Catherine Hapka'
     ),
     new Product(
       5,
-      'Bardzo małe rzeczy',
-      22.99,
-      new Image(
-        'https://drive.google.com/file/d/1PmYJuLbcUmeS2QC6OWZfEQlKoJ2k0FZE/view?usp=sharing',
-        'ksiazka'
-      ),
-      'Catherine Hapka'
+      'Pan Tadeusz',
+      62.99,
+      new Image('../../../assets/pan-tadeusz.jpeg', 'ksiazka'),
+      'Adam Mickiewiz'
     ),
     new Product(
       6,
-      'Bardzo małe rzeczy',
+      'Nad niemnem',
       22.99,
-      new Image(
-        'https://drive.google.com/file/d/1PmYJuLbcUmeS2QC6OWZfEQlKoJ2k0FZE/view?usp=sharing',
-        'ksiazka'
-      ),
-      'Catherine Hapka'
+      new Image('../../../assets/nad-niemnem.jpg', 'ksiazka'),
+      'Eliza Orzeszkowa'
     ),
     new Product(
       7,
       'Bardzo małe rzeczy',
-      22.99,
-      new Image(
-        'https://drive.google.com/file/d/1PmYJuLbcUmeS2QC6OWZfEQlKoJ2k0FZE/view?usp=sharing',
-        'ksiazka'
-      ),
+      12.89,
+      new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),
       'Catherine Hapka'
     ),
     new Product(
       8,
       'Bardzo małe rzeczy',
       22.99,
-      new Image(
-        'https://drive.google.com/file/d/1PmYJuLbcUmeS2QC6OWZfEQlKoJ2k0FZE/view?usp=sharing',
-        'ksiazka'
-      ),
-      'Catherine Hapka'
+      new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),
+      'Adrian Kowalski'
     ),
     new Product(
       9,
       'Bardzo małe rzeczy',
-      22.99,
-      new Image(
-        'https://drive.google.com/file/d/1PmYJuLbcUmeS2QC6OWZfEQlKoJ2k0FZE/view?usp=sharing',
-        'ksiazka'
-      ),
-      'Catherine Hapka'
+      113.99,
+      new Image('../../../assets/pan-tadeusz.jpeg', 'ksiazka'),
+      'Adam Mickiewicz'
     ),
     new Product(
       10,
       'Bardzo małe rzeczy',
       22.99,
-      new Image(
-        'https://drive.google.com/file/d/1PmYJuLbcUmeS2QC6OWZfEQlKoJ2k0FZE/view?usp=sharing',
-        'ksiazka'
-      ),
+      new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),
       'Catherine Hapka'
     ),
   ];
