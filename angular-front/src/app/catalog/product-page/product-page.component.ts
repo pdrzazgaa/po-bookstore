@@ -32,7 +32,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe((params) => {
-      this.product = this.productsService.getProduct(params['id']);
+      this.product = this.productsService.getProduct(+params['id']);
     });
   }
 

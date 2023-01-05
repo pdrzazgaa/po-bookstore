@@ -1,10 +1,10 @@
 import { Order, Status } from './order.model';
 import { Product } from './product.model';
 
-interface OrderPosition {
+type OrderPosition = {
   product: Product;
   amount: number;
-}
+};
 
 export class OrderDetails extends Order {
   public orderPositions: OrderPosition[];
