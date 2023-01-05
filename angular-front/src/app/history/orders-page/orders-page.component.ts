@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Order, OrdersService } from 'src/app/core';
+import { UserService } from 'src/app/core';
 
 @Component({
   selector: 'app-orders-page',
@@ -6,7 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./orders-page.component.scss'],
 })
 export class OrdersPageComponent implements OnInit {
-  constructor() {}
+  private userService: UserService;
+  private ordersService: OrdersService;
+  orders?: Order[];
+  userId?: number;
 
-  ngOnInit(): void {}
+  constructor(userService: UserService, ordersService: OrdersService) {
+    this.userService = userService;
+    this.ordersService = ordersService;
+  }
+
+  ngOnInit(): void {
+    this.userId = this.userService.getUserId();
+    if (this.userId) {
+      this.orders = this.ordersService.getOrders(this.userId);
+    }
+  }
 }

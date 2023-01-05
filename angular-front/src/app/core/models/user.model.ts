@@ -2,6 +2,7 @@ import { Address } from './address.model';
 import { Order } from './order.model';
 
 export class User {
+  public id: number;
   public orders: Order[];
   public inLoyaltyProgram: boolean;
   public forname: string;
@@ -10,6 +11,7 @@ export class User {
   public address?: Address;
 
   constructor(
+    id: number,
     orders: Order[],
     inLoyaltyProgram: boolean,
     forname: string,
@@ -17,6 +19,7 @@ export class User {
     bookcoins?: number,
     address?: Address
   ) {
+    this.id = id;
     this.orders = orders;
     this.inLoyaltyProgram = inLoyaltyProgram;
     this.forname = forname;

@@ -11,11 +11,11 @@ export class UserService {
   constructor(authorizationService: AuthorizationService) {
     this.authorizationService = authorizationService;
     if (this.authorizationService.isLoggedIn()) {
-      this.user = new User([], false, 'Adam', 'Nowak');
+      this.user = new User(1, [], false, 'Adam', 'Nowak');
     }
     this.authorizationService.isLoggedInChanged.subscribe(({ loggedIn }) => {
       if (loggedIn) {
-        this.user = new User([], false, 'Adam', 'Nowak');
+        this.user = new User(1, [], false, 'Adam', 'Nowak');
       } else {
         this.clearUser();
       }
@@ -36,6 +36,10 @@ export class UserService {
 
   getBookcoins() {
     return this.user?.bookcoins || 0;
+  }
+
+  getUserId() {
+    return this.user?.id;
   }
 
   clearUser() {
