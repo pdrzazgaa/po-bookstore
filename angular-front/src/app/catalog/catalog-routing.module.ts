@@ -4,7 +4,7 @@ import { ProductPageComponent } from './product-page/product-page.component';
 import { ProductsPageComponent } from './products-page/products-page.component';
 
 const routes: Routes = [
-  { path: 'product/:productName', component: ProductPageComponent },
+  { path: 'product/:id', component: ProductPageComponent },
   { path: 'products', component: ProductsPageComponent, pathMatch: 'full' },
   { path: 'products/:category', component: ProductsPageComponent, pathMatch: 'full' },
   { path: 'products/:category/:subcategory', component: ProductsPageComponent },

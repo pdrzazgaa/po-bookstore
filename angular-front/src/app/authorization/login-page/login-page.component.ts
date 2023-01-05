@@ -1,18 +1,20 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthorizationService } from 'src/app/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent implements OnInit, OnDestroy {
   retUrl: string = '/';
   private authorizationService: AuthorizationService;
   private router: Router;
   private activatedRoute: ActivatedRoute;
+  private routeSub?: Subscription;
 
   public loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -34,10 +36,18 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.queryParamMap.subscribe((params) => {
-      this.retUrl = params.get('retUrl')!;
-      console.log('LoginComponent/ngOnInit ' + this.retUrl);
-    });
+    if (this.authorizationService.isLoggedIn()) {
+      this.router.navigate(['/']);
+    } else {
+      this.routeSub = this.activatedRoute.queryParamMap.subscribe((params) => {
+        this.retUrl = params.get('retUrl')!;
+        console.log('LoginComponent/ngOnInit ' + this.retUrl);
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.routeSub?.unsubscribe();
   }
 
   onFormSubmit() {

@@ -7,13 +7,13 @@ import {
   ParcelMachineFormComponent,
   SearchBarComponent,
 } from './layout';
+import { FromUrlPipe, UrlPipe } from './pipes';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { AngularSvgIconPreloaderModule } from 'angular-svg-icon-preloader';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { UrlPipe } from './pipes';
 
 @NgModule({
   declarations: [
@@ -25,6 +25,7 @@ import { UrlPipe } from './pipes';
     CatalogNavComponent,
     SearchBarComponent,
     UrlPipe,
+    FromUrlPipe,
   ],
   imports: [
     CommonModule,
@@ -42,6 +43,7 @@ import { UrlPipe } from './pipes';
     PageNotFoundComponent,
     ParcelMachineFormComponent,
     UrlPipe,
+    FromUrlPipe,
   ],
 })
 export class SharedModule {}
