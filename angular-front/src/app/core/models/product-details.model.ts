@@ -12,6 +12,7 @@ export class ProductDetails extends Product {
   public title?: string;
 
   constructor(
+    id: number,
     name: string,
     price: number,
     image: Image,
@@ -23,7 +24,7 @@ export class ProductDetails extends Product {
     cover?: Cover,
     title?: string
   ) {
-    super(name, price, image, author);
+    super(id, name, price, image, author);
     this.description = description;
     this.publisher = publisher;
     this.productionDate = productionDate;

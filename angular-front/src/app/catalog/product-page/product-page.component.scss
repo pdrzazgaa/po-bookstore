@@ -1,90 +1,89 @@
 @use '../../../variables.scss' as *;
 
 .container {
-    background-color: $grey-mid;
-    min-height: calc(100vh - 150px);
-    padding: 50px 10vw;
+  background-color: $grey-mid;
+  min-height: calc(100vh - 150px);
+  padding: 50px 10vw;
 
-    article {
-        background-color: $grey-light;
-        display: flex;
-        padding: 50px;
-        gap: 50px;
-        
-        .image {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            width: 50%;
+  article {
+    background-color: $grey-light;
+    display: flex;
+    padding: 50px;
+    gap: 50px;
 
-            figure {
-                width: 100%;
-                position: relative;
-            }
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-            }
+    .image {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      width: 50%;
 
-            figcaption {
-                position: absolute;
-                top: 0;
-                right: 0;
-                padding: 15px 25px;
-                background-color: $green;
-                color: $font-color-light;
-                font-size: 25px;
-                letter-spacing: 1px;
-            }
+      figure {
+        width: 100%;
+        position: relative;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
 
-            button {
-                background-color: transparent;
-                border: 2px solid $grey-dark;
-                line-height: 50px;
-                font-size: 20px;
-                color: $font-color-dark;
+      figcaption {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 15px 25px;
+        background-color: $green;
+        color: $font-color-light;
+        font-size: 25px;
+        letter-spacing: 1px;
+      }
 
-                &:hover {
-                    background-color: $grey-dark;
-                    color: $font-color-light;
-                }
-            }
+      button {
+        background-color: transparent;
+        border: 2px solid $grey-dark;
+        line-height: 50px;
+        font-size: 20px;
+        color: $font-color-dark;
+
+        &:hover {
+          background-color: $grey-dark;
+          color: $font-color-light;
         }
-
-        .details {
-            width: 50%;
-            font-size: 20px;
-            color: $font-color-dark;
-            gap: 40px;
-            display: flex;
-            flex-direction: column;
-            letter-spacing: 0.5px;
-
-            h2 {
-                font-size: 1.3em;
-                color: $green;
-                line-height: 120%;
-                margin-bottom: 30px;
-                
-            }
-
-            &--container {
-                .detail {
-                    display: inline-block;
-                    width: 200px;
-                }
-
-                .detail-info {
-                    font-weight: bold;
-                }
-            }
-
-            .description {
-                margin-top: 40px;
-                line-height: 130%;
-                opacity: 0.8;
-            }
-        }
+      }
     }
+
+    .details {
+      width: 50%;
+      font-size: 20px;
+      color: $font-color-dark;
+      gap: 40px;
+      display: flex;
+      flex-direction: column;
+      letter-spacing: 0.5px;
+
+      h2 {
+        font-size: 1.3em;
+        color: $green;
+        line-height: 120%;
+        margin-bottom: 30px;
+      }
+
+      &--container {
+        .detail {
+          display: inline-block;
+          width: 200px;
+        }
+
+        .detail-info {
+          font-weight: bold;
+        }
+      }
+
+      .description {
+        margin-top: 40px;
+        line-height: 130%;
+        opacity: 0.8;
+      }
+    }
+  }
 }

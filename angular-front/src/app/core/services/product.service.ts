@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ProductService {
   private product: ProductDetails = new ProductDetails(
+    1,
     'Bardzo małe rzeczy',
     22.99,
     new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),

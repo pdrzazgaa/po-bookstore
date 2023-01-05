@@ -8,9 +8,8 @@ describe('LoyaltyProgramPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoyaltyProgramPageComponent ]
-    })
-    .compileComponents();
+      declarations: [LoyaltyProgramPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LoyaltyProgramPageComponent);
     component = fixture.componentInstance;
