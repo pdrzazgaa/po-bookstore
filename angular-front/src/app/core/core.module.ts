@@ -2,7 +2,6 @@ import {
   AuthorizationGuardService,
   AuthorizationService,
   CategoriesService,
-  ProductService,
   ProductsService,
   UserService,
 } from './services';
@@ -14,7 +13,6 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
     AuthorizationService,
     AuthorizationGuardService,
     CategoriesService,
-    ProductService,
     ProductsService,
     UserService,
   ],

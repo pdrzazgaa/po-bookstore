@@ -2,6 +2,7 @@ export * from './address.model';
 export * from './category.model';
 export * from './image.model';
 export * from './order.model';
+export * from './order-details.model';
 export * from './product.model';
 export * from './product-details.model';
 export * from './shopping-cart.model';

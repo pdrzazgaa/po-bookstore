@@ -5,7 +5,7 @@
     [mode]="popupMode"
     [message]="popupMessage"
   ></app-message-popup>
-  <article>
+  <article *ngIf="product">
     <section class="image">
       <figure>
         <img [src]="product.image.path" [alt]="product.image.alt" />
