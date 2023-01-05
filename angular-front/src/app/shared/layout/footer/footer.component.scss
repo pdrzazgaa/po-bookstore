@@ -8,5 +8,8 @@ footer {
   font-size: 25px;
   letter-spacing: 1.5px;
   z-index: 2;
-  position: sticky;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }

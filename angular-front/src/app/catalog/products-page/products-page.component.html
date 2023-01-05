@@ -1,7 +1,12 @@
 <app-nav></app-nav>
 <div class="container">
+  <app-side-menu></app-side-menu>
   <main>
-    <app-side-menu></app-side-menu>
+    <article *ngIf="!products.length; else noProducts"></article>
   </main>
 </div>
-<app-footer></app-footer>
+<app-footer ngClass="footer"></app-footer>
+
+<ng-template #noProducts>
+  <p class="no-products">Nie znaleźliśmy wyników dla wybranych parametrów</p>
+</ng-template>
