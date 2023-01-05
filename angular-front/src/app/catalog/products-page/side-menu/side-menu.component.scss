@@ -1,39 +1,80 @@
 @use '../../../../variables.scss' as *;
 
 aside {
-    height: calc(100vh - 60px);
-    position: fixed;
-    top: 30px;
-    left: 0;
-    bottom: 30px;
-    background-color: $grey;
-    color: $font-color-dark;
-    padding: 20px;
-    padding-top: 120px;
-    font-size: 20px;
-    width: 300px;
+  height: calc(100vh - 60px);
+  position: fixed;
+  top: 30px;
+  left: 0;
+  bottom: 30px;
+  background-color: $grey;
+  color: $font-color-dark;
+  padding: 20px;
+  padding-top: 110px;
+  font-size: 18px;
+  width: 300px;
 }
 
 h2 {
-    font-size: 1.5em;
-    margin-bottom: 20px;
+  font-size: 1.5em;
+  margin-bottom: 20px;
 }
 
 a {
-    display: block;
-    padding: 5px 0;
-    color: $font-color-dark;
+  display: block;
+  padding: 5px 0;
+  color: $font-color-dark;
+  letter-spacing: 1px;
+
+  &:last-of-type {
+    font-weight: bold;
+    color: $green-light;
+  }
+
+  &:hover {
+    color: $green;
+  }
 }
 
 .category {
-
 }
 
 .subcategory {
-    padding-left: 30px;
-    font-size: 0.9em;
+  padding-left: 30px;
+  font-size: 0.9em;
 }
 
 form {
-    margin-top: 30px;
+  margin-top: 30px;
+
+  section {
+    margin-bottom: 20px;
+    padding-left: 10px;
+
+    h3 {
+      margin-bottom: 10px;
+    }
+
+    div {
+      padding: 5px 10px;
+    }
+
+    label {
+      padding-left: 10px;
+    }
+  }
+  button {
+    margin-top: 20px;
+    background-color: transparent;
+    padding: 5px 15px;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 1px solid $grey-dark;
+    width: 100%;
+
+    &:hover {
+      background-color: $grey-dark;
+      color: $font-color-light;
+    }
+  }
 }
