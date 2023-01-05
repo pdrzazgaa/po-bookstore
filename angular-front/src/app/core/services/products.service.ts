@@ -106,7 +106,8 @@ export class ProductsService {
     ),
   ];
 
-  getProducts() {
+  getProducts(category?: string, subcategory?: string) {
+    console.log(category, subcategory);
     return [...this.products];
   }
 }

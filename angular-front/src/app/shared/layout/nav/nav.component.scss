@@ -1,8 +1,11 @@
 @use '../../../../variables.scss' as *;
 
 nav {
-  position: sticky;
-  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
   display: flex;
   background-color: $green;
   height: 100px;
@@ -45,6 +48,7 @@ nav {
     align-items: center;
     height: 100%;
     gap: 10px;
+    padding-right: 5vw;
 
     & > a {
       color: $font-color-light;
@@ -71,12 +75,11 @@ nav {
     &--dropdown {
       cursor: pointer;
       position: relative;
-      padding-right: 5vw;
 
       nav {
         display: none;
         position: absolute;
-        right: 0;
+        left: -100px;
         top: 101.5px;
         width: max-content;
         height: max-content;
@@ -106,5 +109,5 @@ nav {
 }
 
 .log-in-link {
-  margin-right: 5vw;
+  // margin-right: 5vw;
 }

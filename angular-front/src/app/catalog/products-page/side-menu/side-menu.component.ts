@@ -20,7 +20,6 @@ export class SideMenuComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe((params) => {
-      console.log(params);
       this.category = params['category'];
       this.subcategory = params['subcategory'];
     });

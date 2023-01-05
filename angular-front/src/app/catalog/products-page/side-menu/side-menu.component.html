@@ -1,55 +1,57 @@
 <aside>
-  <section class="categories">
-    <h2>Ksiązki</h2>
-    <a *ngIf="category" [routerLink]="['/products', category | url]" class="category">
-      > {{ category | fromUrl }}</a
-    >
-    <a
-      *ngIf="subcategory"
-      [routerLink]="['/products', category | url, subcategory | url]"
-      class="subcategory"
-    >
-      > {{ subcategory | fromUrl }}</a
-    >
-  </section>
-  <form>
-    <h2>Filtry</h2>
-    <section>
-      <h3>Cena</h3>
-      <div *ngFor="let price of priceRanges">
-        <input type="radio" name="price" [value]="price" [id]="price" />
-        <label [for]="price">&lt; {{ price }} zł</label>
-      </div>
-      <div>
-        <input
-          type="radio"
-          name="price"
-          value="pokaz wszystko"
-          id="price-pokaz-wszystko"
-        />
-        <label for="price-pokaz-wszystko">pokaz wszystko</label>
-      </div>
+  <div>
+    <section class="categories">
+      <h2 *ngIf="category">Ksiązki</h2>
+      <a *ngIf="category" [routerLink]="['/products', category | url]" class="category">
+        > {{ category | fromUrl }}</a
+      >
+      <a
+        *ngIf="subcategory"
+        [routerLink]="['/products', category | url, subcategory | url]"
+        class="subcategory"
+      >
+        > {{ subcategory | fromUrl }}</a
+      >
     </section>
-    <section>
-      <h3>Okładka</h3>
-      <div>
-        <input type="radio" name="cover" value="twarda" id="twarda" />
-        <label for="twarda">twarda</label>
-      </div>
-      <div>
-        <input type="radio" name="cover" value="miękka" id="miekka" />
-        <label for="miekka">miękka</label>
-      </div>
-      <div>
-        <input
-          type="radio"
-          name="cover"
-          value="pokaz wszystko"
-          id="cover-pokaz-wszystko"
-        />
-        <label for="cover-pokaz-wszystko">pokaz wszystko</label>
-      </div>
-    </section>
-    <button type="submit">Filtruj</button>
-  </form>
+    <form>
+      <h2>Filtry</h2>
+      <section>
+        <h3>Cena</h3>
+        <div *ngFor="let price of priceRanges">
+          <input type="radio" name="price" [value]="price" [id]="price" />
+          <label [for]="price">&lt; {{ price }} zł</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            name="price"
+            value="pokaz wszystko"
+            id="price-pokaz-wszystko"
+          />
+          <label for="price-pokaz-wszystko">pokaz wszystko</label>
+        </div>
+      </section>
+      <section>
+        <h3>Okładka</h3>
+        <div>
+          <input type="radio" name="cover" value="twarda" id="twarda" />
+          <label for="twarda">twarda</label>
+        </div>
+        <div>
+          <input type="radio" name="cover" value="miękka" id="miekka" />
+          <label for="miekka">miękka</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            name="cover"
+            value="pokaz wszystko"
+            id="cover-pokaz-wszystko"
+          />
+          <label for="cover-pokaz-wszystko">pokaz wszystko</label>
+        </div>
+      </section>
+      <button type="submit">Filtruj</button>
+    </form>
+  </div>
 </aside>

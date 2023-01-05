@@ -9,6 +9,10 @@
   font-family: $main-font, $secondary-font;
 }
 
+body {
+  background-color: $green;
+}
+
 a,
 button {
   cursor: pointer;

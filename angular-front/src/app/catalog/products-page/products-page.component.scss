@@ -3,4 +3,10 @@
 .container {
   min-height: calc(100vh - 150px);
   background-color: $grey-light;
+  height: max-content;
+  display: flex;
+}
+
+main {
+  height: 200vh;
 }

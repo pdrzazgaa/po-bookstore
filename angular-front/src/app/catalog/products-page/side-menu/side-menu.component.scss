@@ -1,17 +1,18 @@
 @use '../../../../variables.scss' as *;
 
 aside {
-  height: calc(100vh - 60px);
-  position: fixed;
-  top: 30px;
-  left: 0;
-  bottom: 30px;
+  height: 100%;
   background-color: $grey;
   color: $font-color-dark;
   padding: 20px;
-  padding-top: 110px;
   font-size: 18px;
   width: 300px;
+
+  &>div {
+    position: fixed;
+    top: 130px;
+    width: 260px;
+  }
 }
 
 h2 {
