@@ -1,1 +1,24 @@
-<p>orders-page works!</p>
+<app-nav></app-nav>
+<main>
+  <div class="failure" *ngIf="!orders">Nie mogliśmy załadować twoich zamówień.</div>
+  <div class="failure" *ngIf="orders && !orders?.length">
+    Nie masz jeszcze zadnych zamówień
+  </div>
+  <table *ngIf="orders && orders.length">
+    <tr>
+      <th>Zamówienie</th>
+      <th>Status</th>
+      <th>Kwota</th>
+      <th>Data</th>
+      <th>Szczegóły</th>
+    </tr>
+    <tr *ngFor="let order of orders">
+      <td>{{ order.id }}</td>
+      <td>{{ order.status }}</td>
+      <td>{{ order.totalPrice }} zł</td>
+      <td>{{ order.date | date : 'd.M.y r.' }}</td>
+      <td><a [routerLink]="['order', order.id]">Pokaz szczegóły</a></td>
+    </tr>
+  </table>
+</main>
+<app-footer></app-footer>
