@@ -5,8 +5,28 @@
   background-color: $grey-light;
   height: max-content;
   display: flex;
+  width: 100vw;
 }
 
 main {
-  height: 200vh;
+  padding-top: 100px;
+  min-height: 100vh;
+  flex-grow: 1;
+  font-size: 20px;
+
+  .no-products {
+    margin: 50px;
+    padding: 50px;
+    background-color: $grey;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.5);
+    letter-spacing: 1px;
+  }
+
+  article {
+    margin: 60px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-row-gap: 40px;
+    grid-column-gap: 40px;
+  }
 }

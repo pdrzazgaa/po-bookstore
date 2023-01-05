@@ -8,7 +8,7 @@ aside {
   font-size: 18px;
   width: 300px;
 
-  &>div {
+  & > div {
     position: fixed;
     top: 130px;
     width: 260px;
@@ -34,9 +34,6 @@ a {
   &:hover {
     color: $green;
   }
-}
-
-.category {
 }
 
 .subcategory {
