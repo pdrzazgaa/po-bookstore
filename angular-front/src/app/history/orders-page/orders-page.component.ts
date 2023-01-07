@@ -20,8 +20,8 @@ export class OrdersPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.userService.getUserId();
-    // if (this.userId) {
-    this.orders = this.ordersService.getOrders(this.userId || 1);
-    // }
+    if (this.userId) {
+      this.orders = this.ordersService.getOrders(this.userId);
+    }
   }
 }

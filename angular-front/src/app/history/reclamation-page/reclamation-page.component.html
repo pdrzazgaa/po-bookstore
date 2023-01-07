@@ -1,1 +1,67 @@
-<p>reclamation-page works!</p>
+<app-nav></app-nav>
+<main *ngIf="order">
+  <h1>Reklamacja - zamówienie nr {{ order.id }}</h1>
+  <section class="status">
+    <div class="status--bar" [ngClass]="{ active: step === 'choose-data' }">
+      <p>Wybór zamówienia i dane</p>
+    </div>
+    <div class="status--bar" [ngClass]="{ active: step === 'choose-delivery' }">
+      <p>Wybór zwrotu</p>
+    </div>
+  </section>
+  <form
+    *ngIf="step === 'choose-data' && productsForm"
+    [formGroup]="productsForm"
+    (ngSubmit)="onFormSubmit()"
+    novalidate
+  >
+    <table>
+      <tr>
+        <th></th>
+        <th class="product">Produkt</th>
+        <th class="amount" *ngIf="showHeaders()">Ilość</th>
+        <th class="reason" *ngIf="showHeaders()">Przyczyna</th>
+      </tr>
+      <tr
+        *ngFor="let position of order.orderPositions"
+        [formGroupName]="position.product.id"
+      >
+        <td class="checkbox">
+          <input
+            type="checkbox"
+            name="product"
+            [value]="position.product.id"
+            formControlName="checked"
+            (change)="onCheckboxChange(position.product.id)"
+          />
+        </td>
+        <td class="product">
+          {{ position.product.name }}
+        </td>
+        <td
+          class="amount"
+          [ngClass]="{ invisible: !isCheckboxChecked(position.product.id) }"
+        >
+          <select name="amount" id="amount" formControlName="amount">
+            <option
+              *ngFor="let amount of [].constructor(position.amount); let i = index"
+              [value]="i + 1"
+            >
+              {{ i + 1 }}
+            </option>
+          </select>
+        </td>
+        <td
+          class="reason"
+          [ngClass]="{ invisible: !isCheckboxChecked(position.product.id) }"
+        >
+          <input type="text" formControlName="reason" />
+        </td>
+      </tr>
+    </table>
+    <button class="to-delivery" type="submit" [disabled]="!productsForm.valid">
+      Przejdź dalej
+    </button>
+  </form>
+</main>
+<app-footer></app-footer>
