@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: 'order/:id',
     component: OrderPageComponent,
-    canActivate: [AuthorizationGuardService],
+    // canActivate: [AuthorizationGuardService],
   },
   {
     path: 'orders',
@@ -19,7 +19,7 @@ const routes: Routes = [
   {
     path: 'reclamation/:orderId',
     component: ReclamationPageComponent,
-    canActivate: [AuthorizationGuardService],
+    // canActivate: [AuthorizationGuardService],
   },
 ];
 

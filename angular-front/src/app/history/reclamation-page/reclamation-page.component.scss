@@ -1,0 +1,68 @@
+@use '../../../variables.scss' as *;
+
+main {
+  min-height: 100vh;
+  background-color: $grey;
+  padding: 200px 10vw;
+  font-size: 20px;
+  color: $font-color-dark;
+}
+
+h1 {
+  font-size: 2em;
+  letter-spacing: 1px;
+}
+
+.status {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+
+  div {
+    width: 40%;
+    text-align: center;
+    position: relative;
+    background-color: rgb(255, 196, 0);
+    border: 2px solid $grey-dark;
+    border-radius: 2px;
+    height: 18px;
+    margin: 60px 0;
+    opacity: 0.5;
+
+    p {
+      position: absolute;
+      top: -30px;
+      text-align: center;
+      width: 100%;
+      font-size: 0.9em;
+    }
+
+    &.active {
+      opacity: 1;
+    }
+  }
+}
+
+.to-delivery {
+  background-color: transparent;
+  color: $font-color-dark;
+  float: right;
+  padding: 10px 20px;
+  font-size: 0.8em;
+  letter-spacing: 1px;
+  border: 1px solid $grey-dark;
+
+  &:enabled:hover {
+    background-color: $grey-dark;
+    color: $font-color-light;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+
+.invisible {
+    display: none;
+}
