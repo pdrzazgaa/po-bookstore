@@ -43,6 +43,94 @@ h1 {
   }
 }
 
+table {
+  background-color: $grey-light;
+  width: 100%;
+}
+
+tr {
+  border-top: 2px solid $grey;
+}
+
+th {
+  background-color: $grey;
+
+  &.reason,
+  &.amount {
+    text-align: right;
+    padding-right: 20px;
+  }
+}
+
+td {
+  vertical-align: middle;
+
+  &.checkbox {
+    padding-left: 20px;
+    width: 40px;
+  }
+  &.reason,
+  &.amount {
+    padding-right: 20px;
+
+    select,
+    input {
+      float: right;
+      height: 30px;
+      padding-left: 10px;
+    }
+
+    select {
+      width: 50px;
+    }
+  }
+
+  &.reason {
+    div {
+      position: relative;
+    }
+
+    span {
+      position: absolute;
+      color: $red;
+      top: -16px;
+      font-size: 0.6em;
+      padding-left: 5px;
+    }
+
+    input {
+      width: 100%;
+
+      &.ng-invalid {
+        border: 1px solid $red;
+        outline: 1px solid $red;
+      }
+    }
+  }
+}
+
+.product {
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+
+  img {
+    height: 80px;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+
+    .author {
+      opacity: 0.8;
+      font-size: 0.9em;
+    }
+  }
+}
+
 .to-delivery {
   background-color: transparent;
   color: $font-color-dark;
@@ -51,6 +139,7 @@ h1 {
   font-size: 0.8em;
   letter-spacing: 1px;
   border: 1px solid $grey-dark;
+  margin-top: 30px;
 
   &:enabled:hover {
     background-color: $grey-dark;
@@ -62,7 +151,6 @@ h1 {
   }
 }
 
-
 .invisible {
-    display: none;
+  display: none;
 }

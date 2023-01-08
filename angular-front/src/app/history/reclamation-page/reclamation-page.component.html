@@ -12,7 +12,7 @@
   <form
     *ngIf="step === 'choose-data' && productsForm"
     [formGroup]="productsForm"
-    (ngSubmit)="onFormSubmit()"
+    (ngSubmit)="onProductsFormSubmit()"
     novalidate
   >
     <table>
@@ -20,7 +20,7 @@
         <th></th>
         <th class="product">Produkt</th>
         <th class="amount" *ngIf="showHeaders()">Ilość</th>
-        <th class="reason" *ngIf="showHeaders()">Przyczyna</th>
+        <th class="reason" *ngIf="showHeaders()">Przyczyna reklamacji</th>
       </tr>
       <tr
         *ngFor="let position of order.orderPositions"
@@ -36,7 +36,13 @@
           />
         </td>
         <td class="product">
-          {{ position.product.name }}
+          <img [src]="position.product.image.path" [alt]="position.product.image.alt" />
+          <div>
+            <span>{{ position.product.name }}</span>
+            <span class="author" *ngIf="position.product.author">{{
+              position.product.author
+            }}</span>
+          </div>
         </td>
         <td
           class="amount"
@@ -55,7 +61,12 @@
           class="reason"
           [ngClass]="{ invisible: !isCheckboxChecked(position.product.id) }"
         >
-          <input type="text" formControlName="reason" />
+          <div>
+            <span *ngIf="!isReasonInputValid(position.product.id)"
+              >Wypełnij to pole</span
+            >
+            <input type="text" formControlName="reason" />
+          </div>
         </td>
       </tr>
     </table>
