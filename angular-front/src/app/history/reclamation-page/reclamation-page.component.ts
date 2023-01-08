@@ -5,6 +5,12 @@ import { ActivatedRoute } from '@angular/router';
 import { HasCheckedBox } from 'src/app/shared';
 import { Subscription } from 'rxjs';
 
+interface ReclamationPosition {
+  productId: number;
+  amount: number;
+  reason: string;
+}
+
 @Component({
   selector: 'app-reclamation-page',
   templateUrl: './reclamation-page.component.html',
@@ -18,6 +24,7 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
   public order?: OrderDetails;
   public step: 'choose-data' | 'choose-delivery' = 'choose-data';
   public productsForm?: FormGroup;
+  private reclamationPositions: ReclamationPosition[] = [];
 
   private requiredValidator = Validators.required;
   private minValidator = Validators.minLength(5);
@@ -40,7 +47,6 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
     this.productsForm = this.formBuilder.group(this.createForm(), {
       validator: HasCheckedBox,
     });
-    console.log(this.productsForm);
   }
 
   createForm() {
@@ -48,7 +54,7 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
     this.order?.orderPositions.forEach((position) => {
       form[position.product.id] = new FormGroup({
         checked: new FormControl(false),
-        amount: new FormControl('', [this.requiredValidator]),
+        amount: new FormControl(1, [this.requiredValidator]),
         reason: new FormControl('', [
           this.requiredValidator,
           this.minValidator,
@@ -85,6 +91,10 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
       .value;
   }
 
+  isReasonInputValid(productId: number) {
+    return (this.productsForm!.controls[productId] as FormGroup).controls['reason'].valid;
+  }
+
   showHeaders() {
     let showHeader = false;
     for (let formGroup of Object.values(this.productsForm?.controls!)) {
@@ -95,8 +105,18 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
     return showHeader;
   }
 
-  onFormSubmit() {
+  onProductsFormSubmit() {
     this.step = 'choose-delivery';
+    Object.entries(this.productsForm!.controls).forEach(([productId, formGroup]) => {
+      if (this.isCheckboxChecked(+productId)) {
+        this.reclamationPositions.push({
+          productId: +productId,
+          amount: +(formGroup as FormGroup).controls['amount'].value,
+          reason: (formGroup as FormGroup).controls['reason'].value,
+        });
+      }
+    });
+    console.log(this.reclamationPositions);
   }
 
   ngOnDestroy(): void {
