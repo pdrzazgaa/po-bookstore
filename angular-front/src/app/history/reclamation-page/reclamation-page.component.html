@@ -42,7 +42,7 @@
           class="amount"
           [ngClass]="{ invisible: !isCheckboxChecked(position.product.id) }"
         >
-          <select name="amount" id="amount" formControlName="amount">
+          <select name="amount" id="amount" formControlName="amount" [value]="">
             <option
               *ngFor="let amount of [].constructor(position.amount); let i = index"
               [value]="i + 1"

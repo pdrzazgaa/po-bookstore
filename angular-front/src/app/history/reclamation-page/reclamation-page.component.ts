@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { OrderDetails, OrdersService } from 'src/app/core';
 import { ActivatedRoute } from '@angular/router';
+import { HasCheckedBox } from 'src/app/shared';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -36,20 +37,27 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
     this.routeSub = this.route.params.subscribe((params) => {
       this.order = this.ordersService.getOrderDetails(+params['orderId']);
     });
-    this.productsForm = this.formBuilder.group(this.createForm());
+    this.productsForm = this.formBuilder.group(this.createForm(), {
+      validator: HasCheckedBox,
+    });
     console.log(this.productsForm);
   }
 
   createForm() {
     const form: Record<number, FormGroup> = {};
-    this.order?.orderPositions.forEach(
-      (position) =>
-        (form[position.product.id] = new FormGroup({
-          checked: new FormControl(false),
-          amount: new FormControl(''),
-          reason: new FormControl(''),
-        }))
-    );
+    this.order?.orderPositions.forEach((position) => {
+      form[position.product.id] = new FormGroup({
+        checked: new FormControl(false),
+        amount: new FormControl('', [this.requiredValidator]),
+        reason: new FormControl('', [
+          this.requiredValidator,
+          this.minValidator,
+          this.maxValidator,
+        ]),
+      });
+      form[position.product.id].controls['amount'].disable();
+      form[position.product.id].controls['reason'].disable();
+    });
     return form;
   }
 
@@ -57,20 +65,18 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
     const checkedControl = (this.productsForm!.controls[productId] as FormGroup).controls[
       'checked'
     ];
+    const amountControl = (this.productsForm!.controls[productId] as FormGroup).controls[
+      'amount'
+    ];
+    const reasonControl = (this.productsForm!.controls[productId] as FormGroup).controls[
+      'reason'
+    ];
     if (checkedControl.value) {
-      (this.productsForm!.controls[productId] as FormGroup).controls[
-        'amount'
-      ].addValidators(this.requiredValidator);
-      (this.productsForm!.controls[productId] as FormGroup).controls[
-        'reason'
-      ].addValidators([this.requiredValidator, this.minValidator, this.maxValidator]);
+      amountControl.enable();
+      reasonControl.enable();
     } else {
-      (this.productsForm!.controls[productId] as FormGroup).controls[
-        'amount'
-      ].removeValidators(this.requiredValidator);
-      (this.productsForm!.controls[productId] as FormGroup).controls[
-        'reason'
-      ].removeValidators([this.requiredValidator, this.minValidator, this.maxValidator]);
+      amountControl.disable();
+      reasonControl.disable();
     }
   }
 
