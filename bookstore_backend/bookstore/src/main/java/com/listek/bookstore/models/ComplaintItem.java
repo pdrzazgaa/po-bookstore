@@ -2,23 +2,23 @@ package com.listek.bookstore.models;
 
 public class ComplaintItem {
 
-    private long id;
+    private Long id;
     private Product product;
     private String complaintReason;
     private int quantity;
 
-    public ComplaintItem(long id, Product product, String complaintReason, int quantity) {
+    public ComplaintItem(Long id, Product product, String complaintReason, int quantity) {
         this.id = id;
         this.product = product;
         this.complaintReason = complaintReason;
         this.quantity = quantity;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

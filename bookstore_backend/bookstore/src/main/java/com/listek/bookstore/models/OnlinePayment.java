@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class OnlinePayment extends Payment{
 
-    public OnlinePayment(long id, LocalDateTime paymentDate) {
+    public OnlinePayment(Long id, LocalDateTime paymentDate) {
         super(id, paymentDate);
     }
 }

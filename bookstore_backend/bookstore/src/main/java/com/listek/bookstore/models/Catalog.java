@@ -4,21 +4,21 @@ import java.util.ArrayList;
 
 public class Catalog {
 
-    private long id;
+    private Long id;
     private String name;
     private ArrayList<Product> products;
 
-    public Catalog(long id, String name, ArrayList<Product> products) {
+    public Catalog(Long id, String name, ArrayList<Product> products) {
         this.id = id;
         this.name = name;
         this.products = products;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

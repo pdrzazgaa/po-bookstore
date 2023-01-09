@@ -3,7 +3,7 @@ package com.listek.bookstore.models;
 import java.time.LocalDateTime;
 
 public class Order {
-    private long id;
+    private Long id;
     private LocalDateTime date;
     private int discount;
     private OrderStatus orderStatus;
@@ -14,7 +14,7 @@ public class Order {
     private Document document;
     private Cart cart;
 
-    public Order(long id, LocalDateTime date, int discount, OrderStatus orderStatus, String orderNumber, Payment payment, Delivery delivery, Document document, Cart cart) {
+    public Order(Long id, LocalDateTime date, int discount, OrderStatus orderStatus, String orderNumber, Payment payment, Delivery delivery, Document document, Cart cart) {
         this.id = id;
         this.date = date;
         this.discount = discount;
@@ -26,11 +26,11 @@ public class Order {
         this.cart = cart;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

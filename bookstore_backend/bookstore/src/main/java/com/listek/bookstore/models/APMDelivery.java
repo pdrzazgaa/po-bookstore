@@ -4,7 +4,7 @@ public class APMDelivery extends Delivery{
 
     private String APMNumber;
 
-    public APMDelivery(long id, float cost, Address address, String APMNumber) {
+    public APMDelivery(Long id, float cost, Address address, String APMNumber) {
         super(id, cost, address);
         this.APMNumber = APMNumber;
     }

@@ -3,19 +3,19 @@ package com.listek.bookstore.models;
 import java.util.ArrayList;
 
 public class OrderHistory {
-    private long id;
+    private Long id;
     private ArrayList<Order> orders;
 
-    public OrderHistory(long id, ArrayList<Order> orders) {
+    public OrderHistory(Long id, ArrayList<Order> orders) {
         this.id = id;
         this.orders = orders;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

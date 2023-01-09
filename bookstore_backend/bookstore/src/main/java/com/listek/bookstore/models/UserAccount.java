@@ -1,14 +1,26 @@
 package com.listek.bookstore.models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name="Konto Uzytkownika")
 public class UserAccount {
-    private long id;
+    @Id
+    @GeneratedValue
+    @Column(name="id")
+    private Long id;
+    @Column(name="imie")
     private String firstname;
+    @Column(name="nazwisko")
     private String surname;
+    @Column(name="e_mail")
     private String email;
+    @Column(name="telefon")
     private String phoneNumber;
+    @Column(name="haslo")
     private String password;
 
-    public UserAccount(long id, String firstname, String surname, String email, String phoneNumber, String password) {
+    public UserAccount(Long id, String firstname, String surname, String email, String phoneNumber, String password) {
         this.id = id;
         this.firstname = firstname;
         this.surname = surname;
@@ -17,11 +29,15 @@ public class UserAccount {
         this.password = password;
     }
 
-    public long getId() {
+    public UserAccount() {
+
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -63,5 +79,16 @@ public class UserAccount {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    @Override
+    public String toString() {
+        return "UserAccount{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

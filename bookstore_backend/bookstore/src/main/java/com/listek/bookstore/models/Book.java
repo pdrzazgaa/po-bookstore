@@ -15,10 +15,11 @@ public class Book extends Product{
     private String index;
     private CoverType coverType;
 
-    public Book(long id, float price, int numberOfItemsInStock, String name, String description,
-                ArrayList<Category> categories, String title, String author, String publisher,
-                Date releaseDate, int numberOfPages, String language, String index, CoverType coverType) {
-        super(id, price, numberOfItemsInStock, name, description, categories);
+    public Book(Long id, float price, int numberOfItemsInStock, String name,
+                String description, String photoURL, ArrayList<Category> categories,
+                String title, String author, String publisher, Date releaseDate, int numberOfPages,
+                String language, String index, CoverType coverType) {
+        super(id, price, numberOfItemsInStock, name, description, photoURL, categories);
         this.title = title;
         this.author = author;
         this.publisher = publisher;

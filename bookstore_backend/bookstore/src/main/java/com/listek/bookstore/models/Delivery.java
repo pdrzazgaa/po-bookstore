@@ -1,21 +1,21 @@
 package com.listek.bookstore.models;
 
 public class Delivery {
-    private long id;
+    private Long id;
     private float cost;
     private Address address;
 
-    public Delivery(long id, float cost, Address address) {
+    public Delivery(Long id, float cost, Address address) {
         this.id = id;
         this.cost = cost;
         this.address = address;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
