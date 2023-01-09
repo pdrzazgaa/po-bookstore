@@ -4,13 +4,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Complaint {
-    private long id;
+    private Long id;
     private LocalDateTime complaintDate;
     private String accountNumber;
     private ComplaintStatus complaintStatus;
     private ArrayList<ComplaintItem> complaintItems;
 
-    public Complaint(long id, LocalDateTime complaintDate, String accountNumber, ComplaintStatus complaintStatus, ArrayList<ComplaintItem> complaintItems) {
+    public Complaint(Long id, LocalDateTime complaintDate, String accountNumber, ComplaintStatus complaintStatus, ArrayList<ComplaintItem> complaintItems) {
         this.id = id;
         this.complaintDate = complaintDate;
         this.accountNumber = accountNumber;
@@ -18,11 +18,11 @@ public class Complaint {
         this.complaintItems = complaintItems;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

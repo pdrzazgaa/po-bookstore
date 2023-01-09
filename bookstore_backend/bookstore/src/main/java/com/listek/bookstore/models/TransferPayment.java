@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class TransferPayment extends Payment{
     private String accountNumber;
 
-    public TransferPayment(long id, LocalDateTime paymentDate, String accountNumber) {
+    public TransferPayment(Long id, LocalDateTime paymentDate, String accountNumber) {
         super(id, paymentDate);
         this.accountNumber = accountNumber;
     }

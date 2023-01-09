@@ -6,7 +6,7 @@ public class CompanyInvoice extends Invoice {
     private int NIP;
     private String companyName;
 
-    public CompanyInvoice(long id, LocalDateTime dateOfIssue, String invoiceNumber, int NIP, String companyName) {
+    public CompanyInvoice(Long id, LocalDateTime dateOfIssue, String invoiceNumber, int NIP, String companyName) {
         super(id, dateOfIssue, invoiceNumber);
         this.NIP = NIP;
         this.companyName = companyName;

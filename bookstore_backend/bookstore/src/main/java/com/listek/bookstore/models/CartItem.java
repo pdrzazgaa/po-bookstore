@@ -2,21 +2,21 @@ package com.listek.bookstore.models;
 
 public class CartItem {
 
-    private long id;
+    private Long id;
     private int quantity;
     private Product product;
 
-    public CartItem(long id, int quantity, Product product) {
+    public CartItem(Long id, int quantity, Product product) {
         this.id = id;
         this.quantity = quantity;
         this.product = product;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

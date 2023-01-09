@@ -2,14 +2,14 @@ package com.listek.bookstore.models;
 
 public class Address {
 
-    private long id;
+    private Long id;
     private String street;
     private String number;
     private String postCode;
     private String town;
     private String country;
 
-    public Address(long id, String street, String number, String postCode, String town, String country) {
+    public Address(Long id, String street, String number, String postCode, String town, String country) {
         this.id = id;
         this.street = street;
         this.number = number;
@@ -18,11 +18,11 @@ public class Address {
         this.country = country;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

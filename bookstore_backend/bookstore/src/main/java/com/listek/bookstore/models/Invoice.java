@@ -6,7 +6,7 @@ public class Invoice extends Document{
 
     private String invoiceNumber;
 
-    public Invoice(long id, LocalDateTime dateOfIssue, String invoiceNumber) {
+    public Invoice(Long id, LocalDateTime dateOfIssue, String invoiceNumber) {
         super(id, dateOfIssue);
         this.invoiceNumber = invoiceNumber;
     }

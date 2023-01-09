@@ -4,27 +4,30 @@ import java.util.ArrayList;
 
 public class Product {
 
-    private long id;
+    private Long id;
     private float price;
     private int numberOfItemsInStock;
     private String name;
     private String description;
+    private String photoURL;
     private ArrayList<Category> categories;
 
-    public Product(long id, float price, int numberOfItemsInStock, String name, String description, ArrayList<Category> categories) {
+    public Product(Long id, float price, int numberOfItemsInStock, String name,
+                   String description, String photoURL, ArrayList<Category> categories) {
         this.id = id;
         this.price = price;
         this.numberOfItemsInStock = numberOfItemsInStock;
         this.name = name;
         this.description = description;
+        this.photoURL = photoURL;
         this.categories = categories;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -66,5 +69,13 @@ public class Product {
 
     public void setCategories(ArrayList<Category> categories) {
         this.categories = categories;
+    }
+
+    public String getPhotoURL() {
+        return photoURL;
+    }
+
+    public void setPhotoURL(String photoURL) {
+        this.photoURL = photoURL;
     }
 }

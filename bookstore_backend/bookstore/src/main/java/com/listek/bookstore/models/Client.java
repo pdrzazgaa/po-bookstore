@@ -9,7 +9,7 @@ public class Client extends UserAccount{
     private LoyaltyProgram loyaltyProgram;
     private ArrayList<Cart> carts;
 
-    public Client(long id, String firstname, String surname, String email, String phoneNumber, String password, ArrayList<Address> addresses, OrderHistory orderHistory, LoyaltyProgram loyaltyProgram, ArrayList<Cart> carts) {
+    public Client(Long id, String firstname, String surname, String email, String phoneNumber, String password, ArrayList<Address> addresses, OrderHistory orderHistory, LoyaltyProgram loyaltyProgram, ArrayList<Cart> carts) {
         super(id, firstname, surname, email, phoneNumber, password);
         this.addresses = addresses;
         this.orderHistory = orderHistory;

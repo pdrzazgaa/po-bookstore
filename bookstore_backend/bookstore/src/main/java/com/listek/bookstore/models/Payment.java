@@ -4,19 +4,19 @@ import java.time.LocalDateTime;
 
 public class Payment {
 
-    private long id;
+    private Long id;
     private LocalDateTime paymentDate;
 
-    public Payment(long id, LocalDateTime paymentDate) {
+    public Payment(Long id, LocalDateTime paymentDate) {
         this.id = id;
         this.paymentDate = paymentDate;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
