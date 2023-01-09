@@ -1,6 +1,5 @@
 package com.listek.bookstore.models;
 
-
 public class Address {
 
     private long id;

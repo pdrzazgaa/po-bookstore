@@ -1,5 +1,6 @@
 package com.listek.bookstore.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Book extends Product{
@@ -15,9 +16,9 @@ public class Book extends Product{
     private CoverType coverType;
 
     public Book(long id, float price, int numberOfItemsInStock, String name, String description,
-                String title, String author, String publisher, Date releaseDate,
-                int numberOfPages, String language, String index, CoverType coverType) {
-        super(id, price, numberOfItemsInStock, name, description);
+                ArrayList<Category> categories, String title, String author, String publisher,
+                Date releaseDate, int numberOfPages, String language, String index, CoverType coverType) {
+        super(id, price, numberOfItemsInStock, name, description, categories);
         this.title = title;
         this.author = author;
         this.publisher = publisher;
