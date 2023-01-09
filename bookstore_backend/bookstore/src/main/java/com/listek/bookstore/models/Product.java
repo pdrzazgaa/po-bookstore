@@ -20,10 +20,6 @@ public class Product {
         this.categories = categories;
     }
 
-    public Product() {
-
-    }
-
     public long getId() {
         return id;
     }
