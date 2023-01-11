@@ -1,13 +1,22 @@
 package com.listek.bookstore.models;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+
 import java.time.LocalDateTime;
 
+@Entity
 public class TransferPayment extends Payment{
+    @Column(name="NumerKonta")
     private String accountNumber;
 
     public TransferPayment(Long id, LocalDateTime paymentDate, String accountNumber) {
         super(id, paymentDate);
         this.accountNumber = accountNumber;
+    }
+
+    public TransferPayment() {
+
     }
 
     public String getAccountNumber() {

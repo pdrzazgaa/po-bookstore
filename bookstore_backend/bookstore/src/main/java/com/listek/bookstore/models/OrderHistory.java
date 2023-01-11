@@ -1,9 +1,8 @@
 package com.listek.bookstore.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
 
 @Table(name="HistorieZamowien")
 @Entity
@@ -11,6 +10,12 @@ public class OrderHistory {
     @Id
     @GeneratedValue
     private Long id;
+    @OneToOne
+    @JoinColumn(name="KlientID")
+    private Client client;
+    @OneToMany
+    private ArrayList<Order> orders;
+
 
     public OrderHistory(Long id) {
         this.id = id;

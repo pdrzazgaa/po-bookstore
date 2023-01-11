@@ -4,6 +4,7 @@ package com.listek.bookstore.models;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 @Entity
@@ -26,11 +27,8 @@ public class Book extends Product{
     @Column(name="TypOkladki")
     private CoverType coverType;
 
-    public Book(Long id, float price, int numberOfItemsInStock, String name,
-                String description, String photoURL,
-                String title, String author, String publisher, Date releaseDate, int numberOfPages,
-                String language, String index, CoverType coverType) {
-        super(id, price, numberOfItemsInStock, name, description, photoURL);
+    public Book(Long id, float price, int numberOfItemsInStock, String name, String description, String photoURL, ArrayList<Category> category, String title, String author, String publisher, Date releaseDate, int numberOfPages, String language, String index, CoverType coverType) {
+        super(id, price, numberOfItemsInStock, name, description, photoURL, category);
         this.title = title;
         this.author = author;
         this.publisher = publisher;
