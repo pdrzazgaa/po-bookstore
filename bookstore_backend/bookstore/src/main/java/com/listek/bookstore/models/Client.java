@@ -3,9 +3,11 @@ package com.listek.bookstore.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 import java.util.ArrayList;
 
+@Table(name="Klienci")
 @Entity
 public class Client extends UserAccount{
 
@@ -14,6 +16,7 @@ public class Client extends UserAccount{
     @OneToOne
     private OrderHistory orderHistory;
     @OneToOne
+
     private LoyaltyProgram loyaltyProgram;
     @OneToMany
     private ArrayList<Cart> carts;
