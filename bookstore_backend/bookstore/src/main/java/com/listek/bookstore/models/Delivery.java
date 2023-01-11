@@ -10,6 +10,7 @@ public class Delivery {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(name="koszt")
     private float cost;
 
     public Delivery(Long id, float cost, Address address) {

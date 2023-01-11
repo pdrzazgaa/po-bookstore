@@ -1,9 +1,6 @@
 package com.listek.bookstore.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
@@ -13,17 +10,40 @@ public class Order {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(name="DataZlozeniaZamowienia")
     private LocalDateTime date;
+    @Column(name="Rabat")
     private int discount;
+    @Column(name="StatusZamowienia")
     private OrderStatus orderStatus;
+    @Column(name="NumerZamowienia")
     private String orderNumber;
 
-    public Order(Long id, LocalDateTime date, int discount, OrderStatus orderStatus, String orderNumber) {
+    @OneToOne
+    @JoinColumn(name="KoszykID")
+    private Cart cart;
+    @OneToOne
+    private Payment payment;
+    @OneToOne
+    private Delivery delivery;
+    @OneToOne
+    private Complaint complaint;
+    @ManyToOne
+    @JoinColumn(name="HistoriaZamowienID")
+    private OrderHistory orderHistory;
+
+
+    public Order(Long id, LocalDateTime date, int discount, OrderStatus orderStatus,
+                 String orderNumber, Cart cart, Payment payment, Delivery delivery, Complaint complaint) {
         this.id = id;
         this.date = date;
         this.discount = discount;
         this.orderStatus = orderStatus;
         this.orderNumber = orderNumber;
+        this.cart = cart;
+        this.payment = payment;
+        this.delivery = delivery;
+        this.complaint = complaint;
     }
 
     public Order() {
@@ -70,4 +90,35 @@ public class Order {
         this.orderNumber = orderNumber;
     }
 
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
+    public Delivery getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+    }
+
+    public Complaint getComplaint() {
+        return complaint;
+    }
+
+    public void setComplaint(Complaint complaint) {
+        this.complaint = complaint;
+    }
 }

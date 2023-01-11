@@ -2,6 +2,8 @@ package com.listek.bookstore.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+
 @Table(name="Kategorie")
 @Entity
 public class Category {
@@ -10,10 +12,13 @@ public class Category {
     private Long id;
     @Column(name="Nazwa")
     private String name;
+    @ManyToMany
+    private ArrayList<Product> products;
 
-    public Category(Long id, String name) {
+    public Category(Long id, String name, ArrayList<Product> products) {
         this.id = id;
         this.name = name;
+        this.products = products;
     }
 
     public Category() {
@@ -34,5 +39,13 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
     }
 }

@@ -12,6 +12,7 @@ public class Payment {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(name = "DataPlatnosci")
     private LocalDateTime paymentDate;
 
     public Payment(Long id, LocalDateTime paymentDate) {

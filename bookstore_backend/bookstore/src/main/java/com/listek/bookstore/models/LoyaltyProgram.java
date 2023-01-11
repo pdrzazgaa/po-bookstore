@@ -1,10 +1,7 @@
 package com.listek.bookstore.models;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Table(name="ProgramyLojalnosciowe")
 @Entity
@@ -12,11 +9,17 @@ public class LoyaltyProgram {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(name="Bookcoiny")
     private int bookcoins;
 
-    public LoyaltyProgram(Long id, int bookcoins) {
+    @OneToOne
+    @JoinColumn(name="KlientID")
+    private Client client;
+
+    public LoyaltyProgram(Long id, int bookcoins, Client client) {
         this.id = id;
         this.bookcoins = bookcoins;
+        this.client = client;
     }
 
     public LoyaltyProgram() {
@@ -37,5 +40,13 @@ public class LoyaltyProgram {
 
     public void setBookcoins(int bookcoins) {
         this.bookcoins = bookcoins;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

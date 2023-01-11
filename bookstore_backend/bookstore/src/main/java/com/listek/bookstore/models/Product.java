@@ -1,6 +1,9 @@
 package com.listek.bookstore.models;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+
 import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
 
 @Inheritance(strategy = TABLE_PER_CLASS)
@@ -10,20 +13,27 @@ public class Product {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(name="Cena")
     private float price;
+    @Column(name="LiczbaSztukNaStanie")
     private int numberOfItemsInStock;
+    @Column(name="Nazwa")
     private String name;
+    @Column(name="Opis")
     private String description;
+    @Column(name="zdjecieURL")
     private String photoURL;
+    @ManyToMany
+    private ArrayList<Category> category;
 
-    public Product(Long id, float price, int numberOfItemsInStock, String name,
-                   String description, String photoURL) {
+    public Product(Long id, float price, int numberOfItemsInStock, String name, String description, String photoURL, ArrayList<Category> category) {
         this.id = id;
         this.price = price;
         this.numberOfItemsInStock = numberOfItemsInStock;
         this.name = name;
         this.description = description;
         this.photoURL = photoURL;
+        this.category = category;
     }
 
     public Product() {
@@ -76,5 +86,13 @@ public class Product {
 
     public void setPhotoURL(String photoURL) {
         this.photoURL = photoURL;
+    }
+
+    public ArrayList<Category> getCategory() {
+        return category;
+    }
+
+    public void setCategory(ArrayList<Category> category) {
+        this.category = category;
     }
 }

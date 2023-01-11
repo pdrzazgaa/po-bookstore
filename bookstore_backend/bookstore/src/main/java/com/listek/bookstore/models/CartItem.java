@@ -10,10 +10,18 @@ public class CartItem {
     private Long id;
     @Column(name="ilosc")
     private int quantity;
+    @ManyToOne
+    @JoinColumn(name="ProductID")
+    private Product product;
+    @ManyToOne
+    @JoinColumn(name="KoszykID")
+    private Cart cart;
 
-    public CartItem(Long id, int quantity) {
+    public CartItem(Long id, int quantity, Product product, Cart cart) {
         this.id = id;
         this.quantity = quantity;
+        this.product = product;
+        this.cart = cart;
     }
 
     public CartItem() {
@@ -36,4 +44,19 @@ public class CartItem {
         this.quantity = quantity;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
 }
