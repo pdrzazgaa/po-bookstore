@@ -2,7 +2,10 @@ package com.listek.bookstore.models;
 
 import jakarta.persistence.*;
 
+import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
+
 @Entity
+@Inheritance(strategy = TABLE_PER_CLASS)
 @Table(name="KontaUzytkownika")
 public class UserAccount {
     @Id

@@ -2,9 +2,11 @@ package com.listek.bookstore.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
 
+@Table(name="PlatnoscPrzelewem")
 @Entity
 public class TransferPayment extends Payment{
     @Column(name="NumerKonta")

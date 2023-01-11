@@ -2,9 +2,11 @@ package com.listek.bookstore.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
 
+@Table(name="FakturyFirmy")
 @Entity
 public class CompanyInvoice extends Invoice {
     @Column
