@@ -1,14 +1,24 @@
 package com.listek.bookstore.models;
 
+import jakarta.persistence.*;
+import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
+
+@Inheritance(strategy = TABLE_PER_CLASS)
+@Table(name="Dostawy")
+@Entity
 public class Delivery {
+    @Id
+    @GeneratedValue
     private Long id;
     private float cost;
-    private Address address;
 
     public Delivery(Long id, float cost, Address address) {
         this.id = id;
         this.cost = cost;
-        this.address = address;
+    }
+
+    public Delivery() {
+
     }
 
     public Long getId() {
@@ -27,11 +37,4 @@ public class Delivery {
         this.cost = cost;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 }

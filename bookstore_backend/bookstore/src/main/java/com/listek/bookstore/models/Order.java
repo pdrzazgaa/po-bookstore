@@ -1,29 +1,33 @@
 package com.listek.bookstore.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.time.LocalDateTime;
 
+@Table(name="Zamowienia")
+@Entity
 public class Order {
+    @Id
+    @GeneratedValue
     private Long id;
     private LocalDateTime date;
     private int discount;
     private OrderStatus orderStatus;
     private String orderNumber;
 
-    private Payment payment;
-    private Delivery delivery;
-    private Document document;
-    private Cart cart;
-
-    public Order(Long id, LocalDateTime date, int discount, OrderStatus orderStatus, String orderNumber, Payment payment, Delivery delivery, Document document, Cart cart) {
+    public Order(Long id, LocalDateTime date, int discount, OrderStatus orderStatus, String orderNumber) {
         this.id = id;
         this.date = date;
         this.discount = discount;
         this.orderStatus = orderStatus;
         this.orderNumber = orderNumber;
-        this.payment = payment;
-        this.delivery = delivery;
-        this.document = document;
-        this.cart = cart;
+    }
+
+    public Order() {
+
     }
 
     public Long getId() {
@@ -66,35 +70,4 @@ public class Order {
         this.orderNumber = orderNumber;
     }
 
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
-    }
-
-    public Delivery getDelivery() {
-        return delivery;
-    }
-
-    public void setDelivery(Delivery delivery) {
-        this.delivery = delivery;
-    }
-
-    public Document getDocument() {
-        return document;
-    }
-
-    public void setDocument(Document document) {
-        this.document = document;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
 }

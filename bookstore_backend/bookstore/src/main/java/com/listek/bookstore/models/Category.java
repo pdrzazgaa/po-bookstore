@@ -1,13 +1,23 @@
 package com.listek.bookstore.models;
 
-public class Category {
+import jakarta.persistence.*;
 
+@Table(name="Kategorie")
+@Entity
+public class Category {
+    @Id
+    @GeneratedValue
     private Long id;
+    @Column(name="Nazwa")
     private String name;
 
     public Category(Long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Category() {
+
     }
 
     public Long getId() {

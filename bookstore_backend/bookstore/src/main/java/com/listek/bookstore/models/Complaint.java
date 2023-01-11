@@ -1,21 +1,36 @@
 package com.listek.bookstore.models;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+@Table(name="Reklamacje")
+@Entity
 public class Complaint {
+    @Id
+    @GeneratedValue
     private Long id;
+    @Column(name="DataReklamacji")
     private LocalDateTime complaintDate;
+    @Column(name="NumerKonta")
     private String accountNumber;
+    @Column(name="StatusReklamacji")
     private ComplaintStatus complaintStatus;
+    @OneToMany
     private ArrayList<ComplaintItem> complaintItems;
 
-    public Complaint(Long id, LocalDateTime complaintDate, String accountNumber, ComplaintStatus complaintStatus, ArrayList<ComplaintItem> complaintItems) {
+    public Complaint(Long id, LocalDateTime complaintDate, String accountNumber,
+                     ComplaintStatus complaintStatus, ArrayList<ComplaintItem> complaintItems) {
         this.id = id;
         this.complaintDate = complaintDate;
         this.accountNumber = accountNumber;
         this.complaintStatus = complaintStatus;
         this.complaintItems = complaintItems;
+    }
+
+    public Complaint() {
+
     }
 
     public Long getId() {
@@ -48,13 +63,5 @@ public class Complaint {
 
     public void setComplaintStatus(ComplaintStatus complaintStatus) {
         this.complaintStatus = complaintStatus;
-    }
-
-    public ArrayList<ComplaintItem> getComplaintItems() {
-        return complaintItems;
-    }
-
-    public void setComplaintItems(ArrayList<ComplaintItem> complaintItems) {
-        this.complaintItems = complaintItems;
     }
 }

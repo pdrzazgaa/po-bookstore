@@ -1,14 +1,23 @@
 package com.listek.bookstore.models;
 
-import java.util.ArrayList;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Table(name="HistorieZamowien")
+@Entity
 public class OrderHistory {
+    @Id
+    @GeneratedValue
     private Long id;
-    private ArrayList<Order> orders;
 
-    public OrderHistory(Long id, ArrayList<Order> orders) {
+    public OrderHistory(Long id) {
         this.id = id;
-        this.orders = orders;
+    }
+
+    public OrderHistory() {
+
     }
 
     public Long getId() {
@@ -19,11 +28,4 @@ public class OrderHistory {
         this.id = id;
     }
 
-    public ArrayList<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(ArrayList<Order> orders) {
-        this.orders = orders;
-    }
 }

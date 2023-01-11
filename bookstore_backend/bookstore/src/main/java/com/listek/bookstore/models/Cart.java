@@ -1,15 +1,25 @@
 package com.listek.bookstore.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.util.ArrayList;
 
+@Table(name="Koszyki")
+@Entity
 public class Cart {
-
+    @Id
+    @GeneratedValue
     private Long id;
-    private ArrayList<CartItem> cartItems;
 
-    public Cart(Long id, ArrayList<CartItem> cartItems) {
+    public Cart(Long id) {
         this.id = id;
-        this.cartItems = cartItems;
+    }
+
+    public Cart() {
+
     }
 
     public Long getId() {
@@ -20,11 +30,4 @@ public class Cart {
         this.id = id;
     }
 
-    public ArrayList<CartItem> getCartItems() {
-        return cartItems;
-    }
-
-    public void setCartItems(ArrayList<CartItem> cartItems) {
-        this.cartItems = cartItems;
-    }
 }
