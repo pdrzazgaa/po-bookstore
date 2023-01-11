@@ -1,15 +1,23 @@
 package com.listek.bookstore.models;
 
+import jakarta.persistence.*;
+
+@Table(name="PozycjeKoszyka")
+@Entity
 public class CartItem {
-
+    @Id
+    @GeneratedValue
     private Long id;
+    @Column(name="ilosc")
     private int quantity;
-    private Product product;
 
-    public CartItem(Long id, int quantity, Product product) {
+    public CartItem(Long id, int quantity) {
         this.id = id;
         this.quantity = quantity;
-        this.product = product;
+    }
+
+    public CartItem() {
+
     }
 
     public Long getId() {
@@ -28,11 +36,4 @@ public class CartItem {
         this.quantity = quantity;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 }

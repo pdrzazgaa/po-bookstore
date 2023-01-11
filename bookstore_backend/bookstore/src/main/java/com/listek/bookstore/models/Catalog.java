@@ -1,17 +1,23 @@
 package com.listek.bookstore.models;
 
-import java.util.ArrayList;
+import jakarta.persistence.*;
 
+@Table(name="Katalog")
+@Entity
 public class Catalog {
-
+    @Id
+    @GeneratedValue
     private Long id;
+    @Column(name="nazwa")
     private String name;
-    private ArrayList<Product> products;
 
-    public Catalog(Long id, String name, ArrayList<Product> products) {
+    public Catalog(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.products = products;
+    }
+
+    public Catalog() {
+
     }
 
     public Long getId() {
@@ -30,11 +36,4 @@ public class Catalog {
         this.name = name;
     }
 
-    public ArrayList<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
-    }
 }

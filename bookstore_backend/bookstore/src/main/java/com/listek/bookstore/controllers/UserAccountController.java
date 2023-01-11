@@ -11,6 +11,6 @@ public class UserAccountController {
     UserAccountRepository repository;
     @GetMapping("/firstUserAccount/")
     public void getUserData(UserAccountRepository repository){
-        System.out.print(repository.findById(Long.valueOf(1)));
+        System.out.print(repository.findById(1));
     }
 }

@@ -3,12 +3,12 @@ package com.listek.bookstore.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="Konto Uzytkownika")
+@Table(name="KontaUzytkownika")
 public class UserAccount {
     @Id
     @GeneratedValue
     @Column(name="id")
-    private Long id;
+    private Integer id;
     @Column(name="imie")
     private String firstname;
     @Column(name="nazwisko")
@@ -20,7 +20,7 @@ public class UserAccount {
     @Column(name="haslo")
     private String password;
 
-    public UserAccount(Long id, String firstname, String surname, String email, String phoneNumber, String password) {
+    public UserAccount(Integer id, String firstname, String surname, String email, String phoneNumber, String password) {
         this.id = id;
         this.firstname = firstname;
         this.surname = surname;
@@ -33,11 +33,11 @@ public class UserAccount {
 
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
