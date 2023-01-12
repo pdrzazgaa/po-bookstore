@@ -8,7 +8,7 @@ import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
 @Entity
 public class Delivery {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name="koszt")
     private float cost;

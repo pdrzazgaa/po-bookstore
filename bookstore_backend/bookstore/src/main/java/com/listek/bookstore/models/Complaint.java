@@ -9,7 +9,7 @@ import java.util.ArrayList;
 @Entity
 public class Complaint {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name="DataReklamacji")
     private LocalDateTime complaintDate;

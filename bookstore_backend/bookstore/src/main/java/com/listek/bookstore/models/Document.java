@@ -9,7 +9,7 @@ import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
 @Entity
 public class Document {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name="DataWystawienia")
     private LocalDateTime dateOfIssue;

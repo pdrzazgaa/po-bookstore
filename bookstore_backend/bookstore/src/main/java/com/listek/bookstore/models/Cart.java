@@ -8,7 +8,7 @@ import java.util.ArrayList;
 @Entity
 public class Cart {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name="OstatniaAktywnosc")
     private LocalDateTime lastActivity;

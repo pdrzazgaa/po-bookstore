@@ -8,17 +8,20 @@ import java.util.ArrayList;
 @Entity
 public class Category {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name="Nazwa")
     private String name;
     @ManyToMany(mappedBy = "category")
     private ArrayList<Product> products;
+    @ManyToOne()
+    @JoinColumn(name="kategoriaNadrzedna")
+    private Category parentCategory;
 
-    public Category(Long id, String name, ArrayList<Product> products) {
-        this.id = id;
+
+    public Category(String name, Category parentCategory) {
         this.name = name;
-        this.products = products;
+        this.parentCategory = parentCategory;
     }
 
     public Category() {
@@ -47,5 +50,13 @@ public class Category {
 
     public void setProducts(ArrayList<Product> products) {
         this.products = products;
+    }
+
+    public Category getParentCategory() {
+        return parentCategory;
+    }
+
+    public void setParentCategory(Category parentCategory) {
+        this.parentCategory = parentCategory;
     }
 }

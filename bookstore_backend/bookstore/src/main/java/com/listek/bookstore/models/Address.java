@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity
 public class Address {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name="imie")
     private String firstname;

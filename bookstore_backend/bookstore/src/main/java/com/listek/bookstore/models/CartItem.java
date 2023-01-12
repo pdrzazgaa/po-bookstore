@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity
 public class CartItem {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name="ilosc")
     private int quantity;
