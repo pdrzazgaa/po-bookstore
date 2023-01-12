@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Order {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name="DataZlozeniaZamowienia")
     private LocalDateTime date;

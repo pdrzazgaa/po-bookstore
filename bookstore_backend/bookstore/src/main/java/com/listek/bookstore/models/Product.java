@@ -11,7 +11,7 @@ import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
 @Entity
 public class Product {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name="Cena")
     private float price;

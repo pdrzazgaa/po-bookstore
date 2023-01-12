@@ -10,7 +10,7 @@ import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
 public class Payment {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name = "DataPlatnosci")
     private LocalDateTime paymentDate;

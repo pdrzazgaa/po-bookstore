@@ -8,7 +8,7 @@ import java.util.ArrayList;
 @Entity
 public class OrderHistory {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @OneToOne
     @JoinColumn(name="KlientID")

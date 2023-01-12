@@ -7,10 +7,10 @@ import jakarta.persistence.*;
 @Entity
 public class LoyaltyProgram {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name="Bookcoiny")
-    private int bookcoins;
+    private int bookcoins = 0;
 
     @OneToOne
     @JoinColumn(name="KlientID")

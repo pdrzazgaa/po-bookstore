@@ -9,9 +9,9 @@ import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
 @Table(name="KontaUzytkownika")
 public class UserAccount {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name="id")
-    private Integer id;
+    private Long id;
     @Column(name="imie")
     private String firstname;
     @Column(name="nazwisko")
@@ -23,8 +23,16 @@ public class UserAccount {
     @Column(name="haslo")
     private String password;
 
-    public UserAccount(Integer id, String firstname, String surname, String email, String phoneNumber, String password) {
+    public UserAccount(Long id, String firstname, String surname, String email, String phoneNumber, String password) {
         this.id = id;
+        this.firstname = firstname;
+        this.surname = surname;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+    }
+
+    public UserAccount(String firstname, String surname, String email, String phoneNumber, String password) {
         this.firstname = firstname;
         this.surname = surname;
         this.email = email;
@@ -36,11 +44,11 @@ public class UserAccount {
 
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
