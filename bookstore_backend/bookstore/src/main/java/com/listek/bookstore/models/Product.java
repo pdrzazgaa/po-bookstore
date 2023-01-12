@@ -22,6 +22,11 @@ public class Product {
     @Column(name="Opis")
     private String description;
     @ManyToMany
+    @JoinTable(
+            name = "ProduktyKategorie",
+            joinColumns = { @JoinColumn(name = "ProduktID") },
+            inverseJoinColumns = { @JoinColumn(name = "KategoriaID") }
+    )
     private ArrayList<Category> category;
 
     public Product(Long id, float price, int numberOfItemsInStock, String name, String description, ArrayList<Category> category) {

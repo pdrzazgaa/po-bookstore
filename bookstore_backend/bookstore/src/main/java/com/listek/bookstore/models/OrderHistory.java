@@ -13,7 +13,7 @@ public class OrderHistory {
     @OneToOne
     @JoinColumn(name="KlientID")
     private Client client;
-    @OneToMany
+    @OneToMany(mappedBy = "orderHistory")
     private ArrayList<Order> orders;
 
 
