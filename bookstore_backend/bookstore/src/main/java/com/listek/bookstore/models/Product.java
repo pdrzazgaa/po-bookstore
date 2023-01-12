@@ -21,13 +21,12 @@ public class Product {
     private String name;
     @Column(name="Opis")
     private String description;
-    @ManyToMany
-    @JoinTable(
-            name = "ProduktyKategorie",
-            joinColumns = { @JoinColumn(name = "ProduktID") },
-            inverseJoinColumns = { @JoinColumn(name = "KategoriaID") }
-    )
-    private ArrayList<Category> category;
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },mappedBy = "products")
+    private ArrayList<Category> categories;
 
     public Product(Long id, float price, int numberOfItemsInStock, String name, String description, ArrayList<Category> category) {
         this.id = id;
@@ -35,7 +34,7 @@ public class Product {
         this.numberOfItemsInStock = numberOfItemsInStock;
         this.name = name;
         this.description = description;
-        this.category = category;
+        this.categories = category;
     }
 
     public Product() {
@@ -83,10 +82,10 @@ public class Product {
     }
 
     public ArrayList<Category> getCategory() {
-        return category;
+        return categories;
     }
 
     public void setCategory(ArrayList<Category> category) {
-        this.category = category;
+        this.categories = category;
     }
 }
