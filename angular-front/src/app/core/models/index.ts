@@ -4,6 +4,7 @@ export * from './delivery.model';
 export * from './image.model';
 export * from './order.model';
 export * from './order-details.model';
+export * from './parcel-machine.model';
 export * from './product.model';
 export * from './product-details.model';
 export * from './reclamation.model';
