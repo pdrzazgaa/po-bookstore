@@ -1,0 +1,83 @@
+@use '../../../../variables.scss' as *;
+
+section {
+  position: fixed;
+  z-index: 3;
+  width: 600px;
+  height: 450px;
+  left: calc(50vw - 300px);
+  top: calc(50vh - 200px);
+  background-color: $grey-light;
+  border-radius: 5px;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  font-size: 20px;
+  color: $font-color-dark;
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  font-size: 1.6em;
+}
+
+.chosen-parcel-info {
+  margin-top: 20px;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+
+  .header {
+    display: inline-block;
+    width: 70px;
+  }
+  .data {
+    font-weight: bold;
+  }
+}
+
+input {
+  width: 100%;
+  margin-top: 30px;
+  height: 30px;
+  padding-left: 10px;
+  font-size: 0.7em;
+  letter-spacing: 1px;
+}
+
+.table-container {
+  margin-top: 20px;
+  height: 150px;
+  overflow: scroll;
+}
+
+table {
+  position: sticky;
+  top: 0;
+  width: 100%;
+
+  tr {
+    background-color: #fff;
+    border: 1px solid $grey-mid;
+  }
+  td {
+    padding: 8px 10px;
+    font-size: 0.8em;
+  }
+}
+
+.submit {
+  margin: 30px auto 0;
+  background-color: transparent;
+  padding: 10px 25px;
+  border: 1px solid $font-color-dark;
+  color: $font-color-dark;
+  font-size: 15px;
+
+  &:hover {
+    color: $font-color-light;
+    background-color: $grey-dark;
+  }
+}

@@ -1,1 +1,26 @@
-<p>parcel-machine-form works!</p>
+<section *ngIf="showParcelForm">
+  <h2>Wybierz Paczkomat</h2>
+  <div class="chosen-parcel-info">
+    <p *ngIf="parcelCode">
+      <span class="header">Numer: </span>
+      <span class="data"> {{ parcelCode }}</span>
+    </p>
+    <p *ngIf="parcelAddress">
+      <span class="header">Adres: </span>
+      <span class="data"> {{ parcelAddress }}</span>
+    </p>
+  </div>
+  <input type="text" placeholder="Szukaj..." #parcelSearchInput />
+  <div class="table-container">
+    <table *ngIf="parcelMachines">
+      <tr
+        *ngFor="let parcelMachine of parcelMachines"
+        (click)="onParcelMachineClick(parcelMachine)"
+      >
+        <td>{{ parcelMachine.code }}</td>
+        <td>{{ parcelMachine.address }}</td>
+      </tr>
+    </table>
+  </div>
+  <button class="submit" (click)="onSubmitButtonClick()">Zatwierdź</button>
+</section>

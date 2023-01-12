@@ -28,6 +28,7 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
   public step: 'choose-data' | 'choose-delivery' = 'choose-data';
   public productsForm?: FormGroup;
   public deliveryForm?: FormGroup = this.createDeliveryForm();
+  public showParcelMachine: boolean = true;
   private reclamationPositions: ReclamationPosition[] = [];
 
   private requiredValidator = Validators.required;
@@ -134,6 +135,10 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
       }
     });
     this.deliveryForm = this.createDeliveryForm();
+  }
+
+  onParcelMachineClick() {
+    this.showParcelMachine = true;
   }
 
   onReclamationFormSubmit() {
