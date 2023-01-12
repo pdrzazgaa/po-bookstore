@@ -12,6 +12,9 @@ public class Delivery {
     private Long id;
     @Column(name="koszt")
     private float cost;
+    @OneToOne
+    @JoinColumn(name = "ZamowienieID")
+    private Order order;
 
     public Delivery(Long id, float cost, Address address) {
         this.id = id;

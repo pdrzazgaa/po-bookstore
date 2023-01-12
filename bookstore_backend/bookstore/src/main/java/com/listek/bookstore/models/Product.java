@@ -21,18 +21,15 @@ public class Product {
     private String name;
     @Column(name="Opis")
     private String description;
-    @Column(name="zdjecieURL")
-    private String photoURL;
     @ManyToMany
     private ArrayList<Category> category;
 
-    public Product(Long id, float price, int numberOfItemsInStock, String name, String description, String photoURL, ArrayList<Category> category) {
+    public Product(Long id, float price, int numberOfItemsInStock, String name, String description, ArrayList<Category> category) {
         this.id = id;
         this.price = price;
         this.numberOfItemsInStock = numberOfItemsInStock;
         this.name = name;
         this.description = description;
-        this.photoURL = photoURL;
         this.category = category;
     }
 
@@ -78,14 +75,6 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getPhotoURL() {
-        return photoURL;
-    }
-
-    public void setPhotoURL(String photoURL) {
-        this.photoURL = photoURL;
     }
 
     public ArrayList<Category> getCategory() {

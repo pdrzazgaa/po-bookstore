@@ -13,10 +13,9 @@ public class Client extends UserAccount{
 
     @OneToMany
     private ArrayList<Address> addresses;
-    @OneToOne
+    @OneToOne(mappedBy = "client")
     private OrderHistory orderHistory;
-    @OneToOne
-
+    @OneToOne(mappedBy = "client")
     private LoyaltyProgram loyaltyProgram;
     @OneToMany
     private ArrayList<Cart> carts;

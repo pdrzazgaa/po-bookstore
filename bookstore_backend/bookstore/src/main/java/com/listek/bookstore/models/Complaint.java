@@ -17,15 +17,18 @@ public class Complaint {
     private String accountNumber;
     @Column(name="StatusReklamacji")
     private ComplaintStatus complaintStatus;
-    @OneToMany
+    @OneToOne
+    @JoinColumn(name="ZamowienieID")
+    private Order order;
+    @OneToMany(mappedBy="complaint")
     private ArrayList<ComplaintItem> complaintItems;
 
-    public Complaint(Long id, LocalDateTime complaintDate, String accountNumber,
-                     ComplaintStatus complaintStatus, ArrayList<ComplaintItem> complaintItems) {
+    public Complaint(Long id, LocalDateTime complaintDate, String accountNumber, ComplaintStatus complaintStatus, Order order, ArrayList<ComplaintItem> complaintItems) {
         this.id = id;
         this.complaintDate = complaintDate;
         this.accountNumber = accountNumber;
         this.complaintStatus = complaintStatus;
+        this.order = order;
         this.complaintItems = complaintItems;
     }
 
@@ -63,5 +66,21 @@ public class Complaint {
 
     public void setComplaintStatus(ComplaintStatus complaintStatus) {
         this.complaintStatus = complaintStatus;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public ArrayList<ComplaintItem> getComplaintItems() {
+        return complaintItems;
+    }
+
+    public void setComplaintItems(ArrayList<ComplaintItem> complaintItems) {
+        this.complaintItems = complaintItems;
     }
 }
