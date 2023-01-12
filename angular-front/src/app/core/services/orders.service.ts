@@ -1,4 +1,4 @@
-import { Image, Order, OrderDetails, Product } from '../models';
+import { Image, Order, OrderDetails, Product, Reclamation } from '../models';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -53,5 +53,9 @@ export class OrdersService {
         },
       ])
     );
+  }
+
+  sendReclamation(reclamation: Reclamation) {
+    console.log(reclamation);
   }
 }

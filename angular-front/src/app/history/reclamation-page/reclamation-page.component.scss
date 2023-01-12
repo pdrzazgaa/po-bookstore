@@ -58,7 +58,7 @@ th {
   &.reason,
   &.amount {
     text-align: right;
-    padding-right: 20px;
+    padding-right: 30px;
   }
 }
 
@@ -66,12 +66,12 @@ td {
   vertical-align: middle;
 
   &.checkbox {
-    padding-left: 20px;
-    width: 40px;
+    padding-left: 30px;
+    width: 50px;
   }
   &.reason,
   &.amount {
-    padding-right: 20px;
+    padding-right: 30px;
 
     select,
     input {
@@ -111,7 +111,7 @@ td {
 
 .product {
   display: flex;
-  padding: 20px;
+  padding: 30px;
   gap: 20px;
 
   img {
@@ -135,7 +135,7 @@ td {
   background-color: transparent;
   color: $font-color-dark;
   float: right;
-  padding: 10px 20px;
+  padding: 15px 25px;
   font-size: 0.8em;
   letter-spacing: 1px;
   border: 1px solid $grey-dark;
@@ -153,4 +153,38 @@ td {
 
 .invisible {
   display: none;
+}
+
+.delivery {
+  margin: 50px 5vw;
+
+  div {
+    margin: 20px 0;
+
+    input {
+      margin-right: 20px;
+      font-size: 20px;
+    }
+  }
+
+  .submit {
+    display: block;
+    margin: 50px auto 0;
+    background-color: transparent;
+    padding: 15px 25px;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+    color: $font-color-dark;
+    border: 1px solid $font-color-dark;
+    transition: 0.2s;
+
+    &:enabled:hover {
+      color: $font-color-light;
+      background-color: $grey-dark;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
 }

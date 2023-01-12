@@ -1,0 +1,30 @@
+@use '../../../../variables.scss' as *;
+
+section {
+  position: absolute;
+  z-index: 3;
+  width: 500px;
+  height: 400px;
+  left: calc(50% - 250px);
+  top: calc(50% - 200px);
+  color: $font-color-dark;
+  font-size: 20px;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+.red {
+  border: 1px solid $red;
+  h1 {
+    color: $red;
+  }
+}
+
+.green {
+  border: 1px solid $green;
+  h1 {
+    color: $green;
+  }
+}

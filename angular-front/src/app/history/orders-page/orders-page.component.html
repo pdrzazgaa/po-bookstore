@@ -21,7 +21,9 @@
         </td>
         <td class="price">{{ order.totalPrice }} zł</td>
         <td>{{ order.date | date : 'd.M.y r.' }}</td>
-        <td><a class="details" [routerLink]="['/order', order.id]">Pokaz szczegóły</a></td>
+        <td>
+          <a class="details" [routerLink]="['/order', order.id]">Pokaz szczegóły</a>
+        </td>
       </tr>
     </table>
   </div>

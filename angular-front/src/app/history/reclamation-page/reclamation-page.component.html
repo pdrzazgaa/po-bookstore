@@ -62,9 +62,7 @@
           [ngClass]="{ invisible: !isCheckboxChecked(position.product.id) }"
         >
           <div>
-            <span *ngIf="!isReasonInputValid(position.product.id)"
-              >Wypełnij to pole</span
-            >
+            <span *ngIf="!isReasonInputValid(position.product.id)">Wypełnij to pole</span>
             <input type="text" formControlName="reason" />
           </div>
         </td>
@@ -73,6 +71,49 @@
     <button class="to-delivery" type="submit" [disabled]="!productsForm.valid">
       Przejdź dalej
     </button>
+  </form>
+  <form
+    *ngIf="step === 'choose-delivery' && deliveryForm"
+    class="delivery"
+    [formGroup]="deliveryForm"
+    (ngSubmit)="onReclamationFormSubmit()"
+  >
+    <div>
+      <input
+        type="radio"
+        value="bookstore"
+        name="delivery"
+        id="bookstore"
+        formControlName="delivery"
+      />
+      <label for="bookstore">Dostarczenie do księgarni</label>
+    </div>
+    <div>
+      <input
+        type="radio"
+        value="carrier"
+        name="delivery"
+        id="carrier"
+        formControlName="delivery"
+      />
+      <label for="carrier">Kurier (Pocztex)</label>
+    </div>
+    <div>
+      <input
+        type="radio"
+        value="parcel-machine"
+        name="delivery"
+        id="parcel-machine"
+        formControlName="delivery"
+      />
+      <label for="parcel-machine">Paczkomat Inpost</label>
+    </div>
+    <input
+      class="submit"
+      type="submit"
+      value="Zatwierdź reklamację"
+      [disabled]="!deliveryForm.valid"
+    />
   </form>
 </main>
 <app-footer></app-footer>

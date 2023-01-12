@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CloseMessagePopupComponent } from './layout/close-message-popup/close-message-popup.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { RouterModule } from '@angular/router';
     SearchBarComponent,
     UrlPipe,
     FromUrlPipe,
+    CloseMessagePopupComponent,
   ],
   imports: [
     CommonModule,
