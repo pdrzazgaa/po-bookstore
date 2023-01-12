@@ -2,7 +2,7 @@ package com.listek.bookstore.models;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Table(name="HistorieZamowien")
 @Entity
@@ -14,7 +14,7 @@ public class OrderHistory {
     @JoinColumn(name="KlientID")
     private Client client;
     @OneToMany(mappedBy = "orderHistory")
-    private ArrayList<Order> orders;
+    private List<Order> orders;
 
 
     public OrderHistory(Long id) {

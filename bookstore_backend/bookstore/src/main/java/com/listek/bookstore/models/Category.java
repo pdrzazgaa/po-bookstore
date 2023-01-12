@@ -1,8 +1,10 @@
 package com.listek.bookstore.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Table(name="Kategorie")
 @Entity
@@ -12,6 +14,7 @@ public class Category {
     private Long id;
     @Column(name="Nazwa")
     private String name;
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
@@ -22,10 +25,16 @@ public class Category {
             joinColumns = { @JoinColumn(name = "ProduktID") },
             inverseJoinColumns = { @JoinColumn(name = "KategoriaID") }
     )
-    private ArrayList<Product> products = new ArrayList<>();
+    private List<Product> products;
+
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name="kategoriaNadrzedna")
     private Category parentCategory;
+
+    @JsonInclude
+    @OneToMany(mappedBy = "parentCategory")
+    private List<Category> children;
 
 
     public Category(String name, Category parentCategory) {
@@ -53,11 +62,11 @@ public class Category {
         this.name = name;
     }
 
-    public ArrayList<Product> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(ArrayList<Product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 

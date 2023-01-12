@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -20,8 +20,8 @@ public class CategoryController {
 
     @GetMapping
     @RequestMapping("/categories")
-    public String getCategories(){
-        ArrayList<Category> categories = (ArrayList<Category>) categoryRepository.findAll();
-        return "kategorie";
+    public List<Category> getCategories(){
+        List<Category> categories =  categoryRepository.findCategoriesByParentCategory(null);
+        return categories;
     }
 }
