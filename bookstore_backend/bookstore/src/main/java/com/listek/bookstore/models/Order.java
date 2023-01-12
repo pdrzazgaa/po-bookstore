@@ -18,15 +18,16 @@ public class Order {
     private OrderStatus orderStatus;
     @Column(name="NumerZamowienia")
     private String orderNumber;
-
     @OneToOne
     @JoinColumn(name="KoszykID")
     private Cart cart;
-    @OneToOne
+    @OneToOne(mappedBy = "order")
+    private Document document;
+    @OneToOne(mappedBy = "order")
     private Payment payment;
-    @OneToOne
+    @OneToOne(mappedBy = "order")
     private Delivery delivery;
-    @OneToOne
+    @OneToOne(mappedBy = "order")
     private Complaint complaint;
     @ManyToOne
     @JoinColumn(name="HistoriaZamowienID")

@@ -18,6 +18,9 @@ public class ComplaintItem {
     @OneToOne
     @JoinColumn(name ="ProduktID", nullable = false)
     private Product products;
+    @ManyToOne
+    @JoinColumn(name="ReklamacjaID")
+    private Complaint complaint;
 
 
     public ComplaintItem(Long id, String complaintReason, int quantity) {

@@ -14,6 +14,9 @@ public class Payment {
     private Long id;
     @Column(name = "DataPlatnosci")
     private LocalDateTime paymentDate;
+    @JoinColumn(name = "ZamowienieID")
+    @OneToOne
+    private Order order;
 
     public Payment(Long id, LocalDateTime paymentDate) {
         this.id = id;

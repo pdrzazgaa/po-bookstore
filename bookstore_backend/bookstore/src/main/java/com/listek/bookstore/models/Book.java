@@ -24,13 +24,13 @@ public class Book extends Product{
     private int numberOfPages;
     @Column(name="Jezyk")
     private String language;
-    @Column()
+    @Column(name="indeks")
     private String index;
     @Column(name="TypOkladki")
     private CoverType coverType;
 
-    public Book(Long id, float price, int numberOfItemsInStock, String name, String description, String photoURL, ArrayList<Category> category, String title, String author, String publisher, Date releaseDate, int numberOfPages, String language, String index, CoverType coverType) {
-        super(id, price, numberOfItemsInStock, name, description, photoURL, category);
+    public Book(Long id, float price, int numberOfItemsInStock, String name, String description, ArrayList<Category> category, String title, String author, String publisher, Date releaseDate, int numberOfPages, String language, String index, CoverType coverType) {
+        super(id, price, numberOfItemsInStock, name, description, category);
         this.title = title;
         this.author = author;
         this.publisher = publisher;

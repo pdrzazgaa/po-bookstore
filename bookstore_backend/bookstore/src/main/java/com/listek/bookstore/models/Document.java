@@ -11,8 +11,11 @@ public class Document {
     @Id
     @GeneratedValue
     private Long id;
-    @Column(name="dataWystawienia")
+    @Column(name="DataWystawienia")
     private LocalDateTime dateOfIssue;
+    @JoinColumn(name = "ZamowienieID")
+    @OneToOne
+    private Order order;
 
     public Document(Long id, LocalDateTime dateOfIssue) {
         this.id = id;
