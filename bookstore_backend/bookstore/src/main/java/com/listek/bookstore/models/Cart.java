@@ -2,7 +2,7 @@ package com.listek.bookstore.models;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 
 @Table(name="Koszyki")
 @Entity
@@ -13,7 +13,7 @@ public class Cart {
     @Column(name="OstatniaAktywnosc")
     private LocalDateTime lastActivity;
     @OneToMany(mappedBy = "cart")
-    private ArrayList<CartItem> cartItems;
+    private List<CartItem> cartItems;
     @ManyToOne
     @JoinColumn(name="KlientID")
     private Client client;
@@ -42,11 +42,11 @@ public class Cart {
         this.lastActivity = lastActivity;
     }
 
-    public ArrayList<CartItem> getCartItems() {
+    public List<CartItem> getCartItems() {
         return cartItems;
     }
 
-    public void setCartItems(ArrayList<CartItem> cartItems) {
+    public void setCartItems(List<CartItem> cartItems) {
         this.cartItems = cartItems;
     }
 

@@ -5,8 +5,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Table(name="Ksiazki")
 @Entity
@@ -19,7 +19,7 @@ public class Book extends Product{
     @Column(name="Wydawca")
     private String publisher;
     @Column(name="DataWydania")
-    private Date releaseDate;
+    private LocalDateTime releaseDate;
     @Column(name="LiczbaStron")
     private int numberOfPages;
     @Column(name="Jezyk")
@@ -29,8 +29,21 @@ public class Book extends Product{
     @Column(name="TypOkladki")
     private CoverType coverType;
 
-    public Book(Long id, float price, int numberOfItemsInStock, String name, String description, ArrayList<Category> category, String title, String author, String publisher, Date releaseDate, int numberOfPages, String language, String index, CoverType coverType) {
+    public Book(Long id, double price, int numberOfItemsInStock, String name, String description,
+                List<Category> category, String title, String author, String publisher, LocalDateTime releaseDate, int numberOfPages, String language, String index, CoverType coverType) {
         super(id, price, numberOfItemsInStock, name, description, category);
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.releaseDate = releaseDate;
+        this.numberOfPages = numberOfPages;
+        this.language = language;
+        this.index = index;
+        this.coverType = coverType;
+    }
+
+    public Book(double price, int numberOfItemsInStock, String name, String description, String title, String author, String publisher, LocalDateTime releaseDate, int numberOfPages, String language, String index, CoverType coverType) {
+        super(price, numberOfItemsInStock, name, description);
         this.title = title;
         this.author = author;
         this.publisher = publisher;
@@ -69,11 +82,11 @@ public class Book extends Product{
         this.publisher = publisher;
     }
 
-    public Date getReleaseDate() {
+    public LocalDateTime getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(LocalDateTime releaseDate) {
         this.releaseDate = releaseDate;
     }
 

@@ -4,8 +4,14 @@ import com.listek.bookstore.models.Category;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 public interface CategoryRepository extends CrudRepository<Category, Long> {
 
-    //@Query("select id, nazwa, kategoria_nadrzedna from kategorie")
+    @Query("select id, name, parentCategory from Category ")
+    List<Category>  getCategories();
+    List<Category> findCategoriesByParentCategory(Category category);
+
+
 
 }

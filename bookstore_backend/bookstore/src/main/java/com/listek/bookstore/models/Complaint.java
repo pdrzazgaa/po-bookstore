@@ -3,7 +3,7 @@ package com.listek.bookstore.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 
 @Table(name="Reklamacje")
 @Entity
@@ -21,9 +21,9 @@ public class Complaint {
     @JoinColumn(name="ZamowienieID")
     private Order order;
     @OneToMany(mappedBy="complaint")
-    private ArrayList<ComplaintItem> complaintItems;
+    private List<ComplaintItem> complaintItems;
 
-    public Complaint(Long id, LocalDateTime complaintDate, String accountNumber, ComplaintStatus complaintStatus, Order order, ArrayList<ComplaintItem> complaintItems) {
+    public Complaint(Long id, LocalDateTime complaintDate, String accountNumber, ComplaintStatus complaintStatus, Order order, List<ComplaintItem> complaintItems) {
         this.id = id;
         this.complaintDate = complaintDate;
         this.accountNumber = accountNumber;
@@ -76,11 +76,11 @@ public class Complaint {
         this.order = order;
     }
 
-    public ArrayList<ComplaintItem> getComplaintItems() {
+    public List<ComplaintItem> getComplaintItems() {
         return complaintItems;
     }
 
-    public void setComplaintItems(ArrayList<ComplaintItem> complaintItems) {
+    public void setComplaintItems(List<ComplaintItem> complaintItems) {
         this.complaintItems = complaintItems;
     }
 }

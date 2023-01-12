@@ -2,7 +2,7 @@ package com.listek.bookstore.models;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
 
@@ -14,7 +14,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name="Cena")
-    private float price;
+    private double price;
     @Column(name="LiczbaSztukNaStanie")
     private int numberOfItemsInStock;
     @Column(name="Nazwa")
@@ -26,15 +26,22 @@ public class Product {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
             },mappedBy = "products")
-    private ArrayList<Category> categories;
+    private List<Category> categories;
 
-    public Product(Long id, float price, int numberOfItemsInStock, String name, String description, ArrayList<Category> category) {
+    public Product(Long id, double price, int numberOfItemsInStock, String name, String description, List<Category> category) {
         this.id = id;
         this.price = price;
         this.numberOfItemsInStock = numberOfItemsInStock;
         this.name = name;
         this.description = description;
         this.categories = category;
+    }
+
+    public Product(double price, int numberOfItemsInStock, String name, String description) {
+        this.price = price;
+        this.numberOfItemsInStock = numberOfItemsInStock;
+        this.name = name;
+        this.description = description;
     }
 
     public Product() {
@@ -49,11 +56,11 @@ public class Product {
         this.id = id;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -81,11 +88,11 @@ public class Product {
         this.description = description;
     }
 
-    public ArrayList<Category> getCategory() {
+    public List<Category> getCategory() {
         return categories;
     }
 
-    public void setCategory(ArrayList<Category> category) {
+    public void setCategory(List<Category> category) {
         this.categories = category;
     }
 }
