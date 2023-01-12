@@ -12,8 +12,17 @@ public class Category {
     private Long id;
     @Column(name="Nazwa")
     private String name;
-    @ManyToMany(mappedBy = "category")
-    private ArrayList<Product> products;
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(
+            name = "ProduktyKategorie",
+            joinColumns = { @JoinColumn(name = "ProduktID") },
+            inverseJoinColumns = { @JoinColumn(name = "KategoriaID") }
+    )
+    private ArrayList<Product> products = new ArrayList<>();
     @ManyToOne()
     @JoinColumn(name="kategoriaNadrzedna")
     private Category parentCategory;
