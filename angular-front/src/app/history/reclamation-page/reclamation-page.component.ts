@@ -1,15 +1,16 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Delivery,
+  OrderDetails,
+  OrdersService,
+  Reclamation,
+  ReclamationPosition,
+  UserService,
+} from 'src/app/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { OrderDetails, OrdersService } from 'src/app/core';
-import { ActivatedRoute } from '@angular/router';
 import { HasCheckedBox } from 'src/app/shared';
 import { Subscription } from 'rxjs';
-
-interface ReclamationPosition {
-  productId: number;
-  amount: number;
-  reason: string;
-}
 
 @Component({
   selector: 'app-reclamation-page',
@@ -18,12 +19,15 @@ interface ReclamationPosition {
 })
 export class ReclamationPageComponent implements OnInit, OnDestroy {
   private ordersService: OrdersService;
+  private userService: UserService;
   private route: ActivatedRoute;
+  private router: Router;
   private routeSub?: Subscription;
   private formBuilder: FormBuilder;
   public order?: OrderDetails;
   public step: 'choose-data' | 'choose-delivery' = 'choose-data';
   public productsForm?: FormGroup;
+  public deliveryForm?: FormGroup = this.createDeliveryForm();
   private reclamationPositions: ReclamationPosition[] = [];
 
   private requiredValidator = Validators.required;
@@ -32,11 +36,15 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
 
   constructor(
     ordersService: OrdersService,
+    userService: UserService,
     route: ActivatedRoute,
+    router: Router,
     formBuilder: FormBuilder
   ) {
     this.ordersService = ordersService;
+    this.userService = userService;
     this.route = route;
+    this.router = router;
     this.formBuilder = formBuilder;
   }
 
@@ -64,6 +72,15 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
       form[position.product.id].controls['amount'].disable();
       form[position.product.id].controls['reason'].disable();
     });
+    return form;
+  }
+
+  createDeliveryForm() {
+    const form = new FormGroup({
+      delivery: new FormControl('', Validators.required),
+      parcelMachineNumber: new FormControl(''),
+    });
+
     return form;
   }
 
@@ -116,7 +133,25 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
         });
       }
     });
-    console.log(this.reclamationPositions);
+    this.deliveryForm = this.createDeliveryForm();
+  }
+
+  onReclamationFormSubmit() {
+    const reclamation = {
+      reclamationPositions: this.reclamationPositions,
+      orderId: this.order!.id,
+      userId: this.userService.getUserId()!,
+      delivery: { delivery: this.deliveryForm!.controls['delivery'].value } as Delivery,
+    } as Reclamation;
+
+    const parcelMachineNumber = this.deliveryForm!.controls['parcelMachineNumber'].value;
+
+    if (parcelMachineNumber) {
+      reclamation.delivery.parcelMachineNumber = parcelMachineNumber;
+    }
+
+    this.ordersService.sendReclamation(reclamation);
+    this.router.navigate(['/orders']);
   }
 
   ngOnDestroy(): void {
