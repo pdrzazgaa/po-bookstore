@@ -34,17 +34,18 @@ public class Order {
     private OrderHistory orderHistory;
 
 
-    public Order(Long id, LocalDateTime date, int discount, OrderStatus orderStatus,
-                 String orderNumber, Cart cart, Payment payment, Delivery delivery, Complaint complaint) {
+    public Order(Long id, LocalDateTime date, int discount, OrderStatus orderStatus, String orderNumber, Cart cart, Document document, Payment payment, Delivery delivery, Complaint complaint, OrderHistory orderHistory) {
         this.id = id;
         this.date = date;
         this.discount = discount;
         this.orderStatus = orderStatus;
         this.orderNumber = orderNumber;
         this.cart = cart;
+        this.document = document;
         this.payment = payment;
         this.delivery = delivery;
         this.complaint = complaint;
+        this.orderHistory = orderHistory;
     }
 
     public Order() {
@@ -121,5 +122,21 @@ public class Order {
 
     public void setComplaint(Complaint complaint) {
         this.complaint = complaint;
+    }
+
+    public Document getDocument() {
+        return document;
+    }
+
+    public void setDocument(Document document) {
+        this.document = document;
+    }
+
+    public OrderHistory getOrderHistory() {
+        return orderHistory;
+    }
+
+    public void setOrderHistory(OrderHistory orderHistory) {
+        this.orderHistory = orderHistory;
     }
 }

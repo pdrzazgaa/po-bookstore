@@ -26,6 +26,9 @@ public class Address {
     private String town;
     @Column(name="Kraj")
     private String country;
+    @ManyToOne
+    @JoinColumn(name="KlientID")
+    private Client client;
 
     public Address(Long id, String firstname, String surname, String email, String phoneNumber, String street,
                    String number, String postCode, String town, String country) {

@@ -11,13 +11,13 @@ import java.util.ArrayList;
 @Entity
 public class Client extends UserAccount{
 
-    @OneToMany
+    @OneToMany(mappedBy = "client")
     private ArrayList<Address> addresses;
     @OneToOne(mappedBy = "client")
     private OrderHistory orderHistory;
     @OneToOne(mappedBy = "client")
     private LoyaltyProgram loyaltyProgram;
-    @OneToMany
+    @OneToMany(mappedBy = "client")
     private ArrayList<Cart> carts;
 
     public Client(Integer id, String firstname, String surname, String email, String phoneNumber, String password, ArrayList<Address> addresses, OrderHistory orderHistory, LoyaltyProgram loyaltyProgram, ArrayList<Cart> carts) {

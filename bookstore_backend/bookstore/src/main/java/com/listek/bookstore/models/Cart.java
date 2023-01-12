@@ -12,7 +12,7 @@ public class Cart {
     private Long id;
     @Column(name="OstatniaAktywnosc")
     private LocalDateTime lastActivity;
-    @OneToMany
+    @OneToMany(mappedBy = "cart")
     private ArrayList<CartItem> cartItems;
     @ManyToOne
     @JoinColumn(name="KlientID")

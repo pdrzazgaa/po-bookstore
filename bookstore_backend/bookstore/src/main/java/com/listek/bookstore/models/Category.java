@@ -12,7 +12,7 @@ public class Category {
     private Long id;
     @Column(name="Nazwa")
     private String name;
-    @ManyToMany
+    @ManyToMany(mappedBy = "category")
     private ArrayList<Product> products;
 
     public Category(Long id, String name, ArrayList<Product> products) {
