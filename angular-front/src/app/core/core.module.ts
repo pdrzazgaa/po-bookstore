@@ -5,6 +5,7 @@ import {
   OrdersService,
   ParcelMachineService,
   ProductsService,
+  ShoppingCartService,
   UserService,
 } from './services';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
@@ -18,6 +19,7 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
     ProductsService,
     UserService,
     OrdersService,
+    ShoppingCartService,
     ParcelMachineService,
   ],
   declarations: [],
