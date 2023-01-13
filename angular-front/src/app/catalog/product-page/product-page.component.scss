@@ -41,16 +41,10 @@
       }
 
       button {
-        background-color: transparent;
-        border: 2px solid $grey-dark;
         line-height: 50px;
         font-size: 20px;
-        color: $font-color-dark;
-
-        &:hover {
-          background-color: $grey-dark;
-          color: $font-color-light;
-        }
+        @include default-btn();
+        border: 2px solid $grey-dark;
       }
     }
 

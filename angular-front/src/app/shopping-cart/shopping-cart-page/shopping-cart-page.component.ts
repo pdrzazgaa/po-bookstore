@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ShoppingCart, ShoppingCartService } from 'src/app/core';
 
 @Component({
   selector: 'app-shopping-cart-page',
@@ -6,7 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shopping-cart-page.component.scss'],
 })
 export class ShoppingCartPageComponent implements OnInit {
-  constructor() {}
+  private shoppingCartService: ShoppingCartService;
+  shoppingCart?: ShoppingCart;
 
-  ngOnInit(): void {}
+  constructor(shoppingCartService: ShoppingCartService) {
+    this.shoppingCartService = shoppingCartService;
+  }
+
+  ngOnInit(): void {
+    this.shoppingCart = this.shoppingCartService.getShoppingCart();
+    this.shoppingCartService.shoppingCartChanged.subscribe(
+      (shoppingCart) => (this.shoppingCart = shoppingCart)
+    );
+  }
 }

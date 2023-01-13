@@ -1,0 +1,28 @@
+@use '../../../variables.scss' as *;
+
+main {
+  min-height: 100vh;
+  padding-top: 100px;
+  background-color: $grey-light;
+  display: flex;
+  font-size: 20px;
+  color: $font-color-dark;
+}
+
+.empty-cart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+
+  h2 {
+    font-size: 2em;
+  }
+
+  a {
+    padding: 15px 25px;
+    letter-spacing: 1px;
+    @include default-btn();
+  }
+}
