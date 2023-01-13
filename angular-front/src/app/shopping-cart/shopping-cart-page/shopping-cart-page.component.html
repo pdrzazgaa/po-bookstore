@@ -1,1 +1,24 @@
-<p>shopping-cart-page works!</p>
+<app-nav></app-nav>
+<main *ngIf="shoppingCart; else emptyCart">
+    <article>
+        <h1>Koszyk</h1>
+        <section></section>
+    </article>
+    <aside>
+        <h2>Podsumowanie</h2>
+        <div>
+            <span>Wartość koszyka:</span>
+        </div>
+    </aside>
+</main>
+<app-footer></app-footer>
+
+<ng-template #emptyCart>
+    <main class="empty-cart">
+        <h2>Brak produktów w koszyku</h2>
+        <a routerLink="/products">Przeglądaj produkty</a>
+    </main>
+</ng-template>
+
+
+

@@ -7,44 +7,48 @@ import {
   ShoppingCart,
   ShoppingCartPosition,
 } from '../models';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { UserService } from './user.service';
 
 @Injectable()
 export class ShoppingCartService {
-  //   private shoppingCart?: ShoppingCart;
   private userService: UserService;
+  shoppingCartChanged = new EventEmitter<ShoppingCart>();
 
   constructor(userService: UserService) {
     this.userService = userService;
   }
 
   getShoppingCart() {
-    return new ShoppingCart(
-      [
-        new ShoppingCartPosition(
-          new Product(
-            1,
-            'Bardzo małe rzeczy w stumilowym lesie',
-            22.99,
-            new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),
-            'Catherine Hapka'
-          ),
-          3
-        ),
-      ],
-      2020,
-      222.99
-    );
+    return undefined;
+    // return null as ShoppingCart;
+    // return new ShoppingCart(
+    //   [
+    //     new ShoppingCartPosition(
+    //       new Product(
+    //         1,
+    //         'Bardzo małe rzeczy w stumilowym lesie',
+    //         22.99,
+    //         new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),
+    //         'Catherine Hapka'
+    //       ),
+    //       3
+    //     ),
+    //   ],
+    //   2020,
+    //   222.99
+    // );
   }
 
   incrementProductAmount(productId: number) {
     console.log(this.userService.getUserId(), productId);
+    this.shoppingCartChanged.emit(this.getShoppingCart());
     return 1;
   }
 
   decrementProductAmount(productId: number) {
     console.log(this.userService.getUserId(), productId);
+    this.shoppingCartChanged.emit(this.getShoppingCart());
     return 1;
   }
 

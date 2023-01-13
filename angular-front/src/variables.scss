@@ -110,4 +110,15 @@ $font-color-green: $green;
   align-items: center;
   justify-content: center;
 }
+
+@mixin default-btn() {
+  color: $font-color-dark;
+  border: 1px solid $grey-dark;
+  background-color: transparent;
+
+  &:hover {
+    background-color: $grey-dark;
+    color: $font-color-light;
+  }
+}
 //</Mixins>

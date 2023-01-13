@@ -62,17 +62,12 @@ form {
   }
   button {
     margin-top: 20px;
-    background-color: transparent;
     padding: 5px 15px;
     font-size: 15px;
     letter-spacing: 1px;
     text-transform: uppercase;
-    border: 1px solid $grey-dark;
     width: 100%;
 
-    &:hover {
-      background-color: $grey-dark;
-      color: $font-color-light;
-    }
+    @include default-btn();
   }
 }
