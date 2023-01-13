@@ -75,9 +75,20 @@ table {
   border: 1px solid $font-color-dark;
   color: $font-color-dark;
   font-size: 15px;
+}
 
-  &:hover {
-    color: $font-color-light;
-    background-color: $grey-dark;
-  }
+button:hover {
+  color: $font-color-light;
+  background-color: $grey-dark;
+}
+
+.close {
+  background-color: transparent;
+  position: absolute;
+  border: 1px solid $font-color-dark;
+  color: $font-color-dark;
+  top: 20px;
+  right: 20px;
+  padding: 5px 10px;
+  font-weight: bold;
 }

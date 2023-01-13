@@ -2,8 +2,10 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   OnDestroy,
   OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import { ParcelMachine, ParcelMachineService } from 'src/app/core';
@@ -16,11 +18,11 @@ import { Subscription, debounceTime, fromEvent } from 'rxjs';
 })
 export class ParcelMachineFormComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('parcelSearchInput') input!: ElementRef;
+  @Output() chosenParcelChanged = new EventEmitter<ParcelMachine>();
   public parcelCode: string = '';
   public parcelAddress: string = '';
   private parcelMachineService: ParcelMachineService;
   public parcelMachines: ParcelMachine[] = [];
-  public showParcelForm: boolean = true;
   private inputSub?: Subscription;
 
   constructor(parcelMachineService: ParcelMachineService) {
@@ -47,7 +49,7 @@ export class ParcelMachineFormComponent implements OnInit, AfterViewInit, OnDest
   }
 
   onSubmitButtonClick() {
-    this.showParcelForm = false;
+    this.chosenParcelChanged.emit({ code: this.parcelCode, address: this.parcelAddress });
   }
 
   ngOnDestroy(): void {

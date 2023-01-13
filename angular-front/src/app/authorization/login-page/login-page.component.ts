@@ -41,13 +41,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     } else {
       this.routeSub = this.activatedRoute.queryParamMap.subscribe((params) => {
         this.retUrl = params.get('retUrl')!;
-        console.log('LoginComponent/ngOnInit ' + this.retUrl);
       });
     }
-  }
-
-  ngOnDestroy(): void {
-    this.routeSub?.unsubscribe();
   }
 
   onFormSubmit() {
@@ -56,9 +51,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         this.loginForm.controls.email.value!,
         this.loginForm.controls.password.value!
       )
-      .subscribe((data) => {
-        console.log(data);
-        console.log('return to ' + this.retUrl);
+      .subscribe(() => {
         if (this.retUrl != null) {
           this.router.navigate([this.retUrl]);
         } else {
@@ -75,5 +68,9 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   isPasswordInvalid() {
     const passwordControl = this.loginForm.controls.password;
     return !passwordControl.valid && (passwordControl.dirty || passwordControl.touched);
+  }
+
+  ngOnDestroy(): void {
+    this.routeSub?.unsubscribe();
   }
 }

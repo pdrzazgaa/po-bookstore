@@ -4,6 +4,7 @@ import {
   Delivery,
   OrderDetails,
   OrdersService,
+  ParcelMachine,
   Reclamation,
   ReclamationPosition,
   UserService,
@@ -24,16 +25,19 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
   private router: Router;
   private routeSub?: Subscription;
   private formBuilder: FormBuilder;
+
   public order?: OrderDetails;
   public step: 'choose-data' | 'choose-delivery' = 'choose-data';
   public productsForm?: FormGroup;
   public deliveryForm?: FormGroup = this.createDeliveryForm();
-  public showParcelMachine: boolean = true;
-  private reclamationPositions: ReclamationPosition[] = [];
+  public showParcelMachineForm: boolean = false;
+  public chosenParcelMachine?: ParcelMachine;
+  public showChosenParcel: boolean = false;
 
   private requiredValidator = Validators.required;
   private minValidator = Validators.minLength(5);
-  private maxValidator = Validators.maxLength(20);
+  private maxValidator = Validators.maxLength(60);
+  private reclamationPositions: ReclamationPosition[] = [];
 
   constructor(
     ordersService: OrdersService,
@@ -79,9 +83,9 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
   createDeliveryForm() {
     const form = new FormGroup({
       delivery: new FormControl('', Validators.required),
-      parcelMachineNumber: new FormControl(''),
+      parcelMachineNumber: new FormControl('', Validators.required),
     });
-
+    form.controls.parcelMachineNumber.disable();
     return form;
   }
 
@@ -137,8 +141,23 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
     this.deliveryForm = this.createDeliveryForm();
   }
 
+  onDeliveryInputClick() {
+    this.showChosenParcel = false;
+    this.deliveryForm?.controls['parcelMachineNumber'].disable();
+  }
+
   onParcelMachineClick() {
-    this.showParcelMachine = true;
+    this.showParcelMachineForm = true;
+    this.showChosenParcel = true;
+    this.deliveryForm?.controls['parcelMachineNumber'].enable();
+  }
+
+  onParcelFormClose(parcelMachine: ParcelMachine) {
+    if (parcelMachine.address && parcelMachine.code) {
+      this.chosenParcelMachine = parcelMachine;
+      this.deliveryForm?.controls['parcelMachineNumber'].setValue(parcelMachine.code);
+    }
+    this.showParcelMachineForm = false;
   }
 
   onReclamationFormSubmit() {

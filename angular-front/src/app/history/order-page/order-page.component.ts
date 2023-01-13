@@ -24,7 +24,6 @@ export class OrderPageComponent implements OnInit, OnDestroy {
     this.routeSub = this.route.params.subscribe((params) => {
       this.order = this.ordersService.getOrderDetails(+params['id']);
     });
-    console.log(this.order);
   }
 
   ngOnDestroy(): void {
