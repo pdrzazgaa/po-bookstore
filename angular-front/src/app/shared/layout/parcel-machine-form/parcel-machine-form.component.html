@@ -1,4 +1,4 @@
-<section *ngIf="showParcelForm">
+<section>
   <h2>Wybierz Paczkomat</h2>
   <div class="chosen-parcel-info">
     <p *ngIf="parcelCode">
@@ -23,4 +23,5 @@
     </table>
   </div>
   <button class="submit" (click)="onSubmitButtonClick()">Zatwierdź</button>
+  <button class="close" (click)="onSubmitButtonClick()">X</button>
 </section>

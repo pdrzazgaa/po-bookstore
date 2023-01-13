@@ -1,5 +1,4 @@
 <app-nav></app-nav>
-<app-parcel-machine-form *ngIf="showParcelMachine"></app-parcel-machine-form>
 <main *ngIf="order">
   <h1>Reklamacja - zamówienie nr {{ order.id }}</h1>
   <section class="status">
@@ -89,7 +88,7 @@
       />
       <label for="bookstore">Dostarczenie do księgarni</label>
     </div>
-    <div>
+    <div (click)="onDeliveryInputClick()">
       <input
         type="radio"
         value="carrier"
@@ -109,6 +108,12 @@
       />
       <label for="parcel-machine">Paczkomat Inpost</label>
     </div>
+    <p *ngIf="chosenParcelMachine && showChosenParcel">
+      <span
+        >Wybrany paczkomat: {{ chosenParcelMachine.code }},
+        {{ chosenParcelMachine.address }}</span
+      >
+    </p>
     <input
       class="submit"
       type="submit"
@@ -116,5 +121,9 @@
       [disabled]="!deliveryForm.valid"
     />
   </form>
+  <app-parcel-machine-form
+    *ngIf="showParcelMachineForm"
+    (chosenParcelChanged)="onParcelFormClose($event)"
+  ></app-parcel-machine-form>
 </main>
 <app-footer></app-footer>
