@@ -3,22 +3,23 @@ import { of } from 'rxjs';
 
 @Injectable()
 export class AuthorizationService {
-  private isloggedIn: boolean = false;
   isLoggedInChanged = new EventEmitter<{ loggedIn: boolean }>();
 
   login(username: string, password: string) {
     console.log(username, password);
-    this.isloggedIn = true;
+    localStorage.setItem('userId', '1');
     this.isLoggedInChanged.emit({ loggedIn: true });
     return of(this.isLoggedIn());
   }
 
   isLoggedIn(): boolean {
-    return this.isloggedIn;
+    if (localStorage.getItem('userId')) {
+      return true;
+    } else return false;
   }
 
   logout() {
-    this.isloggedIn = false;
+    localStorage.removeItem('userId');
     this.isLoggedInChanged.emit({ loggedIn: false });
   }
 }
