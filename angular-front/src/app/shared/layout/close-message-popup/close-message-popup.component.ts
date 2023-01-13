@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-close-message-popup',
@@ -7,13 +7,13 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CloseMessagePopupComponent implements OnInit {
   @Input() message: string = '';
-  @Input() mode: 'green' | 'red' = 'green';
-  public isHidden: boolean = false;
+  @Input() mode?: 'green' | 'red';
+  @Output() isClosed = new EventEmitter<boolean>();
   constructor() {}
 
   ngOnInit(): void {}
 
   onCloseButtonClick() {
-    this.isHidden = true;
+    this.isClosed.emit(true);
   }
 }

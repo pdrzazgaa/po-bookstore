@@ -33,6 +33,7 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
   public showParcelMachineForm: boolean = false;
   public chosenParcelMachine?: ParcelMachine;
   public showChosenParcel: boolean = false;
+  public showConfirmPopup: boolean = false;
 
   private requiredValidator = Validators.required;
   private minValidator = Validators.minLength(5);
@@ -175,7 +176,14 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
     }
 
     this.ordersService.sendReclamation(reclamation);
-    this.router.navigate(['/orders']);
+    this.showConfirmPopup = true;
+  }
+
+  onConfirmPopupClose(isClosed: boolean) {
+    if (isClosed) {
+      this.showConfirmPopup = false;
+      this.router.navigate(['/orders']);
+    }
   }
 
   ngOnDestroy(): void {

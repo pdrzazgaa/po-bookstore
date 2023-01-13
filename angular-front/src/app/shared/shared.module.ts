@@ -10,11 +10,11 @@ import {
 import { FromUrlPipe, UrlPipe } from './pipes';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { AngularSvgIconPreloaderModule } from 'angular-svg-icon-preloader';
+import { CloseMessagePopupComponent } from './layout/close-message-popup/close-message-popup.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CloseMessagePopupComponent } from './layout/close-message-popup/close-message-popup.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +41,7 @@ import { CloseMessagePopupComponent } from './layout/close-message-popup/close-m
   exports: [
     FooterComponent,
     MessagePopupComponent,
+    CloseMessagePopupComponent,
     NavComponent,
     PageNotFoundComponent,
     ParcelMachineFormComponent,

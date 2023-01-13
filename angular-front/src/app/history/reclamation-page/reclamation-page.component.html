@@ -125,5 +125,11 @@
     *ngIf="showParcelMachineForm"
     (chosenParcelChanged)="onParcelFormClose($event)"
   ></app-parcel-machine-form>
+  <app-close-message-popup
+    *ngIf="showConfirmPopup"
+    mode="red"
+    message="Dziękujemy za złozenie reklamacji. Wysłaliśmy na maila potwierdzenie złozenia reklamacji"
+    (isClosed)="onConfirmPopupClose($event)"
+  ></app-close-message-popup>
 </main>
 <app-footer></app-footer>
