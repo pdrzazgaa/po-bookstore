@@ -1,5 +1,4 @@
-<section *ngIf="!isHidden" [ngClass]="{mode}">
-  <h1>Komunikat</h1>
+<section [ngClass]="mode">
   <p>{{ message }}</p>
   <button (click)="onCloseButtonClick()">Zamknij</button>
 </section>
