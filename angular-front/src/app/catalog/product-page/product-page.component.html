@@ -1,7 +1,7 @@
 <app-nav></app-nav>
 <div class="container">
   <app-message-popup
-    *ngIf="showPopup"
+    *ngIf="showPopup && popupMessage && popupMode"
     [mode]="popupMode"
     [message]="popupMessage"
   ></app-message-popup>
@@ -12,7 +12,7 @@
         <figcaption class="price">{{ product.price | number : '.2-2' }} zł</figcaption>
       </figure>
       <button (click)="onButtonClick()" [disabled]="disabledButton">
-        Dodaj produkt do koszyka
+        {{ buttonMessage }}
       </button>
     </section>
     <section class="details">
