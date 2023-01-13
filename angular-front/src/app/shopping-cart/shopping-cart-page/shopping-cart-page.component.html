@@ -1,24 +1,43 @@
 <app-nav></app-nav>
-<main *ngIf="shoppingCart; else emptyCart">
-    <article>
-        <h1>Koszyk</h1>
-        <section></section>
-    </article>
-    <aside>
-        <h2>Podsumowanie</h2>
-        <div>
-            <span>Wartość koszyka:</span>
-        </div>
-    </aside>
+<main *ngIf="shoppingCart; else emptyCart" class="no-empty-cart">
+  <article>
+    <h1>Koszyk</h1>
+    <table>
+      <tr *ngFor="let position of shoppingCart.positions">
+        <td class="product">
+          <img [src]="position.product.image.path" [alt]="position.product.image.alt" />
+          <div>
+            <span class="name">{{ position.product.name }}</span>
+            <span *ngIf="position.product.author" class="author">{{
+              position.product.author
+            }}</span>
+          </div>
+        </td>
+        <td class="amount-data">
+          <div class="buttons">
+            <button>-</button>
+            <input type="number" [value]="position.amount" />
+            <button>+</button>
+          </div>
+          <div class="price">{{ getProductSum(position) }} zł</div>
+        </td>
+      </tr>
+    </table>
+  </article>
+  <aside>
+    <h3>Podsumowanie</h3>
+    <div>
+      <span>Wartość koszyka:</span>
+      <span class="totalAmount">{{ shoppingCart.totalAmount }} zł</span>
+    </div>
+    <a routerLink="/ordering">Złóz zamówienie</a>
+  </aside>
 </main>
 <app-footer></app-footer>
 
 <ng-template #emptyCart>
-    <main class="empty-cart">
-        <h2>Brak produktów w koszyku</h2>
-        <a routerLink="/products">Przeglądaj produkty</a>
-    </main>
+  <main class="empty-cart">
+    <h2>Brak produktów w koszyku</h2>
+    <a routerLink="/products">Przeglądaj produkty</a>
+  </main>
 </ng-template>
-
-
-

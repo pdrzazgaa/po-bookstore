@@ -20,24 +20,52 @@ export class ShoppingCartService {
   }
 
   getShoppingCart() {
-    return undefined;
-    // return null as ShoppingCart;
-    // return new ShoppingCart(
-    //   [
-    //     new ShoppingCartPosition(
-    //       new Product(
-    //         1,
-    //         'Bardzo małe rzeczy w stumilowym lesie',
-    //         22.99,
-    //         new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),
-    //         'Catherine Hapka'
-    //       ),
-    //       3
-    //     ),
-    //   ],
-    //   2020,
-    //   222.99
-    // );
+    return new ShoppingCart(
+      [
+        new ShoppingCartPosition(
+          new Product(
+            1,
+            'Bardzo małe rzeczy w stumilowym lesie',
+            22.99,
+            new Image('../../../assets/lalka.jpeg', 'ksiazka'),
+            'Catherine Hapka'
+          ),
+          3
+        ),
+        new ShoppingCartPosition(
+          new Product(
+            1,
+            'Bardzo małe rzeczy w stumilowym lesie',
+            22.99,
+            new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),
+            'Catherine Hapka'
+          ),
+          3
+        ),
+        new ShoppingCartPosition(
+          new Product(
+            1,
+            'Bardzo małe rzeczy w stumilowym lesie',
+            22.99,
+            new Image('../../../assets/pan-tadeusz.jpeg', 'ksiazka'),
+            'Catherine Hapka'
+          ),
+          3
+        ),
+        new ShoppingCartPosition(
+          new Product(
+            1,
+            'Bardzo małe rzeczy w stumilowym lesie',
+            22.99,
+            new Image('../../../assets/lalka.jpeg', 'ksiazka'),
+            'Catherine Hapka'
+          ),
+          3
+        ),
+      ],
+      2020,
+      222.99
+    );
   }
 
   incrementProductAmount(productId: number) {

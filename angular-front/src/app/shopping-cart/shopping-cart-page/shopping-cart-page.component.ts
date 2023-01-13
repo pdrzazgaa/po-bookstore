@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ShoppingCart, ShoppingCartService } from 'src/app/core';
+import { ShoppingCart, ShoppingCartPosition, ShoppingCartService } from 'src/app/core';
 
 @Component({
   selector: 'app-shopping-cart-page',
@@ -19,5 +19,9 @@ export class ShoppingCartPageComponent implements OnInit {
     this.shoppingCartService.shoppingCartChanged.subscribe(
       (shoppingCart) => (this.shoppingCart = shoppingCart)
     );
+  }
+
+  getProductSum(position: ShoppingCartPosition) {
+    return position.amount * position.product.price;
   }
 }
