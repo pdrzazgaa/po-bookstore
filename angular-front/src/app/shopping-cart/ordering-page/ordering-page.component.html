@@ -26,25 +26,59 @@
             <label for="company">Firma</label>
           </span>
         </div>
-        <div class="address">
-          <input type="text" placeholder="Imię" *ngIf="ordererMode === 'client'" />
-          <input type="text" placeholder="Nazwisko" *ngIf="ordererMode === 'client'" />
+        <div class="address" formGroupName="personalData">
+          <input
+            type="text"
+            placeholder="Imię"
+            *ngIf="ordererMode === 'client'"
+            formControlName="forname"
+          />
+          <input
+            type="text"
+            placeholder="Nazwisko"
+            *ngIf="ordererMode === 'client'"
+            formControlName="surname"
+          />
           <input
             type="text"
             placeholder="Nazwa firmy"
             *ngIf="ordererMode === 'company'"
+            formControlName="companyName"
           />
-          <input type="text" placeholder="NIP" *ngIf="ordererMode === 'company'" />
-          <input type="text" placeholder="Numer telefonu" />
-          <div>
-            <input type="text" placeholder="Ulica" />
-            <input type="text" placeholder="Nr" />
+          <input
+            type="text"
+            placeholder="NIP"
+            *ngIf="ordererMode === 'company'"
+            formControlName="NIP"
+          />
+          <input type="text" placeholder="Email" formControlName="email" />
+          <input type="text" placeholder="Numer telefonu" formControlName="phoneNumber" />
+
+          <div class="input-group">
+            <input
+              class="street"
+              type="text"
+              placeholder="Ulica"
+              formControlName="street"
+            />
+            <input class="number" type="text" placeholder="Nr" formControlName="number" />
           </div>
-          <div>
-            <input type="text" placeholder="Kod pocztowy" />
-            <input type="text" placeholder="Miasto" />
+          <div class="input-group">
+            <input
+              class="postcode"
+              type="text"
+              placeholder="Kod pocztowy"
+              formControlName="postcode"
+            />
+            <input class="city" type="text" placeholder="Miasto" formControlName="city" />
           </div>
-          <select name="" id="">
+          <select
+            name="country"
+            id="country"
+            formControlName="country"
+            value="Polska"
+            formControlName="country"
+          >
             <option value="Polska">Polska</option>
             <option value="Niemcy">Niemcy</option>
             <option value="Francja">Francja</option>
@@ -77,54 +111,141 @@
       </div>
     </section>
     <section class="bottom-section">
-      <div class="container">
+      <div class="part container">
         <div class="payment">
           <h2>Wybierz sposób płatności</h2>
           <div>
-            <input type="radio" name="payment" id="transfer" />
+            <input
+              type="radio"
+              name="payment"
+              id="transfer"
+              value="transfer"
+              formControlName="payment"
+            />
             <label for="transfer">Przelew</label>
           </div>
           <div>
-            <input type="radio" name="payment" id="online" />
+            <input
+              type="radio"
+              name="payment"
+              id="online"
+              value="online payment"
+              formControlName="payment"
+            />
             <label for="online">Płatność online</label>
           </div>
         </div>
         <div class="document">
           <h2>Wybierz dokument księgujący</h2>
           <div>
-            <input type="radio" name="document" id="receipt" />
+            <input
+              type="radio"
+              name="document"
+              id="receipt"
+              value="receipt"
+              formControlName="document"
+            />
             <label for="receipt">Paragon</label>
           </div>
           <div>
-            <input type="radio" name="document" id="bill" />
+            <input
+              type="radio"
+              name="document"
+              id="bill"
+              value="bill"
+              formControlName="document"
+            />
             <label for="bill">Faktura</label>
           </div>
         </div>
       </div>
-      <div class="delivery">
+      <div class="part delivery" formGroupName="deliveryOption">
         <h2>Wybierz sposób dostawy</h2>
-        <div>
-          <input type="radio" name="delivery" id="bookstore" />
-          <label for="bookstore">Odbiór osobisty</label>
+        <div (click)="onBookstoreClick()" value="bookstore">
+          <input
+            type="radio"
+            name="delivery"
+            id="bookstore"
+            value="bookstore"
+            formControlName="delivery"
+          />
+          <label for="bookstore">Odbiór osobisty <span>0.00 zł</span></label>
         </div>
-        <div>
-          <input type="radio" name="delivery" id="carrier" />
-          <label for="carrier">Kurier (Pocztex)</label>
+        <div (click)="onCarrierClick()">
+          <input
+            type="radio"
+            name="delivery"
+            id="carrier"
+            value="carrier"
+            formControlName="delivery"
+          />
+          <label for="carrier">Kurier (Pocztex) <span>13.99 zł</span></label>
         </div>
-        <div>
-          <input type="radio" name="delivery" id="parcel" />
-          <label for="parcel">Paczkomat Inpost</label>
+        <div (click)="onParcelClick()">
+          <input
+            type="radio"
+            name="delivery"
+            id="parcel"
+            value="parcel"
+            formControlName="delivery"
+          />
+          <label for="parcel">Paczkomat Inpost <span>9.99 zł</span></label>
+        </div>
+        <div class="chosen-parcel" *ngIf="chosenParcelMachine && showChosenParcel">
+          <p>Wybrany paczkomat:</p>
+          <p class="data">
+            {{ chosenParcelMachine.code }}, {{ chosenParcelMachine.address }}
+          </p>
         </div>
       </div>
-      <div class="summary">
+      <div class="part summary">
         <h2>Koszty:</h2>
+        <div>
+          Wartość koszyka: <span>{{ getTotalCartAmount() | number : '.2' }} zł</span>
+        </div>
+        <div>
+          Koszt dostawy:
+          <span>{{ deliveryCost | number : '.2' }} zł</span>
+        </div>
+        <div>
+          Suma: <span>{{ getTotalCartAmount() + deliveryCost | number : '.2' }} zł</span>
+        </div>
+        <div>
+          Dostępne bookcoiny: <span>{{ getBookcoins() }}</span>
+        </div>
+        <div class="bookcoins">
+          <label for="bookcoins">Wpisz liczbę bookcoinów:</label>
+          <input
+            type="number"
+            id="bookcoins"
+            formControlName="bookcoins"
+            (keyup)="onBookcoinsChange()"
+          />
+        </div>
+        <div>
+          Kwota do zapłaty:
+          <span
+            >{{
+              getTotalCartAmount() + deliveryCost - usedBookcoins | number : '.2'
+            }}
+            zł</span
+          >
+        </div>
       </div>
     </section>
-    <p>
-      <input type="checkbox" id="rodo" />
+    <p class="rodo">
+      <input type="checkbox" id="rodo" formControlName="rodo"/>
       <label for="rodo">Wyrazam zgodę na przetwarzanie danych osobowych</label>
     </p>
-    <input type="submit" value="Złóz zamówienie" />
+    <input
+      class="submit"
+      type="submit"
+      value="Złóz zamówienie"
+    />
+    <app-parcel-machine-form
+      *ngIf="showParcelMachineForm"
+      (chosenParcelChanged)="onParcelFormClose($event)"
+    ></app-parcel-machine-form>
   </form>
 </main>
 <app-footer></app-footer>

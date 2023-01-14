@@ -16,11 +16,10 @@ main {
     .top-section {
       display: flex;
       justify-content: space-between;
-      gap: 100px;
+      gap: 20px;
 
       .personal-data {
         flex-grow: 1;
-        height: 100%;
 
         .client {
           margin-bottom: 20px;
@@ -40,11 +39,32 @@ main {
           border-radius: 5px;
           padding: 30px;
           gap: 20px;
-          height: 360px;
+          height: 400px;
 
-          input {
-            height: 30px;
+          input,
+          select {
+            height: 35px;
             padding-left: 10px;
+            font-size: 0.8em;
+            letter-spacing: 0.5px;
+          }
+
+          .input-group {
+            display: flex;
+            gap: 10px;
+
+            .street {
+              width: 70%;
+            }
+            .number {
+              width: 30%;
+            }
+            .postcode {
+              width: 40%;
+            }
+            .city {
+              width: 60%;
+            }
           }
         }
       }
@@ -58,9 +78,8 @@ main {
         }
 
         .table-container {
-          height: 360px;
+          height: 400px;
           overflow: scroll;
-          background-color: $grey;
           padding: 20px;
           border-radius: 5px;
           box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
@@ -102,8 +121,108 @@ main {
     }
 
     .bottom-section {
-      margin-top: 50px;
+      margin: 20px 0;
       display: flex;
+      justify-content: space-between;
+      gap: 20px;
+
+      .part {
+        flex-grow: 1;
+        width: 30%;
+      }
+
+      .delivery,
+      .summary,
+      .payment,
+      .document {
+        background-color: $grey;
+        border-radius: 5px;
+        box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
+        padding: 20px;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .payment,
+      .document,
+      .delivery,
+      .summary {
+        h2 {
+          margin-bottom: 30px;
+        }
+        div {
+          margin-bottom: 10px;
+        }
+        input {
+          margin-right: 10px;
+        }
+      }
+      .delivery {
+        span {
+          float: right;
+        }
+
+        .chosen-parcel {
+          padding: 40px 20px 0;
+          font-size: 0.9em;
+
+          .data {
+            margin-top: 10px;
+            font-weight: bold;
+          }
+        }
+      }
+
+      .summary {
+        div {
+          span {
+            float: right;
+          }
+        }
+
+        .bookcoins {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          input {
+            width: 70px;
+            margin-right: 0;
+            height: 30px;
+          }
+        }
+      }
+    }
+  }
+
+  .rodo {
+    font-size: 0.8em;
+    input {
+      margin-right: 10px;
+    }
+    label {
+      opacity: 0.7;
+      font-style: italic;
+    }
+  }
+
+  .submit {
+    @include default-btn();
+    float: right;
+    padding: 15px 25px;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+
+    &:disabled {
+      opacity: 0.5;
+      &:hover {
+        background-color: transparent;
+        color: $font-color-dark;
+      }
     }
   }
 }

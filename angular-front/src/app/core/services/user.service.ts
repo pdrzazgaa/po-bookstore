@@ -37,14 +37,14 @@ export class UserService {
   }
 
   isInLoyaltyProgram() {
-    return false;
+    return true;
   }
   joinLoyaltyProgram() {
     this.loyaltyProgram.emit({ isInLoyaltyProgram: true });
   }
 
   getBookcoins() {
-    return 0;
+    return 30;
   }
 
   getUserId() {
