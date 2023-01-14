@@ -81,19 +81,23 @@ export class ShoppingCartService {
   }
 
   makeNewOrder(
-    forname: string,
-    surname: string,
     mail: string,
     phoneNumber: number,
     address: Address,
     delivery: Delivery,
     payment: Payment,
     bookcoins: number,
-    cartId: number
+    cartId: number,
+    forname?: string,
+    surname?: string,
+    NIP?: string,
+    companyName?: string
   ) {
     console.log(
       forname,
       surname,
+      NIP,
+      companyName,
       mail,
       phoneNumber,
       address,
