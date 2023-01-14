@@ -1,7 +1,7 @@
 @use '../../../../variables.scss' as *;
 
 section {
-  position: absolute;
+  position: fixed;
   z-index: 1;
   width: 500px;
   height: 300px;
