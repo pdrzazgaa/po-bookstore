@@ -1,30 +1,28 @@
 import { Address } from './address.model';
-import { Order } from './order.model';
 
 export class User {
   public id: number;
-  public orders: Order[];
-  public inLoyaltyProgram: boolean;
-  public forname: string;
-  public surname: string;
-  public bookcoins?: number;
+  public forname?: string;
+  public surname?: string;
+  public companyName?: string;
+  public companyNIP?: string;
+  public email: string;
+  public phoneNumber: string;
   public address?: Address;
 
   constructor(
     id: number,
-    orders: Order[],
-    inLoyaltyProgram: boolean,
     forname: string,
     surname: string,
-    bookcoins?: number,
+    email: string,
+    phoneNumber: string,
     address?: Address
   ) {
     this.id = id;
-    this.orders = orders;
-    this.inLoyaltyProgram = inLoyaltyProgram;
     this.forname = forname;
     this.surname = surname;
-    this.bookcoins = bookcoins;
+    this.email = email;
+    this.phoneNumber = phoneNumber;
     this.address = address;
   }
 }
