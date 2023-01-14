@@ -1,6 +1,6 @@
+import { Address, User } from '../models';
 import { EventEmitter, Injectable } from '@angular/core';
 import { AuthorizationService } from './authorization.service';
-import { User } from '../models';
 
 @Injectable()
 export class UserService {
@@ -11,11 +11,25 @@ export class UserService {
   constructor(authorizationService: AuthorizationService) {
     this.authorizationService = authorizationService;
     if (this.authorizationService.isLoggedIn()) {
-      this.user = new User(1, [], false, 'Adam', 'Nowak');
+      this.user = new User(
+        1,
+        'Anna',
+        'Nowak',
+        'anna.nowak@gmail.com',
+        '+48 518 999 134',
+        new Address('Tadeusza Kościuszki', 14, 'Wrocław', '50-430', 'Poland')
+      );
     }
     this.authorizationService.isLoggedInChanged.subscribe(({ loggedIn }) => {
       if (loggedIn) {
-        this.user = new User(1, [], false, 'Adam', 'Nowak');
+        this.user = new User(
+          1,
+          'Anna',
+          'Nowak',
+          'anna.nowak@gmail.com',
+          '+48 518 999 134',
+          new Address('Tadeusza Kościuszki', 14, 'Wrocław', '50-430', 'Poland')
+        );
       } else {
         this.clearUser();
       }
@@ -23,19 +37,14 @@ export class UserService {
   }
 
   isInLoyaltyProgram() {
-    return this.user?.inLoyaltyProgram || false;
+    return false;
   }
-
   joinLoyaltyProgram() {
-    if (this.user) {
-      this.user.inLoyaltyProgram = true;
-      this.user.bookcoins = 0;
-    }
     this.loyaltyProgram.emit({ isInLoyaltyProgram: true });
   }
 
   getBookcoins() {
-    return this.user?.bookcoins || 0;
+    return 0;
   }
 
   getUserId() {
@@ -45,5 +54,9 @@ export class UserService {
   clearUser() {
     this.user = null;
     this.loyaltyProgram.emit({ isInLoyaltyProgram: false });
+  }
+
+  getUserData() {
+    return this.user;
   }
 }

@@ -1,1 +1,130 @@
-<p>ordering-page works!</p>
+<app-nav></app-nav>
+<main>
+  <h1>Podsumowanie zamówienia</h1>
+  <form [formGroup]="orderForm" (ngSubmit)="onFormSubmit()">
+    <section class="top-section">
+      <div class="personal-data">
+        <div class="client">
+          <span (click)="onClientClick()">
+            <input
+              type="radio"
+              value="client"
+              id="client"
+              name="orderer"
+              formControlName="orderer"
+            />
+            <label for="client">Klient indywidualny</label>
+          </span>
+          <span (click)="onCompanyClick()">
+            <input
+              type="radio"
+              value="company"
+              id="company"
+              name="orderer"
+              formControlName="orderer"
+            />
+            <label for="company">Firma</label>
+          </span>
+        </div>
+        <div class="address">
+          <input type="text" placeholder="Imię" *ngIf="ordererMode === 'client'" />
+          <input type="text" placeholder="Nazwisko" *ngIf="ordererMode === 'client'" />
+          <input
+            type="text"
+            placeholder="Nazwa firmy"
+            *ngIf="ordererMode === 'company'"
+          />
+          <input type="text" placeholder="NIP" *ngIf="ordererMode === 'company'" />
+          <input type="text" placeholder="Numer telefonu" />
+          <div>
+            <input type="text" placeholder="Ulica" />
+            <input type="text" placeholder="Nr" />
+          </div>
+          <div>
+            <input type="text" placeholder="Kod pocztowy" />
+            <input type="text" placeholder="Miasto" />
+          </div>
+          <select name="" id="">
+            <option value="Polska">Polska</option>
+            <option value="Niemcy">Niemcy</option>
+            <option value="Francja">Francja</option>
+            <option value="Ukraina">Ukraina</option>
+            <option value="Litwa">Litwa</option>
+            <option value="Czechy">Czechy</option>
+          </select>
+        </div>
+      </div>
+      <div class="order-details">
+        <h3>Moje produkty:</h3>
+        <div class="table-container">
+          <table *ngIf="shoppingCart">
+            <tr>
+              <th>Nazwa</th>
+              <th>Ilość</th>
+              <th>Cena</th>
+            </tr>
+            <tr *ngFor="let position of shoppingCart.positions">
+              <td>
+                <span>{{ position.product.author }} - {{ position.product.name }}</span>
+              </td>
+              <td>
+                <span>{{ position.amount }}</span>
+              </td>
+              <td>{{ position.amount * position.product.price }} zł</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section class="bottom-section">
+      <div class="container">
+        <div class="payment">
+          <h2>Wybierz sposób płatności</h2>
+          <div>
+            <input type="radio" name="payment" id="transfer" />
+            <label for="transfer">Przelew</label>
+          </div>
+          <div>
+            <input type="radio" name="payment" id="online" />
+            <label for="online">Płatność online</label>
+          </div>
+        </div>
+        <div class="document">
+          <h2>Wybierz dokument księgujący</h2>
+          <div>
+            <input type="radio" name="document" id="receipt" />
+            <label for="receipt">Paragon</label>
+          </div>
+          <div>
+            <input type="radio" name="document" id="bill" />
+            <label for="bill">Faktura</label>
+          </div>
+        </div>
+      </div>
+      <div class="delivery">
+        <h2>Wybierz sposób dostawy</h2>
+        <div>
+          <input type="radio" name="delivery" id="bookstore" />
+          <label for="bookstore">Odbiór osobisty</label>
+        </div>
+        <div>
+          <input type="radio" name="delivery" id="carrier" />
+          <label for="carrier">Kurier (Pocztex)</label>
+        </div>
+        <div>
+          <input type="radio" name="delivery" id="parcel" />
+          <label for="parcel">Paczkomat Inpost</label>
+        </div>
+      </div>
+      <div class="summary">
+        <h2>Koszty:</h2>
+      </div>
+    </section>
+    <p>
+      <input type="checkbox" id="rodo" />
+      <label for="rodo">Wyrazam zgodę na przetwarzanie danych osobowych</label>
+    </p>
+    <input type="submit" value="Złóz zamówienie" />
+  </form>
+</main>
+<app-footer></app-footer>
