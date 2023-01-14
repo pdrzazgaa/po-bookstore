@@ -1,5 +1,5 @@
 <app-nav></app-nav>
-<main>
+<main [ngClass]="{ 'invalid': triedSubmit }">
   <h1>Podsumowanie zamówienia</h1>
   <form [formGroup]="orderForm" (ngSubmit)="onFormSubmit()">
     <section class="top-section">
@@ -129,7 +129,7 @@
               type="radio"
               name="payment"
               id="online"
-              value="online payment"
+              value="online-payment"
               formControlName="payment"
             />
             <label for="online">Płatność online</label>
@@ -234,18 +234,26 @@
       </div>
     </section>
     <p class="rodo">
-      <input type="checkbox" id="rodo" formControlName="rodo"/>
+      <input type="checkbox" id="rodo" formControlName="rodo" />
       <label for="rodo">Wyrazam zgodę na przetwarzanie danych osobowych</label>
     </p>
-    <input
-      class="submit"
-      type="submit"
-      value="Złóz zamówienie"
-    />
+    <input class="submit" type="submit" value="Złóz zamówienie" />
     <app-parcel-machine-form
       *ngIf="showParcelMachineForm"
       (chosenParcelChanged)="onParcelFormClose($event)"
     ></app-parcel-machine-form>
+    <app-close-message-popup
+      *ngIf="showConfirmPopup"
+      [mode]="confirmMode"
+      [message]="confirmPopupMessage"
+      (isClosed)="onConfirmPopupClose($event)"
+    ></app-close-message-popup>
+    <app-close-message-popup
+      *ngIf="showErrorMessage"
+      mode="red"
+      [message]="errorMessage"
+      (isClosed)="onErrorMessagePopupClose($event)"
+    ></app-close-message-popup>
   </form>
 </main>
 <app-footer></app-footer>

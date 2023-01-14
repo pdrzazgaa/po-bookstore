@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
+  Address,
+  Delivery,
   ParcelMachine,
+  Payment,
   ShoppingCart,
   ShoppingCartService,
   UserService,
 } from 'src/app/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,6 +26,8 @@ export class OrderingPageComponent implements OnInit {
   public chosenParcelMachine?: ParcelMachine;
   public showChosenParcel: boolean = false;
   public showConfirmPopup: boolean = false;
+  public confirmPopupMessage: string = '';
+  public confirmMode: 'green' | 'red' = 'green';
   public deliveryCost!: number;
   public usedBookcoins: number = 0;
   public triedSubmit: boolean = false;
@@ -31,6 +36,8 @@ export class OrderingPageComponent implements OnInit {
     bookstore: 0,
     parcel: 9.99,
   };
+  public errorMessage: string = '';
+  public showErrorMessage: boolean = false;
 
   orderForm = new FormGroup({
     orderer: new FormControl('client', Validators.required),
@@ -51,8 +58,8 @@ export class OrderingPageComponent implements OnInit {
       city: new FormControl('', Validators.required),
       country: new FormControl('Polska', Validators.required),
     }),
-    document: new FormControl('', Validators.required),
-    payment: new FormControl('', Validators.required),
+    document: new FormControl('receipt', Validators.required),
+    payment: new FormControl('online-payment', Validators.required),
     deliveryOption: new FormGroup({
       delivery: new FormControl<'carrier' | 'bookstore' | 'parcel'>(
         'carrier',
@@ -159,15 +166,64 @@ export class OrderingPageComponent implements OnInit {
   onConfirmPopupClose(isClosed: boolean) {
     if (isClosed) {
       this.showConfirmPopup = false;
-      this.router.navigate(['/orders']);
+      this.router.navigate(['/']);
     }
   }
+
+  onErrorMessagePopupClose(isClosed: boolean) {
+    if (isClosed) {
+      this.showErrorMessage = false;
+    }
+  }
+
   onFormSubmit() {
     this.triedSubmit = true;
-    if (this.orderForm.valid) {
-      // this.shoppingCartService.makeNewOrder();
-    } else {
+    const c = this.orderForm.controls;
+    const p = c.personalData.controls;
+    const d = c.deliveryOption.controls;
 
+    if (this.orderForm.valid) {
+      const response = this.shoppingCartService.makeNewOrder(
+        p.email.value!,
+        p.phoneNumber.value!,
+        new Address(
+          p.street.value!,
+          +p.number.value!,
+          p.city.value!,
+          p.postcode.value!,
+          p.country.value!
+        ),
+        {
+          delivery: d.delivery.value,
+          parcelMachineNumber: d.parcelMachineNumber.value,
+        } as Delivery,
+        c.payment.value! as Payment,
+        c.bookcoins.value!,
+        this.shoppingCart!.cartId,
+        p.forname.value!,
+        p.surname.value!
+      );
+      if (response) {
+        this.confirmMode = 'green';
+        this.confirmPopupMessage =
+          'Poprawnie złozono zamówienie. Opłać swoje zamówienie. Dodano 13 bookcoinów do twojego konta';
+      } else {
+        this.confirmPopupMessage =
+          'Przepraszamy, coś poszło nie tak... nie udało się złozyc zamowienia';
+        this.confirmMode = 'red';
+      }
+      this.showConfirmPopup = true;
+    } else {
+      if (c.bookcoins.invalid) {
+        this.errorMessage = 'Zła liczba podanych bookcoinów!';
+      } else if (c.personalData.invalid) {
+        this.errorMessage = 'Podano niepoprawne dane osobowe';
+      } else if (c.deliveryOption.invalid) {
+        this.errorMessage = 'Nie wybrano paczkomatu!';
+      } else {
+        this.errorMessage = 'Musisz wyrazić zgodę na przetwarzanie danych osobowych';
+      }
+      this.showErrorMessage = true;
     }
   }
 }

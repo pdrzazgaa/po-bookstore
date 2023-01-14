@@ -6,6 +6,13 @@ main {
   padding: 140px 5vw;
   font-size: 20px;
 
+  &.invalid {
+    input.ng-invalid {
+        outline: 2px solid $red;
+        border: 0.5px solid $red;
+    }
+  }
+
   h1 {
     width: 100%;
     font-size: 2em;
@@ -190,7 +197,7 @@ main {
           align-items: center;
 
           input {
-            width: 70px;
+            width: 50px;
             margin-right: 0;
             height: 30px;
           }

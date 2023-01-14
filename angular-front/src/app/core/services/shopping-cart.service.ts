@@ -82,7 +82,7 @@ export class ShoppingCartService {
 
   makeNewOrder(
     mail: string,
-    phoneNumber: number,
+    phoneNumber: string,
     address: Address,
     delivery: Delivery,
     payment: Payment,
@@ -106,5 +106,6 @@ export class ShoppingCartService {
       bookcoins,
       cartId
     );
+    return 1;
   }
 }
