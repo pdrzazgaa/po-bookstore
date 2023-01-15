@@ -21,12 +21,8 @@ public class Client extends UserAccount{
     @OneToMany(mappedBy = "client")
     private List<Cart> carts;
 
-    public Client(Long id, String firstname, String surname, String email, String phoneNumber, String password, List<Address> addresses, OrderHistory orderHistory, LoyaltyProgram loyaltyProgram, List<Cart> carts) {
-        super(id, firstname, surname, email, phoneNumber, password);
-        this.addresses = addresses;
-        this.orderHistory = orderHistory;
-        this.loyaltyProgram = loyaltyProgram;
-        this.carts = carts;
+    public Client(String firstname, String surname, String email, String phoneNumber, String password) {
+        super(firstname, surname, email, phoneNumber, password);
     }
 
     public Client() {

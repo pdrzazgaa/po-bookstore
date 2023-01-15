@@ -22,6 +22,7 @@ public class CategoryController {
     @RequestMapping("/categories")
     public Category getCategories(){
         List<Category> categories =  categoryRepository.findAll();
+        System.out.println("Categories found.");
         return categories.get(0);
     }
 }

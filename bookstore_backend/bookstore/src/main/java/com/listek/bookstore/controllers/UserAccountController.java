@@ -1,5 +1,6 @@
 package com.listek.bookstore.controllers;
 
+import com.listek.bookstore.fromToModels.UserFromData;
 import com.listek.bookstore.models.UserAccount;
 import com.listek.bookstore.repositories.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +21,18 @@ public class UserAccountController {
         this.repository = repository;
     }
 
-    @GetMapping(value = "/{email}/{password}", produces = "application/json")
-    public HashMap<String, Long> getUserAccountByEmailAndPassword(@PathVariable("email") String email,
-                                                 @PathVariable("password") String password) {
-        Optional<UserAccount> tutorialData = repository.findUserAccountByEmailAndPassword(email, password);
+    @PostMapping()
+    public HashMap<String, Long> getUserAccountByEmailAndPassword(@RequestBody UserFromData userFromData) {
+        Optional<UserAccount> tutorialData =
+                repository.findUserAccountByEmailAndPassword(userFromData.getEmail(), userFromData.getPassword());
         HashMap response = new HashMap();
         response.put("id", -1);
 
         if (tutorialData.isPresent()) {
+            System.out.println("User found.");
             response.put("id", tutorialData.get().getId());
         } else {
+            System.out.println("User not found.");
             response.put("id", Long.valueOf(-1));
         }
         return response;
