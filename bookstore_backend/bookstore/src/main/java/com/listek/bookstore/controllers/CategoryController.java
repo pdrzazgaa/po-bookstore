@@ -20,8 +20,8 @@ public class CategoryController {
 
     @GetMapping
     @RequestMapping("/categories")
-    public List<Category> getCategories(){
-        List<Category> categories =  categoryRepository.findCategoriesByParentCategory(null);
-        return categories;
+    public Category getCategories(){
+        List<Category> categories =  categoryRepository.findAll();
+        return categories.get(0);
     }
 }

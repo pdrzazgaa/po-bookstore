@@ -1,18 +1,13 @@
 package com.listek.bookstore.loaders;
 
 import com.listek.bookstore.models.Book;
-import com.listek.bookstore.models.Category;
 import com.listek.bookstore.models.CoverType;
-import com.listek.bookstore.models.Product;
 import com.listek.bookstore.repositories.BookRepository;
-import com.listek.bookstore.repositories.CategoryRepository;
-import com.listek.bookstore.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 @Component
 public class BooksLoader implements CommandLineRunner {
@@ -37,6 +32,6 @@ public class BooksLoader implements CommandLineRunner {
             bookRepository.save(user1);
             //bookRepository.save(user2);
         }
-        System.out.println(bookRepository.count());
+        System.out.println("Books: " + bookRepository.count());
     }
 }

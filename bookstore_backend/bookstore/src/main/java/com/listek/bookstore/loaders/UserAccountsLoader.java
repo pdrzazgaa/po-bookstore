@@ -24,6 +24,6 @@ public class UserAccountsLoader implements CommandLineRunner {
             userRepository.save(user1);
             userRepository.save(user2);
         }
-        System.out.println(userRepository.count());
+        System.out.println("Users: "+userRepository.count());
     }
 }

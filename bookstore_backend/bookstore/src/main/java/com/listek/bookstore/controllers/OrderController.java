@@ -23,7 +23,7 @@ public class OrderController {
         return orderRepository.findByOrderHistoryClient_Id(clientID);
     }
 
-    @GetMapping("order/{clientID}")
+    @GetMapping("order/{id}")
     public Optional<Order> getOrder(@PathVariable Long id){
         return orderRepository.findById(id);
     }

@@ -11,6 +11,7 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
     @Query("select id, name, parentCategory from Category ")
     List<Category>  getCategories();
     List<Category> findCategoriesByParentCategory(Category category);
+    List<Category> findAll();
 
 
 

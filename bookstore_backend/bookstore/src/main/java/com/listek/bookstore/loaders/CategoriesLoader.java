@@ -72,6 +72,6 @@ public class CategoriesLoader implements CommandLineRunner {
             categoryRepository.save(category25);
             categoryRepository.save(category26);
         }
-        System.out.println(categoryRepository.count());
+        System.out.println("Categories: "+categoryRepository.count());
     }
 }
