@@ -27,6 +27,7 @@ export class OrdersService {
             'Bardzo małe rzeczy w stumilowym lesie',
             22.99,
             new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),
+            'miękka',
             'Catherine Hapka'
           ),
           amount: 2,
@@ -37,6 +38,7 @@ export class OrdersService {
             'Nad niemnem',
             22.99,
             new Image('../../../assets/nad-niemnem.jpg', 'ksiazka'),
+            'miękka',
             'Eliza Orzeszkowa'
           ),
           amount: 4,
@@ -47,6 +49,7 @@ export class OrdersService {
             'Lalka',
             122.99,
             new Image('../../../assets/lalka.jpeg', 'ksiazka'),
+            'miękka',
             'Bolesław Prus'
           ),
           amount: 1,

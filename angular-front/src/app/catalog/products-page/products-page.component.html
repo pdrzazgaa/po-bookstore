@@ -1,10 +1,10 @@
 <app-nav></app-nav>
 <div class="container">
-  <app-side-menu></app-side-menu>
+  <app-side-menu (filtersChanged)="onFiltersChanged($event)"></app-side-menu>
   <main>
-    <article *ngIf="products.length; else noProducts">
+    <article *ngIf="productsToShow.length; else noProducts">
       <app-product-tile
-        *ngFor="let product of products"
+        *ngFor="let product of productsToShow"
         [product]="product"
       ></app-product-tile>
     </article>

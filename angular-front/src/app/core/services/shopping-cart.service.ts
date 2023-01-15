@@ -28,6 +28,7 @@ export class ShoppingCartService {
             'Bardzo małe rzeczy w stumilowym lesie',
             22.99,
             new Image('../../../assets/lalka.jpeg', 'ksiazka'),
+            'miękka',
             'Catherine Hapka'
           ),
           3
@@ -38,6 +39,7 @@ export class ShoppingCartService {
             'Bardzo małe rzeczy w stumilowym lesie',
             22.99,
             new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),
+            'miękka',
             'Catherine Hapka'
           ),
           3
@@ -48,6 +50,7 @@ export class ShoppingCartService {
             'Bardzo małe rzeczy w stumilowym lesie',
             22.99,
             new Image('../../../assets/pan-tadeusz.jpeg', 'ksiazka'),
+            'miękka',
             'Catherine Hapka'
           ),
           3
@@ -58,6 +61,7 @@ export class ShoppingCartService {
             'Bardzo małe rzeczy w stumilowym lesie',
             22.99,
             new Image('../../../assets/lalka.jpeg', 'ksiazka'),
+            'miękka',
             'Catherine Hapka'
           ),
           3
