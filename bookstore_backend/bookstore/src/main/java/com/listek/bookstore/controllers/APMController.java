@@ -22,6 +22,7 @@ public class APMController {
     @RequestMapping("/APMs")
     public List<APM> getAPMs(){
         List<APM> APMs =  apmRepository.findAll();
+        System.out.println("APMs found");
         return APMs;
     }
 }
