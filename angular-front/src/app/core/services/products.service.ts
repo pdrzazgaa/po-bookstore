@@ -9,6 +9,7 @@ export class ProductsService {
       'Bardzo małe rzeczy w stumilowym lesie',
       22.99,
       new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),
+      'miękka',
       'Catherine Hapka'
     ),
     new Product(
@@ -16,6 +17,7 @@ export class ProductsService {
       'Nad niemnem',
       22.99,
       new Image('../../../assets/nad-niemnem.jpg', 'ksiazka'),
+      'miękka',
       'Eliza Orzeszkowa'
     ),
     new Product(
@@ -23,6 +25,7 @@ export class ProductsService {
       'Lalka',
       122.99,
       new Image('../../../assets/lalka.jpeg', 'ksiazka'),
+      'miękka',
       'Bolesław Prus'
     ),
     new Product(
@@ -30,6 +33,7 @@ export class ProductsService {
       'Bardzo małe rzeczy',
       24.99,
       new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),
+      'miękka',
       'Catherine Hapka'
     ),
     new Product(
@@ -37,6 +41,7 @@ export class ProductsService {
       'Pan Tadeusz',
       62.99,
       new Image('../../../assets/pan-tadeusz.jpeg', 'ksiazka'),
+      'miękka',
       'Adam Mickiewiz'
     ),
     new Product(
@@ -44,6 +49,7 @@ export class ProductsService {
       'Nad niemnem',
       22.99,
       new Image('../../../assets/nad-niemnem.jpg', 'ksiazka'),
+      'miękka',
       'Eliza Orzeszkowa'
     ),
     new Product(
@@ -51,6 +57,7 @@ export class ProductsService {
       'Bardzo małe rzeczy',
       12.89,
       new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),
+      'miękka',
       'Catherine Hapka'
     ),
     new Product(
@@ -58,6 +65,7 @@ export class ProductsService {
       'Bardzo małe rzeczy',
       22.99,
       new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),
+      'miękka',
       'Adrian Kowalski'
     ),
     new Product(
@@ -65,6 +73,7 @@ export class ProductsService {
       'Bardzo małe rzeczy',
       113.99,
       new Image('../../../assets/pan-tadeusz.jpeg', 'ksiazka'),
+      'twarda',
       'Adam Mickiewicz'
     ),
     new Product(
@@ -72,6 +81,7 @@ export class ProductsService {
       'Bardzo małe rzeczy',
       22.99,
       new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),
+      'twarda',
       'Catherine Hapka'
     ),
   ];
@@ -82,11 +92,11 @@ export class ProductsService {
     22.99,
     new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),
     'Refleksje o zyciu i przyjaźni podniosą na duchu czytelników w kazdym wieku dzięki prostym i pięknie ilustrowanym afirmacjom. Chwile spędzone na wędrówce po Stumilowym Lesie w towarzystwie Kubusia Puchatka przypominają, ze nawet najmniejsze rzeczy są źródłem szczęścia i wdzięczności.',
+    'miękka',
     'Catherine Hapka',
     'Olesiejuk',
     new Date('2022-05-20'),
     128,
-    'miękka',
     'Bardzo małe rzeczy. Proste refleksje o zyciu i przyjaźni ze Stumilowego Lasu'
   );
 
@@ -101,11 +111,11 @@ export class ProductsService {
         product?.price,
         product?.image,
         'Refleksje o zyciu i przyjaźni podniosą na duchu czytelników w kazdym wieku dzięki prostym i pięknie ilustrowanym afirmacjom. Chwile spędzone na wędrówce po Stumilowym Lesie w towarzystwie Kubusia Puchatka przypominają, ze nawet najmniejsze rzeczy są źródłem szczęścia i wdzięczności.',
+        'miękka',
         product?.author,
         'Olesiejuk',
         new Date('2022-05-20'),
         128,
-        'miękka',
         product?.name
       )
     );

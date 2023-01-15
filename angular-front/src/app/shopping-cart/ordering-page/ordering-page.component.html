@@ -1,5 +1,5 @@
 <app-nav></app-nav>
-<main [ngClass]="{ 'invalid': triedSubmit }">
+<main [ngClass]="{ invalid: triedSubmit }">
   <h1>Podsumowanie zamówienia</h1>
   <form [formGroup]="orderForm" (ngSubmit)="onFormSubmit()">
     <section class="top-section">

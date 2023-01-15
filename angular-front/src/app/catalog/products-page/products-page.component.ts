@@ -10,7 +10,8 @@ import { Subscription } from 'rxjs';
 })
 export class ProductsPageComponent implements OnInit, OnDestroy {
   private productsService: ProductsService;
-  public products: Product[] = [];
+  private products: Product[] = [];
+  public productsToShow: Product[] = [];
   private route: ActivatedRoute;
   private routeSub?: Subscription;
 
@@ -25,7 +26,20 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
         params['category'],
         params['subcategory']
       );
+      this.productsToShow = this.products;
     });
+  }
+
+  onFiltersChanged(filter: { price: string; cover: string }) {
+    let filterProducts = this.products;
+    if (filter.price && filter.price != 'show-all') {
+      filterProducts = filterProducts.filter((product) => product.price < +filter.price);
+    }
+    if (filter.cover && filter.cover != 'show-all') {
+      filterProducts = filterProducts.filter((product) => product.cover === filter.cover);
+    }
+    console.log(filter.price, filter.cover);
+    this.productsToShow = filterProducts;
   }
 
   ngOnDestroy(): void {
