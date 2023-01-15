@@ -77,4 +77,12 @@ public class Category {
     public void setParentCategory(Category parentCategory) {
         this.parentCategory = parentCategory;
     }
+
+    public List<Category> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Category> children) {
+        this.children = children;
+    }
 }

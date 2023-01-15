@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Optional;
 
 @RestController
@@ -20,15 +21,18 @@ public class UserAccountController {
     }
 
     @GetMapping(value = "/{email}/{password}", produces = "application/json")
-    public Long getUserAccountByEmailAndPassword(@PathVariable("email") String email,
+    public HashMap<String, Long> getUserAccountByEmailAndPassword(@PathVariable("email") String email,
                                                  @PathVariable("password") String password) {
         Optional<UserAccount> tutorialData = repository.findUserAccountByEmailAndPassword(email, password);
+        HashMap response = new HashMap();
+        response.put("id", -1);
 
         if (tutorialData.isPresent()) {
-            return tutorialData.get().getId();
+            response.put("id", tutorialData.get().getId());
         } else {
-            return Long.valueOf(-1);
+            response.put("id", Long.valueOf(-1));
         }
+        return response;
     }
 
 }
