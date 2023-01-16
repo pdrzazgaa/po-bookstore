@@ -1,0 +1,19 @@
+<app-nav></app-nav>
+<main>
+  <div class="wrapper" *ngIf="inLoyaltyProgram; else joinLoyaltyProgram">
+    <span class="title">Program lojalnościowy</span>
+    <span class="subtitle">Twoje bookcoiny:</span>
+    <span class="bookcoins">{{ bookcoins }}</span>
+    <span class="subtitle">Sprawdź, co mozesz z nimi zrobić</span>
+    <a class="action" routerLink="/products">Przeglądaj produkty</a>
+  </div>
+</main>
+<app-footer></app-footer>
+
+<ng-template #joinLoyaltyProgram>
+  <div class="wrapper">
+    <span class="title">Dołącz do nas!</span>
+    <span class="subtitle">Zbieraj bookcoiny i otrzymuj rabaty</span>
+    <button class="action" (click)="onJoinButtonClick()">Dołącz teraz</button>
+  </div>
+</ng-template>

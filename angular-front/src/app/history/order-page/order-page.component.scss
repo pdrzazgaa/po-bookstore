@@ -1,0 +1,69 @@
+@use '../../../variables.scss' as *;
+
+main {
+  background-color: $grey;
+  color: $font-color-dark;
+  padding: 200px 10vw;
+  font-size: 20px;
+}
+
+h1 {
+  font-size: 2em;
+  letter-spacing: 1px;
+  margin-bottom: 50px;
+}
+
+table {
+  width: 100%;
+  margin: 0 auto;
+  background-color: $grey-light;
+
+  tr {
+    text-align: left;
+    border: 2px solid $grey;
+  }
+
+  th {
+    background-color: $grey;
+
+    &.product {
+      padding-left: 30px;
+    }
+  }
+
+  .product {
+    display: flex;
+    gap: 20px;
+    padding: 30px;
+
+    img {
+      height: 80px;
+    }
+
+    div {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+
+      .author {
+        opacity: 0.8;
+        font-size: 0.8em;
+      }
+    }
+  }
+
+  .amount,
+  .price {
+    vertical-align: middle;
+    text-align: right;
+    padding-right: 30px;
+  }
+}
+
+a {
+  margin-top: 30px;
+  float: right;
+  padding: 15px 20px;
+  @include default-btn();
+}

@@ -1,0 +1,135 @@
+<app-nav></app-nav>
+<main *ngIf="order">
+  <h1>Reklamacja - zamówienie nr {{ order.id }}</h1>
+  <section class="status">
+    <div class="status--bar" [ngClass]="{ active: step === 'choose-data' }">
+      <p>Wybór zamówienia i dane</p>
+    </div>
+    <div class="status--bar" [ngClass]="{ active: step === 'choose-delivery' }">
+      <p>Wybór zwrotu</p>
+    </div>
+  </section>
+  <form
+    *ngIf="step === 'choose-data' && productsForm"
+    [formGroup]="productsForm"
+    (ngSubmit)="onProductsFormSubmit()"
+    novalidate
+  >
+    <table>
+      <tr>
+        <th></th>
+        <th class="product">Produkt</th>
+        <th class="amount" *ngIf="showHeaders()">Ilość</th>
+        <th class="reason" *ngIf="showHeaders()">Przyczyna reklamacji</th>
+      </tr>
+      <tr
+        *ngFor="let position of order.orderPositions"
+        [formGroupName]="position.product.id"
+      >
+        <td class="checkbox">
+          <input
+            type="checkbox"
+            name="product"
+            [value]="position.product.id"
+            formControlName="checked"
+            (change)="onCheckboxChange(position.product.id)"
+          />
+        </td>
+        <td class="product">
+          <img [src]="position.product.image.path" [alt]="position.product.image.alt" />
+          <div>
+            <span>{{ position.product.name }}</span>
+            <span class="author" *ngIf="position.product.author">{{
+              position.product.author
+            }}</span>
+          </div>
+        </td>
+        <td
+          class="amount"
+          [ngClass]="{ invisible: !isCheckboxChecked(position.product.id) }"
+        >
+          <select name="amount" id="amount" formControlName="amount" [value]="">
+            <option
+              *ngFor="let amount of [].constructor(position.amount); let i = index"
+              [value]="i + 1"
+            >
+              {{ i + 1 }}
+            </option>
+          </select>
+        </td>
+        <td
+          class="reason"
+          [ngClass]="{ invisible: !isCheckboxChecked(position.product.id) }"
+        >
+          <div>
+            <span *ngIf="!isReasonInputValid(position.product.id)">Wypełnij to pole</span>
+            <input type="text" formControlName="reason" />
+          </div>
+        </td>
+      </tr>
+    </table>
+    <button class="to-delivery" type="submit" [disabled]="!productsForm.valid">
+      Przejdź dalej
+    </button>
+  </form>
+  <form
+    *ngIf="step === 'choose-delivery' && deliveryForm"
+    class="delivery"
+    [formGroup]="deliveryForm"
+    (ngSubmit)="onReclamationFormSubmit()"
+  >
+    <div>
+      <input
+        type="radio"
+        value="bookstore"
+        name="delivery"
+        id="bookstore"
+        formControlName="delivery"
+      />
+      <label for="bookstore">Dostarczenie do księgarni</label>
+    </div>
+    <div (click)="onDeliveryInputClick()">
+      <input
+        type="radio"
+        value="carrier"
+        name="delivery"
+        id="carrier"
+        formControlName="delivery"
+      />
+      <label for="carrier">Kurier (Pocztex)</label>
+    </div>
+    <div (click)="onParcelMachineClick()">
+      <input
+        type="radio"
+        value="parcel-machine"
+        name="delivery"
+        id="parcel-machine"
+        formControlName="delivery"
+      />
+      <label for="parcel-machine">Paczkomat Inpost</label>
+    </div>
+    <p *ngIf="chosenParcelMachine && showChosenParcel">
+      <span
+        >Wybrany paczkomat: {{ chosenParcelMachine.code }},
+        {{ chosenParcelMachine.address }}</span
+      >
+    </p>
+    <input
+      class="submit"
+      type="submit"
+      value="Zatwierdź reklamację"
+      [disabled]="!deliveryForm.valid"
+    />
+  </form>
+  <app-parcel-machine-form
+    *ngIf="showParcelMachineForm"
+    (chosenParcelChanged)="onParcelFormClose($event)"
+  ></app-parcel-machine-form>
+  <app-close-message-popup
+    *ngIf="showConfirmPopup"
+    mode="green"
+    message="Dziękujemy za złozenie reklamacji. Wysłaliśmy na maila potwierdzenie złozenia reklamacji"
+    (isClosed)="onConfirmPopupClose($event)"
+  ></app-close-message-popup>
+</main>
+<app-footer></app-footer>

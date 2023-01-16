@@ -1,0 +1,35 @@
+<app-nav></app-nav>
+<div class="container">
+  <main *ngIf="order; else noOrder">
+    <h1>Moje zamówienie nr {{ order.id }}</h1>
+    <table>
+      <tr>
+        <th class="product">Produkt</th>
+        <th class="amount">Ilość</th>
+        <th class="price">Kwota</th>
+      </tr>
+      <tr *ngFor="let position of order.orderPositions">
+        <td class="product">
+          <img [src]="position.product.image.path" [alt]="position.product.image.alt" />
+          <div>
+            <span class="name">{{ position.product.name }}</span>
+            <span *ngIf="position.product.author" class="author">{{
+              position.product.author
+            }}</span>
+          </div>
+        </td>
+        <td class="amount">{{ position.amount }}</td>
+        <td class="price">
+          {{ position.amount * position.product.price | number : '.2-2' }} zł
+        </td>
+      </tr>
+    </table>
+    <a *ngIf="canComplain" [routerLink]="['/reclamation', order.id]"
+      >Przejdź do panelu reklamacji</a
+    >
+  </main>
+  <ng-template #noOrder>
+    <h1>Coś poszło nie tak...</h1>
+  </ng-template>
+</div>
+<app-footer></app-footer>
