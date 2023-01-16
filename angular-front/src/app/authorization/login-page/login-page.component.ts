@@ -53,6 +53,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         this.loginForm.controls.password.value!
       )
       .subscribe((res) => {
+        console.log(res);
         if (res) {
           if (this.retUrl != null) {
             this.router.navigate([this.retUrl]);

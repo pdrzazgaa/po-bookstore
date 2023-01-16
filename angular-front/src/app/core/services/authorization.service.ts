@@ -1,36 +1,44 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 
 @Injectable()
 export class AuthorizationService {
   private http: HttpClient;
   private baseUrl: string = 'http://localhost:6060/verify';
+  private isLogged: boolean = false;
   isLoggedInChanged = new EventEmitter<{ loggedIn: boolean }>();
 
   constructor(http: HttpClient) {
     this.http = http;
+    this.isLogged = localStorage.getItem('userId') ? true : false;
+  }
+
+  private verify(username: string, password: string): Observable<any> {
+    const headers = { 'content-type': 'application/json' };
+    return this.http.post(
+      this.baseUrl,
+      JSON.stringify({ email: username, password: password }),
+      {
+        headers: headers,
+      }
+    );
   }
 
   login(username: string, password: string) {
-    const headers = { 'content-type': 'application/json' };
-    this.http
-      .post(this.baseUrl, JSON.stringify({ email: username, password: password }), {
-        headers: headers,
-      })
-      .subscribe((res: any) => {
+    return this.verify(username, password).pipe(
+      map((res: any) => {
         if (res.id > 0) {
-          this.isLoggedInChanged.emit({ loggedIn: true });
+          this.isLogged = true;
           localStorage.setItem('userId', `${res.id}`);
         }
-      });
-    return of(this.isLoggedIn());
+        return this.isLoggedIn();
+      })
+    );
   }
 
   isLoggedIn(): boolean {
-    if (localStorage.getItem('userId')) {
-      return true;
-    } else return false;
+    return this.isLogged;
   }
 
   logout() {
