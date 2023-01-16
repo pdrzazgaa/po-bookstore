@@ -5,11 +5,13 @@ import com.listek.bookstore.models.CoverType;
 import com.listek.bookstore.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
 @Component
+@Order(4)
 public class BooksLoader implements CommandLineRunner {
 
     @Autowired
