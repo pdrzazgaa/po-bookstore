@@ -6,7 +6,7 @@
         category.name
       }}</a>
       <div *ngFor="let cat of category.subcategories" class="category">
-        <a class="category--a" [routerLink]="['/products',  cat.name | url]"
+        <a class="category--a" [routerLink]="['/products', cat.name | url]"
           >{{ cat.name }}
         </a>
         <nav class="category--nav" *ngIf="cat.subcategories.length">
