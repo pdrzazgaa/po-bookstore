@@ -1,11 +1,11 @@
 package com.listek.bookstore.controllers;
 
-import com.listek.bookstore.fromToModels.IdForm;
+import com.listek.bookstore.fromToModels.IdDTO;
 import com.listek.bookstore.models.Client;
 import com.listek.bookstore.models.LoyaltyProgram;
 import com.listek.bookstore.repositories.ClientRepository;
 import com.listek.bookstore.repositories.LoyaltyProgramRepository;
-import com.listek.bookstore.fromToModels.LoyaltyProgramToData;
+import com.listek.bookstore.fromToModels.LoyaltyProgramDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +28,7 @@ public class LoyaltyProgramController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/joinLoyaltyProgram")
-    public ResponseEntity<HttpStatus> joinLoyaltyProgram(@RequestBody IdForm clientID) {
+    public ResponseEntity<HttpStatus> joinLoyaltyProgram(@RequestBody IdDTO clientID) {
         Optional<Client> client = clientRepository.findClientById(Long.valueOf(clientID.getId()));
         return client
                 .map(foundClient -> {
@@ -56,20 +56,20 @@ public class LoyaltyProgramController {
     @GetMapping("/checkLoyaltyProgram/{clientID}")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity checkLoyaltyProgram(@PathVariable("clientID") int clientID) {
-        LoyaltyProgramToData loyaltyProgramToDataResponse = new LoyaltyProgramToData();
+        LoyaltyProgramDTO loyaltyProgramDTOResponse = new LoyaltyProgramDTO();
         return clientRepository.findClientById(Long.valueOf(clientID))
                 .map(foundClient -> loyaltyProgramRepository.findByClient_Id(Long.valueOf(clientID))
                     .map(loyaltyProgram -> {
                         System.out.println("Client is a participant");
-                        loyaltyProgramToDataResponse.setParticipant(true);
-                        loyaltyProgramToDataResponse.setBookcoins(loyaltyProgram.getBookcoins());
-                        return new ResponseEntity(loyaltyProgramToDataResponse, HttpStatus.OK);
+                        loyaltyProgramDTOResponse.setParticipant(true);
+                        loyaltyProgramDTOResponse.setBookcoins(loyaltyProgram.getBookcoins());
+                        return new ResponseEntity(loyaltyProgramDTOResponse, HttpStatus.OK);
                     })
                     .orElseGet(() -> {
                         System.out.println("Client is not a participant");
-                        loyaltyProgramToDataResponse.setParticipant(false);
-                        loyaltyProgramToDataResponse.setBookcoins(0);
-                        return new ResponseEntity(loyaltyProgramToDataResponse, HttpStatus.OK);
+                        loyaltyProgramDTOResponse.setParticipant(false);
+                        loyaltyProgramDTOResponse.setBookcoins(0);
+                        return new ResponseEntity(loyaltyProgramDTOResponse, HttpStatus.OK);
                     }))
                 .orElseGet(() -> new ResponseEntity(HttpStatus.NOT_FOUND));
     }

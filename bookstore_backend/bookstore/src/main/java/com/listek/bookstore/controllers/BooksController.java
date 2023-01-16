@@ -1,6 +1,6 @@
 package com.listek.bookstore.controllers;
 
-import com.listek.bookstore.fromToModels.ProductListToData;
+import com.listek.bookstore.fromToModels.ProductListDTO;
 import com.listek.bookstore.models.Book;
 import com.listek.bookstore.repositories.BookRepository;
 import org.springframework.http.HttpStatus;
@@ -22,24 +22,24 @@ public class BooksController {
 
     @GetMapping("/products")
     @CrossOrigin(origins = "http://localhost:4200")
-    public List<ProductListToData> getProducts(){
+    public List<ProductListDTO> getProducts(){
         System.out.println("Get products");
         List<Object[]> books = bookRepository.findBooks();
-        List<ProductListToData> booksToData = new ArrayList<>();
+        List<ProductListDTO> booksToData = new ArrayList<>();
         for (Object[] bookObj:books){
-            booksToData.add(new ProductListToData(bookObj));
+            booksToData.add(new ProductListDTO(bookObj));
         }
         return booksToData;
     }
 
     @GetMapping("/products/{idK}")
     @CrossOrigin(origins = "http://localhost:4200")
-    public List<ProductListToData> getProductsByCategory(@PathVariable int idK){
+    public List<ProductListDTO> getProductsByCategory(@PathVariable int idK){
         System.out.println("Get products by category");
         List<Object[]> books = bookRepository.findBooksByCategory(Long.valueOf(idK));
-        List<ProductListToData> booksToData = new ArrayList<>();
+        List<ProductListDTO> booksToData = new ArrayList<>();
         for (Object[] bookObj:books){
-            booksToData.add(new ProductListToData(bookObj));
+            booksToData.add(new ProductListDTO(bookObj));
         }
         return booksToData;
     }

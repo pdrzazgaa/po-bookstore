@@ -1,13 +1,19 @@
 package com.listek.bookstore.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.listek.bookstore.repositories.CartItemRepository;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Table(name="Koszyki")
+@JsonIgnoreProperties("client")
 @Entity
 public class Cart {
+
+    public static final int EXPIRATION_TIME = 15;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -18,14 +24,18 @@ public class Cart {
     @ManyToOne
     @JoinColumn(name = "KlientID")
     private Client client;
+    @JsonInclude
+    @Transient
+    private double cartSum;
 
     public Cart(Client client) {
         this.client = client;
         cartItems = new ArrayList<>();
+        lastActivity = LocalDateTime.now();
     }
 
     public Cart() {
-
+        lastActivity = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -60,17 +70,48 @@ public class Cart {
         this.client = client;
     }
 
-    public boolean addProductItem(Product product) {
+    public double getCartSum() {
+        return cartSum;
+    }
+
+    public void setCartSum(double cartSum) {
+        this.cartSum = cartSum;
+    }
+
+    public CartItem addProductItem(Product product) {
         CartItem foundCartItem = isProductInCart(product);
+        CartItem newCartItem;
 
         if (foundCartItem == null) {
             if (product.decreaseNumberOfItemsInStock()) {
-                this.cartItems.add(new CartItem(product, this));
-                return true;
+                lastActivity = LocalDateTime.now();
+                newCartItem = new CartItem(product, this);
+                this.cartItems.add(newCartItem);
+                computeSumCart();
+                return newCartItem;
             }
-            return false;
+            return null;
         } else {
-            return foundCartItem.increase();
+            if (foundCartItem.increase())
+                return foundCartItem;
+            else
+                return null;
+        }
+    }
+
+    public boolean removeProductItem(Product product){
+        CartItem foundCartItem = isProductInCart(product);
+
+        if (foundCartItem != null) {
+            product.increaseNumberOfItemsInStock();
+            lastActivity = LocalDateTime.now();
+            foundCartItem.decrease();
+            computeSumCart();
+            if (foundCartItem.getQuantity() == 0)
+                this.cartItems.remove(foundCartItem);
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -81,5 +122,12 @@ public class Cart {
             }
         }
         return null;
+    }
+    public void computeSumCart(){
+        double sum = 0;
+        for (CartItem cartItem:this.cartItems){
+            sum += cartItem.getQuantity() * cartItem.getProduct().getPrice();
+        }
+        this.cartSum = sum;
     }
 }

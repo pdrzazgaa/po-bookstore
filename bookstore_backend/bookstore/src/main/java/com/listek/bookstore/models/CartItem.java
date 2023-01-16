@@ -1,8 +1,10 @@
 package com.listek.bookstore.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Table(name="PozycjeKoszyka")
+@JsonIgnoreProperties("cart")
 @Entity
 public class CartItem {
     @Id
@@ -72,5 +74,9 @@ public class CartItem {
             return true;
         }
         return false;
+    }
+
+    public void decrease(){
+        this.quantity--;
     }
 }

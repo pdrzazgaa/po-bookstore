@@ -1,8 +1,10 @@
 package com.listek.bookstore.services;
 
 import com.listek.bookstore.models.Cart;
+import com.listek.bookstore.models.CartItem;
 import com.listek.bookstore.models.Client;
 import com.listek.bookstore.models.Product;
+import com.listek.bookstore.repositories.CartItemRepository;
 import com.listek.bookstore.repositories.CartRepository;
 import com.listek.bookstore.repositories.ClientRepository;
 import com.listek.bookstore.repositories.ProductRepository;
@@ -22,12 +24,18 @@ public class CartService {
     ClientRepository clientRepository;
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    CartItemRepository cartItemRepository;
 
     private Cart createCart(Cart cart){
         return cartRepository.save(cart);
     }
 
-    public ResponseEntity addItemToCart(Long clientID, Long productID){
+    public Optional<Cart> getCart(int clientID){
+        return cartRepository.isAvailableCart(Long.valueOf(clientID));
+    }
+
+    public ResponseEntity addItemToCart(Long clientID, Long productID) {
         Optional<Client> client = clientRepository.findClientById(clientID);
         return client
                 .map(foundClient -> {
@@ -37,28 +45,75 @@ public class CartService {
                                 Optional<Cart> cart = cartRepository.isAvailableCart(clientID);
                                 return cart
                                         .map(foundCart -> {
-                                            if (foundCart.addProductItem(foundProduct)){
+                                            CartItem cartItem = foundCart.addProductItem(foundProduct);
+                                            if (cartItem != null) {
+                                                cartItemRepository.save(cartItem);
+                                                cartRepository.save(foundCart);
+                                                System.out.println("Cart exists. Added product.");
                                                 return new ResponseEntity<>(HttpStatus.OK);
                                             } else {
+                                                System.out.println("Cart exists. Not enough products.");
                                                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
                                             }
                                         })
                                         .orElseGet(() -> {
-                                            Cart newCart = new Cart();
-                                            if (newCart.addProductItem(foundProduct)){
+                                            Cart newCart = new Cart(foundClient);
+                                            CartItem cartItem = newCart.addProductItem(foundProduct);
+                                            if (cartItem != null) {
+                                                cartItemRepository.save(cartItem);
+                                                cartRepository.save(newCart);
+                                                System.out.println("Cart does not exists. Added product.");
                                                 return new ResponseEntity<>(HttpStatus.OK);
                                             } else {
+                                                System.out.println("Cart does not exists. Not enough products.");
                                                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
                                             }
                                         });
                             })
-                            .orElseGet(()-> {
+                            .orElseGet(() -> {
+                                System.out.println("Product not found.");
                                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
                             });
                 })
-                .orElseGet(()->{
+                .orElseGet(() -> {
+                    System.out.println("Client not found.");
                     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
                 });
+    }
 
+
+    public ResponseEntity removeCartItem(Long clientID, Long productID){
+        Optional<Client> client = clientRepository.findClientById(clientID);
+        return client
+                .map(foundClient -> {
+                    Optional<Product> product = productRepository.findById(productID);
+                    return product
+                            .map(foundProduct -> {
+                                Optional<Cart> cart = cartRepository.isAvailableCart(clientID);
+                                return cart
+                                        .map(foundCart -> {
+                                            if (foundCart.removeProductItem(foundProduct)) {
+                                                System.out.println("Cart found. Product removed.");
+                                                return new ResponseEntity(HttpStatus.OK);
+                                            } else {
+                                                System.out.println("Cart found. Product not removed.");
+                                                return new ResponseEntity(HttpStatus.NOT_FOUND);
+                                            }
+
+                                        })
+                                        .orElseGet(() -> {
+                                            System.out.println("Cart not found.");
+                                            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                                        });
+                            })
+                            .orElseGet(() -> {
+                                System.out.println("Product not found.");
+                                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                            });
+                })
+                .orElseGet(()-> {
+                    System.out.println("Client not found.");
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                });
     }
 }

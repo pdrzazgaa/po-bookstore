@@ -1,11 +1,9 @@
 package com.listek.bookstore.controllers;
 
-import com.listek.bookstore.fromToModels.UserFromData;
+import com.listek.bookstore.fromToModels.UserDTO;
 import com.listek.bookstore.models.UserAccount;
 import com.listek.bookstore.repositories.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -23,9 +21,9 @@ public class UserAccountController {
 
     @PostMapping()
     @CrossOrigin(origins = "http://localhost:4200")
-    public HashMap<String, Long> getUserAccountByEmailAndPassword(@RequestBody UserFromData userFromData) {
+    public HashMap<String, Long> getUserAccountByEmailAndPassword(@RequestBody UserDTO userDTO) {
         Optional<UserAccount> tutorialData =
-                repository.findUserAccountByEmailAndPassword(userFromData.getEmail(), userFromData.getPassword());
+                repository.findUserAccountByEmailAndPassword(userDTO.getEmail(), userDTO.getPassword());
         HashMap response = new HashMap();
         response.put("id", -1);
 
