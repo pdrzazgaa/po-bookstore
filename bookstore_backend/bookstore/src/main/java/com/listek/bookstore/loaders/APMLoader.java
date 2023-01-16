@@ -4,10 +4,12 @@ import com.listek.bookstore.models.APM;
 import com.listek.bookstore.repositories.APMRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 
 @Component
+@Order(1)
 public class APMLoader implements CommandLineRunner {
     @Autowired
     APMRepository apmRepository;
