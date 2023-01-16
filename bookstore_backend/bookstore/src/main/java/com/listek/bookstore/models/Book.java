@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Table(name="Ksiazki")
@@ -29,20 +30,9 @@ public class Book extends Product{
     @Column(name="TypOkladki")
     private CoverType coverType;
 
-    public Book(Long id, double price, int numberOfItemsInStock, String name, String description,
-                List<Category> category, String title, String author, String publisher, LocalDateTime releaseDate, int numberOfPages, String language, String index, CoverType coverType) {
-        super(id, price, numberOfItemsInStock, name, description, category);
-        this.title = title;
-        this.author = author;
-        this.publisher = publisher;
-        this.releaseDate = releaseDate;
-        this.numberOfPages = numberOfPages;
-        this.language = language;
-        this.index = index;
-        this.coverType = coverType;
-    }
-
-    public Book(double price, int numberOfItemsInStock, String name, String description, String title, String author, String publisher, LocalDateTime releaseDate, int numberOfPages, String language, String index, CoverType coverType) {
+    public Book(double price, int numberOfItemsInStock, String name, String description, String title,
+                String author, String publisher, LocalDateTime releaseDate, int numberOfPages,
+                String language, String index, CoverType coverType) {
         super(price, numberOfItemsInStock, name, description);
         this.title = title;
         this.author = author;

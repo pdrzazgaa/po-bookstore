@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Table(name="Kategorie")
@@ -15,16 +16,9 @@ public class Category {
     @Column(name="Nazwa")
     private String name;
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(
-            name = "ProduktyKategorie",
-            joinColumns = { @JoinColumn(name = "ProduktID") },
-            inverseJoinColumns = { @JoinColumn(name = "KategoriaID") }
-    )
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = CascadeType.MERGE,
+            mappedBy = "categories")
     private List<Product> products;
 
     @JsonIgnore
@@ -40,6 +34,7 @@ public class Category {
     public Category(String name, Category parentCategory) {
         this.name = name;
         this.parentCategory = parentCategory;
+        this.products = new ArrayList<>();
     }
 
     public Category() {
@@ -84,5 +79,9 @@ public class Category {
 
     public void setChildren(List<Category> children) {
         this.children = children;
+    }
+
+    public void addProduct(Product product){
+        this.products.add(product);
     }
 }

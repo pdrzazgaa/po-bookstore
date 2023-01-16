@@ -2,6 +2,7 @@ package com.listek.bookstore.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
@@ -21,11 +22,13 @@ public class Product {
     private String name;
     @Column(name="Opis")
     private String description;
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },mappedBy = "products")
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "ProduktyKategorie",
+            joinColumns = { @JoinColumn(name = "ProduktID") },
+            inverseJoinColumns = { @JoinColumn(name = "KategoriaID") }
+    )
     private List<Category> categories;
 
     public Product(Long id, double price, int numberOfItemsInStock, String name, String description, List<Category> category) {
@@ -42,6 +45,7 @@ public class Product {
         this.numberOfItemsInStock = numberOfItemsInStock;
         this.name = name;
         this.description = description;
+        this.categories = new ArrayList<>();
     }
 
     public Product() {
@@ -95,4 +99,16 @@ public class Product {
     public void setCategory(List<Category> category) {
         this.categories = category;
     }
+
+    public void addCategory(Category category){
+        if (category != null) {
+            if (!this.categories.contains(category)) {
+                this.categories.add(category);
+                category.addProduct(this);
+                this.categories.add(category.getParentCategory());
+            }
+        }
+    }
+
+
 }
