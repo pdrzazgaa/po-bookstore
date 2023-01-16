@@ -1,17 +1,21 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, of } from 'rxjs';
 
 @Injectable()
 export class AuthorizationService {
   private http: HttpClient;
   private baseUrl: string = 'http://localhost:6060/verify';
   private isLogged: boolean = false;
+  private userId: number = -1;
   isLoggedInChanged = new EventEmitter<{ loggedIn: boolean }>();
 
   constructor(http: HttpClient) {
     this.http = http;
     this.isLogged = localStorage.getItem('userId') ? true : false;
+    if (this.isLogged) {
+      this.userId = +localStorage.getItem('userId')!;
+    }
   }
 
   private verify(username: string, password: string): Observable<any> {
@@ -31,10 +35,16 @@ export class AuthorizationService {
         if (res.id > 0) {
           this.isLogged = true;
           localStorage.setItem('userId', `${res.id}`);
+          this.userId = res.id;
+          this.isLoggedInChanged.emit({ loggedIn: true });
         }
         return this.isLoggedIn();
       })
     );
+  }
+
+  getUserId() {
+    return this.userId;
   }
 
   isLoggedIn(): boolean {
@@ -43,6 +53,7 @@ export class AuthorizationService {
 
   logout() {
     localStorage.removeItem('userId');
+    this.isLogged = false;
     this.isLoggedInChanged.emit({ loggedIn: false });
   }
 }
