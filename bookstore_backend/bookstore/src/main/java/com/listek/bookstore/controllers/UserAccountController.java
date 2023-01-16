@@ -22,6 +22,7 @@ public class UserAccountController {
     }
 
     @PostMapping()
+    @CrossOrigin(origins = "http://localhost:4200")
     public HashMap<String, Long> getUserAccountByEmailAndPassword(@RequestBody UserFromData userFromData) {
         Optional<UserAccount> tutorialData =
                 repository.findUserAccountByEmailAndPassword(userFromData.getEmail(), userFromData.getPassword());

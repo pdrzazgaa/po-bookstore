@@ -26,6 +26,7 @@ public class LoyaltyProgramController {
         this.clientRepository = clientRepository;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/joinLoyaltyProgram")
     public ResponseEntity<HttpStatus> joinLoyaltyProgram(@RequestBody IdForm clientID) {
         Optional<Client> client = clientRepository.findClientById(Long.valueOf(clientID.getId()));
@@ -53,6 +54,7 @@ public class LoyaltyProgramController {
     }
 
     @GetMapping("/checkLoyaltyProgram/{clientID}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public LoyaltyProgramToData checkLoyaltyProgram(@PathVariable("clientID") int clientID) {
         LoyaltyProgramToData loyaltyProgramToDataResponse = new LoyaltyProgramToData();
         return loyaltyProgramRepository.findByClient_Id(Long.valueOf(clientID))
