@@ -1,5 +1,7 @@
 package com.listek.bookstore.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.List;
 import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
 
 @Inheritance(strategy = TABLE_PER_CLASS)
+@JsonIgnoreProperties(value = { "category" })
 @Table(name="Produkty")
 @Entity
 public class Product {
@@ -22,6 +25,7 @@ public class Product {
     private String name;
     @Column(name="Opis")
     private String description;
+
     @ManyToMany(fetch = FetchType.EAGER,
             cascade = CascadeType.MERGE)
     @JoinTable(
@@ -104,7 +108,7 @@ public class Product {
         if (category != null) {
             if (!this.categories.contains(category)) {
                 this.categories.add(category);
-                category.addProduct(this);
+                //category.addProduct(this);
                 this.categories.add(category.getParentCategory());
             }
         }

@@ -1,16 +1,15 @@
 package com.listek.bookstore.controllers;
 
 import com.listek.bookstore.fromToModels.ProductListToData;
-import com.listek.bookstore.models.Order;
+import com.listek.bookstore.models.Book;
 import com.listek.bookstore.repositories.BookRepository;
-import com.listek.bookstore.repositories.ProductRepository;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class BooksController {
@@ -43,6 +42,22 @@ public class BooksController {
             booksToData.add(new ProductListToData(bookObj));
         }
         return booksToData;
+    }
+
+    @GetMapping("/product/{idP}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public ResponseEntity getProduct(@PathVariable int idP){
+        System.out.println("Get product");
+        Optional<Book> book = bookRepository.findById(Long.valueOf(idP));
+        return book
+                .map(foundBook -> {
+                    System.out.println("Book found.");
+                    return new ResponseEntity(foundBook, HttpStatus.OK);
+                })
+                .orElseGet(() -> {
+                    System.out.println("Book not found.");
+                    return new ResponseEntity(HttpStatus.NOT_FOUND);
+                });
     }
 
 }

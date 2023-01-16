@@ -55,20 +55,22 @@ public class LoyaltyProgramController {
 
     @GetMapping("/checkLoyaltyProgram/{clientID}")
     @CrossOrigin(origins = "http://localhost:4200")
-    public LoyaltyProgramToData checkLoyaltyProgram(@PathVariable("clientID") int clientID) {
+    public ResponseEntity checkLoyaltyProgram(@PathVariable("clientID") int clientID) {
         LoyaltyProgramToData loyaltyProgramToDataResponse = new LoyaltyProgramToData();
-        return loyaltyProgramRepository.findByClient_Id(Long.valueOf(clientID))
-                .map(loyaltyProgram -> {
-                    System.out.println("Client is a participant");
-                    loyaltyProgramToDataResponse.setParticipant(true);
-                    loyaltyProgramToDataResponse.setBookcoins(loyaltyProgram.getBookcoins());
-                    return loyaltyProgramToDataResponse;
-                })
-                .orElseGet(() -> {
-                    System.out.println("Client is not a participant");
-                    loyaltyProgramToDataResponse.setParticipant(false);
-                    loyaltyProgramToDataResponse.setBookcoins(0);
-                    return loyaltyProgramToDataResponse;
-                });
+        return clientRepository.findClientById(Long.valueOf(clientID))
+                .map(foundClient -> loyaltyProgramRepository.findByClient_Id(Long.valueOf(clientID))
+                    .map(loyaltyProgram -> {
+                        System.out.println("Client is a participant");
+                        loyaltyProgramToDataResponse.setParticipant(true);
+                        loyaltyProgramToDataResponse.setBookcoins(loyaltyProgram.getBookcoins());
+                        return new ResponseEntity(loyaltyProgramToDataResponse, HttpStatus.OK);
+                    })
+                    .orElseGet(() -> {
+                        System.out.println("Client is not a participant");
+                        loyaltyProgramToDataResponse.setParticipant(false);
+                        loyaltyProgramToDataResponse.setBookcoins(0);
+                        return new ResponseEntity(loyaltyProgramToDataResponse, HttpStatus.OK);
+                    }))
+                .orElseGet(() -> new ResponseEntity(HttpStatus.NOT_FOUND));
     }
 }
