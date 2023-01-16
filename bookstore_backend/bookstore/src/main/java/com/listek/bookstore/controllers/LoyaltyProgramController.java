@@ -1,11 +1,11 @@
 package com.listek.bookstore.controllers;
 
-import com.listek.bookstore.fromToModels.IdDTO;
+import com.listek.bookstore.DTO.IdDTO;
 import com.listek.bookstore.models.Client;
 import com.listek.bookstore.models.LoyaltyProgram;
 import com.listek.bookstore.repositories.ClientRepository;
 import com.listek.bookstore.repositories.LoyaltyProgramRepository;
-import com.listek.bookstore.fromToModels.LoyaltyProgramDTO;
+import com.listek.bookstore.DTO.LoyaltyProgramDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

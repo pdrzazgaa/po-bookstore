@@ -1,6 +1,6 @@
 package com.listek.bookstore.controllers;
 
-import com.listek.bookstore.fromToModels.UserDTO;
+import com.listek.bookstore.DTO.UserDTO;
 import com.listek.bookstore.models.UserAccount;
 import com.listek.bookstore.repositories.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;

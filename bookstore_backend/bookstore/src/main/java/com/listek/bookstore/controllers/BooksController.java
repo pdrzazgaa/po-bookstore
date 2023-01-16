@@ -1,6 +1,6 @@
 package com.listek.bookstore.controllers;
 
-import com.listek.bookstore.fromToModels.ProductListDTO;
+import com.listek.bookstore.DTO.ProductListDTO;
 import com.listek.bookstore.models.Book;
 import com.listek.bookstore.repositories.BookRepository;
 import org.springframework.http.HttpStatus;
