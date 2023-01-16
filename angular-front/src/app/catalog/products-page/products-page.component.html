@@ -1,0 +1,17 @@
+<app-nav></app-nav>
+<div class="container">
+  <app-side-menu (filtersChanged)="onFiltersChanged($event)"></app-side-menu>
+  <main>
+    <article *ngIf="productsToShow.length; else noProducts">
+      <app-product-tile
+        *ngFor="let product of productsToShow"
+        [product]="product"
+      ></app-product-tile>
+    </article>
+  </main>
+</div>
+<app-footer ngClass="footer"></app-footer>
+
+<ng-template #noProducts>
+  <p class="no-products">Nie znaleźliśmy wyników dla wybranych parametrów.</p>
+</ng-template>

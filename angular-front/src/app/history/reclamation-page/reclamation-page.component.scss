@@ -1,0 +1,190 @@
+@use '../../../variables.scss' as *;
+
+main {
+  min-height: 100vh;
+  background-color: $grey;
+  padding: 200px 10vw;
+  font-size: 20px;
+  color: $font-color-dark;
+}
+
+h1 {
+  font-size: 2em;
+  letter-spacing: 1px;
+}
+
+.status {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+
+  div {
+    width: 40%;
+    text-align: center;
+    position: relative;
+    background-color: rgb(255, 196, 0);
+    border: 2px solid $grey-dark;
+    border-radius: 2px;
+    height: 18px;
+    margin: 60px 0;
+    opacity: 0.5;
+
+    p {
+      position: absolute;
+      top: -30px;
+      text-align: center;
+      width: 100%;
+      font-size: 0.9em;
+    }
+
+    &.active {
+      opacity: 1;
+    }
+  }
+}
+
+table {
+  background-color: $grey-light;
+  width: 100%;
+}
+
+tr {
+  border-top: 2px solid $grey;
+}
+
+th {
+  background-color: $grey;
+
+  &.reason,
+  &.amount {
+    text-align: right;
+    padding-right: 30px;
+  }
+}
+
+td {
+  vertical-align: middle;
+
+  &.checkbox {
+    padding-left: 30px;
+    width: 50px;
+  }
+  &.reason,
+  &.amount {
+    padding-right: 30px;
+
+    select,
+    input {
+      float: right;
+      height: 30px;
+      padding-left: 10px;
+    }
+
+    select {
+      width: 50px;
+    }
+  }
+
+  &.reason {
+    div {
+      position: relative;
+    }
+
+    span {
+      position: absolute;
+      color: $red;
+      top: -16px;
+      font-size: 0.6em;
+      padding-left: 5px;
+    }
+
+    input {
+      width: 100%;
+
+      &.ng-invalid {
+        border: 1px solid $red;
+        outline: 1px solid $red;
+      }
+    }
+  }
+}
+
+.product {
+  display: flex;
+  padding: 30px;
+  gap: 20px;
+
+  img {
+    height: 80px;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+
+    .author {
+      opacity: 0.8;
+      font-size: 0.9em;
+    }
+  }
+}
+
+.to-delivery {
+  background-color: transparent;
+  color: $font-color-dark;
+  float: right;
+  padding: 15px 25px;
+  font-size: 0.8em;
+  letter-spacing: 1px;
+  border: 1px solid $grey-dark;
+  margin-top: 30px;
+
+  &:enabled:hover {
+    background-color: $grey-dark;
+    color: $font-color-light;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+.invisible {
+  display: none;
+}
+
+.delivery {
+  margin: 50px 5vw;
+
+  div {
+    margin: 20px 0;
+
+    input {
+      margin-right: 20px;
+      font-size: 20px;
+    }
+  }
+
+  .submit {
+    display: block;
+    margin: 50px auto 0;
+    background-color: transparent;
+    padding: 15px 25px;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+    color: $font-color-dark;
+    border: 1px solid $font-color-dark;
+    transition: 0.2s;
+
+    &:enabled:hover {
+      color: $font-color-light;
+      background-color: $grey-dark;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
+}

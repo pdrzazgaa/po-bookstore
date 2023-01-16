@@ -1,0 +1,47 @@
+<app-nav></app-nav>
+<div class="container">
+  <app-message-popup
+    *ngIf="showPopup && popupMessage && popupMode"
+    [mode]="popupMode"
+    [message]="popupMessage"
+  ></app-message-popup>
+  <article *ngIf="product">
+    <section class="image">
+      <figure>
+        <img [src]="product.image.path" [alt]="product.image.alt" />
+        <figcaption class="price">{{ product.price | number : '.2-2' }} zł</figcaption>
+      </figure>
+      <button (click)="onButtonClick()" [disabled]="disabledButton">
+        {{ buttonMessage }}
+      </button>
+    </section>
+    <section class="details">
+      <h2>{{ product.title || product.name }}</h2>
+      <div *ngIf="product.publisher" class="details--container">
+        <span class="detail">Wydawnictwo:</span>
+        <span class="detail-info">{{ product.publisher }}</span>
+      </div>
+      <div *ngIf="product.productionDate" class="details--container">
+        <span class="detail">Data wydania:</span>
+        <span class="detail-info">{{ product.productionDate | date : 'd.M.y r.' }}</span>
+      </div>
+      <div *ngIf="product.pagesNr" class="details--container">
+        <span class="detail">Liczba stron:</span>
+        <span class="detail-info">{{ product.pagesNr }}</span>
+      </div>
+      <div *ngIf="product.author" class="details--container">
+        <span class="detail">Autor:</span>
+        <span class="detail-info">{{ product.author }}</span>
+      </div>
+      <div *ngIf="product.cover" class="details--container">
+        <span class="detail">Okładka:</span>
+        <span class="detail-info">{{ product.cover }}</span>
+      </div>
+      <div class="details--container">
+        <span class="detail">Opis:</span>
+        <p class="description">{{ product.description }}</p>
+      </div>
+    </section>
+  </article>
+</div>
+<app-footer></app-footer>

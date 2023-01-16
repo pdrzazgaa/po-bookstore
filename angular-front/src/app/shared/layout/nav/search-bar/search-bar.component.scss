@@ -1,0 +1,28 @@
+@use '../../../../../variables.scss' as *;
+
+div {
+  position: relative;
+  height: 30px;
+
+  input {
+    line-height: 30px;
+    padding-left: 5px;
+    outline: none;
+    border-radius: 4px;
+    border: 1px solid white;
+    width: 200px;
+    background-color: transparent;
+    color: $font-color-light;
+    font-size: 15px;
+  }
+
+  svg {
+    cursor: pointer;
+    padding: 7px 10px 4px;
+    position: absolute;
+    @include svg();
+    top: 0;
+    right: 0;
+    height: 30px;
+  }
+}

@@ -1,0 +1,124 @@
+@use 'sass:math';
+
+//<Breakpoints>
+
+$xs: 512px;
+$sm: 768px;
+$md: 896px;
+$lg: 1152px;
+$xl: 1280px;
+$xxl: 1441px;
+
+//</Breakpoints>
+
+// <Colors>
+
+$green: #536758;
+$green-light: #8fc18f;
+$green-grey: rgb(110, 156, 141);
+$red: rgb(175, 1, 1);
+$red-light: #e39898;
+$red-dark: #b85b5b;
+$brown: #747474;
+$purple: rgb(134, 31, 194);
+$purple-dark: rgb(99, 25, 142);
+$grey-dark: #2b2b2b;
+$grey-mid: #656565;
+$grey-light: #f9f9f9;
+$grey: #e5e5e5;
+
+// </Colors>
+
+//<Fonts>
+
+$main-font: 'Circular Std';
+$secondary-font: sans-serif;
+
+$font-bold: 700;
+
+$font-color-light: #fff;
+$font-color-dark: $grey-dark;
+$font-color-grey: #939393;
+$font-color-green: $green;
+
+//</Fonts>
+
+//<Mixins>
+//TODO: delete unnecessary mixins
+@mixin button(
+  $ghost: false,
+  $bgc: transparent,
+  $color: $font-color-light,
+  $width: 198px,
+  $fontSize: 18px,
+  $height: 50px
+) {
+  color: $color;
+  width: calc($width - 2px);
+  line-height: calc($height - 2px);
+  text-align: center;
+  font-size: $fontSize;
+  font-weight: 700;
+
+  @if $ghost {
+    background-color: transparent;
+    border: 1px solid $color;
+
+    &:hover {
+      color: $bgc;
+      background-color: $color;
+      border: 1px solid $bgc;
+    }
+  } @else {
+    background-color: $bgc;
+    border: 1px solid $bgc;
+
+    &:hover {
+      box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.5);
+    }
+  }
+}
+
+@mixin svg($color: $grey-light, $strokeWidth: 0.5px) {
+  path {
+    fill: $color;
+    stroke: $color;
+    stroke-width: $strokeWidth;
+  }
+}
+
+@mixin full-page-container() {
+  height: 100vh;
+  background: $green;
+  background-color: rgba(178, 218, 142, 1);
+  background-image: linear-gradient(
+    119deg,
+    rgb(70, 97, 138) 0%,
+    rgb(138, 111, 70) 50%,
+    rgb(25, 34, 47) 100%
+  );
+}
+
+@mixin inner-page-container() {
+  height: 100%;
+  background-image: radial-gradient(
+    circle,
+    rgba(142, 218, 200, 0.6) 0%,
+    rgba(38, 50, 34, 0.3) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin default-btn() {
+  color: $font-color-dark;
+  border: 1px solid $grey-dark;
+  background-color: transparent;
+
+  &:hover {
+    background-color: $grey-dark;
+    color: $font-color-light;
+  }
+}
+//</Mixins>

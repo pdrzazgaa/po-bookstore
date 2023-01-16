@@ -1,0 +1,55 @@
+@use '../../../variables.scss' as *;
+
+main {
+  min-height: 100vh;
+  padding-top: 120px;
+  background-color: $grey;
+}
+
+.failure {
+  margin: 40px auto;
+  text-align: center;
+  color: $font-color-light;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+.success {
+  padding: 50px 20vw;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 40px;
+}
+table {
+  margin: 0 auto;
+  background-color: $grey-light;
+  border: 1px solid $grey-dark;
+  border-top: none;
+  width: 100%;
+
+  tr {
+    display: block;
+    padding: 30px 20px;
+  }
+
+  th,
+  td {
+    min-width: 160px;
+    text-align: left;
+  }
+
+  tr {
+    border-top: 1px solid $grey-dark;
+  }
+
+  .delivered {
+    color: $green-light;
+  }
+
+  .details {
+    font-weight: bold;
+    color: $green;
+  }
+}

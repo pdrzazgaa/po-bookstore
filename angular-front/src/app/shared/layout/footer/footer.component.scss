@@ -1,0 +1,15 @@
+@use '../../../../variables.scss' as *;
+
+footer {
+  background-color: $grey-dark;
+  color: $font-color-light;
+  text-align: center;
+  line-height: 50px;
+  font-size: 25px;
+  letter-spacing: 1.5px;
+  z-index: 2;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

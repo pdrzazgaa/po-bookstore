@@ -1,0 +1,77 @@
+<aside>
+  <div>
+    <section class="categories">
+      <h2 *ngIf="category">Ksiązki</h2>
+      <a *ngIf="category" [routerLink]="['/products', category | url]" class="category">
+        > {{ category | fromUrl }}</a
+      >
+      <a
+        *ngIf="subcategory"
+        [routerLink]="['/products', category | url, subcategory | url]"
+        class="subcategory"
+      >
+        > {{ subcategory | fromUrl }}</a
+      >
+    </section>
+    <form [formGroup]="filtersForm" (ngSubmit)="onSubmitForm()">
+      <h2>Filtry</h2>
+      <section>
+        <h3>Cena</h3>
+        <div *ngFor="let price of priceRanges">
+          <input
+            type="radio"
+            name="price"
+            [value]="price"
+            [id]="price"
+            formControlName="price"
+          />
+          <label [for]="price">&lt; {{ price }} zł</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            name="price"
+            value="show-all"
+            id="price-pokaz-wszystko"
+            formControlName="price"
+          />
+          <label for="price-pokaz-wszystko">pokaz wszystko</label>
+        </div>
+      </section>
+      <section>
+        <h3>Okładka</h3>
+        <div>
+          <input
+            type="radio"
+            name="cover"
+            value="twarda"
+            id="twarda"
+            formControlName="cover"
+          />
+          <label for="twarda">twarda</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            name="cover"
+            value="miękka"
+            id="miekka"
+            formControlName="cover"
+          />
+          <label for="miekka">miękka</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            name="cover"
+            value="show-all"
+            id="cover-pokaz-wszystko"
+            formControlName="cover"
+          />
+          <label for="cover-pokaz-wszystko">pokaz wszystko</label>
+        </div>
+      </section>
+      <button type="submit">Filtruj</button>
+    </form>
+  </div>
+</aside>

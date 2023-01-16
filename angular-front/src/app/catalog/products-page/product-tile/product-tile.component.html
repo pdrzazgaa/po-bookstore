@@ -1,0 +1,10 @@
+<a [routerLink]="['/product', product.id]">
+  <figure>
+    <img [src]="product.image.path" [alt]="product.image.alt" />
+  </figure>
+  <div class="details">
+    <p class="price">{{ product.price }} zł</p>
+    <p class="name">{{ product.name }}</p>
+    <p class="author" *ngIf="product.author">{{ product.author }}</p>
+  </div>
+</a>
