@@ -24,6 +24,12 @@ public class CartItem {
         this.cart = cart;
     }
 
+    public CartItem(Product product, Cart cart) {
+        this.product = product;
+        this.cart = cart;
+        this.quantity = 1;
+    }
+
     public CartItem() {
 
     }
@@ -58,5 +64,13 @@ public class CartItem {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public boolean increase(){
+        if (product.decreaseNumberOfItemsInStock()) {
+            this.quantity++;
+            return true;
+        }
+        return false;
     }
 }
