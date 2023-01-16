@@ -1,6 +1,5 @@
 package com.listek.bookstore.repositories;
 
-import com.listek.bookstore.fromToModels.ProductListToData;
 import com.listek.bookstore.models.Book;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
