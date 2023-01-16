@@ -1,14 +1,14 @@
 package com.listek.bookstore.loaders;
 
 import com.listek.bookstore.models.Client;
-import com.listek.bookstore.models.UserAccount;
 import com.listek.bookstore.repositories.ClientRepository;
-import com.listek.bookstore.repositories.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
+@Order(3)
 public class ClientsLoader implements CommandLineRunner {
 
     @Autowired
