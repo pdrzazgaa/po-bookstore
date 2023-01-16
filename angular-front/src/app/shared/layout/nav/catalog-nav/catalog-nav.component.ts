@@ -21,7 +21,6 @@ export class CatalogNavComponent implements OnInit, OnDestroy {
     this.categories = this.categoriesService.getCategories();
     this.categoriesService.categoriesChanged.subscribe((categories: Category[]) => {
       this.categories = categories;
-      this.categories.forEach((cat) => console.log(cat.subcategories));
     });
   }
 
