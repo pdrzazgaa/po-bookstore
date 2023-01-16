@@ -9,9 +9,10 @@ import {
   UserService,
 } from './services';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  imports: [],
+  imports: [HttpClientModule],
   providers: [
     AuthorizationService,
     AuthorizationGuardService,
