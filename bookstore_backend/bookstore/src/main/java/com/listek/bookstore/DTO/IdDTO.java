@@ -1,4 +1,4 @@
-package com.listek.bookstore.fromToModels;
+package com.listek.bookstore.DTO;
 
 import lombok.Getter;
 

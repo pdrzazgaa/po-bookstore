@@ -126,7 +126,7 @@ public class Cart {
     public void computeSumCart(){
         double sum = 0;
         for (CartItem cartItem:this.cartItems){
-            sum += cartItem.getQuantity() * cartItem.getProduct().getPrice();
+            sum += cartItem.getCosts();
         }
         this.cartSum = sum;
     }

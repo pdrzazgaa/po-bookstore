@@ -1,6 +1,6 @@
 package com.listek.bookstore.controllers;
 
-import com.listek.bookstore.fromToModels.CartItemDTO;
+import com.listek.bookstore.DTO.CartItemDTO;
 import com.listek.bookstore.models.Cart;
 import com.listek.bookstore.services.CartService;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class CartController {
         this.cartService = cartService;
     }
 
-    @GetMapping("/getCart/{id}")
+    @GetMapping("/cart/{id}")
     //@CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity getCart(@PathVariable int id) {
         Optional<Cart> cart = cartService.getCart(id);

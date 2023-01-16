@@ -79,4 +79,8 @@ public class CartItem {
     public void decrease(){
         this.quantity--;
     }
+
+    public double getCosts(){
+        return this.quantity * this.product.getPrice();
+    }
 }
