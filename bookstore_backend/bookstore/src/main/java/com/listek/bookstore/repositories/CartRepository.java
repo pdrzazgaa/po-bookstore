@@ -9,10 +9,11 @@ import java.util.Optional;
 
 public interface CartRepository extends CrudRepository<Cart, Long> {
 
-    @Query(value = "select * from koszyki where ostatnia_aktywnosc between (now()- interval '15' minute) and " +
-            "now() and klientid = :clientID", nativeQuery = true)
+    @Query(value = "select * from koszyki where ostatnia_aktywnosc between (now()- interval "+Cart.EXPIRATION_TIME+" minute) and " +
+            "now() and klientid = :clientID order by ostatnia_aktywnosc desc limit 1", nativeQuery = true)
     Optional<Cart> isAvailableCart(@Param("clientID") Long clientID);
 
     @Query("update Cart set lastActivity = now()")
     void updateLastActivity(@Param("cartID") Long cartID);
+
 }

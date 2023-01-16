@@ -3,6 +3,6 @@ package com.listek.bookstore.fromToModels;
 import lombok.Getter;
 
 @Getter
-public class IdForm {
+public class IdDTO {
     private Integer id;
 }

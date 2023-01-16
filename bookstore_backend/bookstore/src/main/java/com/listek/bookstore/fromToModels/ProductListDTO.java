@@ -10,14 +10,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductListToData {
+public class ProductListDTO {
     private Long id;
     private String name;
     private String author;
     private double price;
     private CoverType coverType;
 
-    public ProductListToData(Object[] columns) {
+    public ProductListDTO(Object[] columns) {
         this.id = (columns[0] != null)?((Long)columns[0]).longValue():0;
         this.name = (String) columns[1];
         this.author = (String) columns[2];
