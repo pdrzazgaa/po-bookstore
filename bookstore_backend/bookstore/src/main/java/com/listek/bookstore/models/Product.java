@@ -108,10 +108,21 @@ public class Product {
         if (category != null) {
             if (!this.categories.contains(category)) {
                 this.categories.add(category);
-                //category.addProduct(this);
                 this.categories.add(category.getParentCategory());
             }
         }
+    }
+
+    public boolean decreaseNumberOfItemsInStock(){
+        if (this.numberOfItemsInStock > 0) {
+            this.numberOfItemsInStock--;
+            return true;
+        }
+        return false;
+    }
+
+    public void increaseNumberOfItemsInStock(){
+        this.numberOfItemsInStock++;
     }
 
 
