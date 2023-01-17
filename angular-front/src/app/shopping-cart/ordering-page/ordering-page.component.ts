@@ -22,6 +22,8 @@ export class OrderingPageComponent implements OnInit, OnDestroy {
   private userService: UserService;
   private router: Router;
   private cartSub?: Subscription;
+  private bookcoinsSub?: Subscription;
+  availableBookcoins: number = 0;
   shoppingCart?: ShoppingCart;
   ordererMode: 'client' | 'company' = 'client';
   public showParcelMachineForm: boolean = false;
@@ -86,10 +88,17 @@ export class OrderingPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.cartSub = this.shoppingCartService.getShoppingCart().subscribe((cart) => {
       this.shoppingCart = cart;
+      this.bookcoinsSub = this.userService.verifyLoyaltyProgram().subscribe((res) => {
+        this.availableBookcoins = Math.min(
+          this.shoppingCart!.totalAmount * 0.3,
+          res.bookcoins
+        );
+        this.orderForm.controls['bookcoins'].addValidators(
+          Validators.max(this.availableBookcoins!)
+        );
+      });
     });
-    this.orderForm.controls['bookcoins'].addValidators(
-      Validators.max(this.userService.getBookcoins())
-    );
+
     const personalData = this.orderForm.controls['personalData'];
     personalData.controls['NIP'].disable();
     personalData.controls['companyName'].disable();
@@ -103,10 +112,6 @@ export class OrderingPageComponent implements OnInit, OnDestroy {
     if (this.shoppingCart) {
       return this.shoppingCart.totalAmount;
     } else return 0;
-  }
-
-  getBookcoins() {
-    return this.userService.getBookcoins();
   }
 
   onBookcoinsChange() {
