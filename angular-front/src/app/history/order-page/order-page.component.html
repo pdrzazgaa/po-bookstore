@@ -24,7 +24,7 @@
         </td>
       </tr>
     </table>
-    <a *ngIf="order" [routerLink]="['/reclamation', order.orderNum]"
+    <a *ngIf="order.canComplain" [routerLink]="['/reclamation', order.orderNum]"
       >Przejdź do panelu reklamacji</a
     >
   </main>

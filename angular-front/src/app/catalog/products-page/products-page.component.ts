@@ -28,7 +28,6 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
         .subscribe((products) => {
           this.products = products;
           this.productsToShow = products;
-          console.log(this.products);
         });
       this.productsToShow = this.products;
     });
@@ -42,7 +41,6 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
     if (filter.cover && filter.cover != 'show-all') {
       filterProducts = filterProducts.filter((product) => product.cover === filter.cover);
     }
-    console.log(filter.price, filter.cover);
     this.productsToShow = filterProducts;
   }
 
