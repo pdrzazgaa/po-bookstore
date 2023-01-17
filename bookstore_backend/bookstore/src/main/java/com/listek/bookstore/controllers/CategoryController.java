@@ -2,6 +2,9 @@ package com.listek.bookstore.controllers;
 
 import com.listek.bookstore.models.Category;
 import com.listek.bookstore.repositories.CategoryRepository;
+import com.listek.bookstore.services.CategoryService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,18 +16,16 @@ import java.util.List;
 @RestController
 public class CategoryController {
 
-    CategoryRepository categoryRepository;
+   CategoryService categoryService;
 
-    public CategoryController(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
     @GetMapping
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/categories")
-    public Category getCategories(){
-        List<Category> categories =  categoryRepository.findAll();
-        System.out.println("Categories found.");
-        return categories.get(0);
+    public ResponseEntity getCategories(){
+        return new ResponseEntity(categoryService.getCategories(), HttpStatus.OK);
     }
 }

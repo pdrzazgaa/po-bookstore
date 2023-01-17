@@ -1,6 +1,7 @@
 package com.listek.bookstore.repositories;
 
-import org.aspectj.apache.bcel.util.Repository;
+import com.listek.bookstore.models.Delivery;
+import org.springframework.data.repository.CrudRepository;
 
-public interface DeliveryRepository extends Repository {
+public interface DeliveryRepository extends CrudRepository<Delivery, Long> {
 }
