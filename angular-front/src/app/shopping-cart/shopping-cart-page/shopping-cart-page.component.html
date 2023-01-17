@@ -28,7 +28,7 @@
     <h3>Podsumowanie</h3>
     <div>
       <span>Wartość koszyka:</span>
-      <span class="totalAmount">{{ shoppingCart.totalAmount }} zł</span>
+      <span class="totalAmount">{{ shoppingCart.totalAmount | number : '.2'}} zł</span>
     </div>
     <a routerLink="/ordering">Złóz zamówienie</a>
   </aside>

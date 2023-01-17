@@ -8,6 +8,7 @@ export enum Status {
   OrderReadyForSend = 'Gotowe do wysyłki',
   OrderInTransit = 'W drodze do dostarczenia',
   OrderDelivered = 'Dostarczone',
+  OrderInComplaint = 'Reklamowane',
   OrderReturned = 'Zwrócone',
 }
 

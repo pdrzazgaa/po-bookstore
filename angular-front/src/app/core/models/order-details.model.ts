@@ -8,15 +8,18 @@ export type OrderPosition = {
 
 export class OrderDetails extends Order {
   public orderPositions: OrderPosition[];
+  public canComplain: boolean;
 
   constructor(
     orderNum: number,
     status: Status,
     totalPrice: number,
     date: Date,
-    orderPositions: OrderPosition[]
+    orderPositions: OrderPosition[],
+    canComplain: boolean
   ) {
     super(orderNum, status, totalPrice, date);
     this.orderPositions = orderPositions;
+    this.canComplain = canComplain;
   }
 }

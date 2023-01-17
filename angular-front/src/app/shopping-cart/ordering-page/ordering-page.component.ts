@@ -212,7 +212,7 @@ export class OrderingPageComponent implements OnInit, OnDestroy {
           if (response) {
             this.confirmMode = 'green';
             this.confirmPopupMessage =
-              'Poprawnie złozono zamówienie. Opłać swoje zamówienie. Dodano 13 bookcoinów do twojego konta';
+              'Poprawnie złozono zamówienie. Opłać swoje zamówienie.';
           } else {
             this.confirmPopupMessage =
               'Przepraszamy, coś poszło nie tak... nie udało się złozyc zamowienia';
