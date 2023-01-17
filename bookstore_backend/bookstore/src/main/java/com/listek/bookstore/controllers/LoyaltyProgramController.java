@@ -33,6 +33,6 @@ public class LoyaltyProgramController {
     @GetMapping("/checkLoyaltyProgram/{clientID}")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity checkLoyaltyProgram(@PathVariable("clientID") int clientID) {
-        return checkLoyaltyProgram(clientID);
+        return loyaltyProgramService.checkLoyaltyProgram(clientID);
     }
 }
