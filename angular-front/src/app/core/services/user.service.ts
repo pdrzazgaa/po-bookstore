@@ -35,10 +35,6 @@ export class UserService {
     );
   }
 
-  getBookcoins() {
-    return 30;
-  }
-
   joinLoyaltyProgram() {
     const headers = { 'content-type': 'application/json' };
     if (this.userId) {
