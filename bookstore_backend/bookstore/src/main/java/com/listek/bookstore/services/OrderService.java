@@ -1,10 +1,12 @@
 package com.listek.bookstore.services;
 
+import com.listek.bookstore.DTO.DocumentDTO;
 import com.listek.bookstore.DTO.OrderDTO;
 import com.listek.bookstore.DTO.OrdersDTO;
 import com.listek.bookstore.DTO.PaymentDTO;
 import com.listek.bookstore.models.*;
 import com.listek.bookstore.repositories.*;
+import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -76,8 +78,8 @@ public class OrderService {
     }
 
     public ResponseEntity createOrder(OrderDTO orderDTO){
-
-        Optional<Cart> cart = cartRepository.findById(orderDTO.getCartID());
+        System.out.println(orderDTO);
+        Optional<Cart> cart = cartRepository.findById(orderDTO.getCartId());
         return cart
                 .map(foundCart -> {
                     Optional<OrderHistory> orderHistory = orderHistoryRepository.findOrderHistoryByClientId(foundCart.getClient().getId());
@@ -86,13 +88,13 @@ public class OrderService {
                                 // #TODO generating order number;
                                 String orderNumber = "123-2023";
                                 Order order = new Order(LocalDateTime.now(), orderDTO.getBookcoins(), OrderStatus.OrderPaymentDue, orderNumber, foundCart, foundOrderHistory);
-                                Address address = orderDTO.getAddressDTO().fromAddressDTOtoAddress(orderDTO.getForname(), orderDTO.getSurname(), orderDTO.getMail(), orderDTO.getPhoneNumber());
+                                Address address = orderDTO.getAddress().fromAddressDTOtoAddress(orderDTO.getForname(), orderDTO.getSurname(), orderDTO.getMail(), orderDTO.getPhoneNumber());
                                 addressRepository.save(address);
-                                Payment payment = orderDTO.getPaymentDTO().fromPaymentDTOtoPayment(order);
+                                Payment payment = new PaymentDTO(orderDTO.getPayment()).fromPaymentDTOtoPayment(order);
                                 paymentRepository.save(payment);
-                                Document document = orderDTO.getDocumentDTO().fromDocumentDTOtoDocument(order, orderDTO.getNIP(), orderDTO.getCompanyName());
+                                Document document = new DocumentDTO(orderDTO.getDocument()).fromDocumentDTOtoDocument(order, orderDTO.getNip(), orderDTO.getCompanyName());
                                 documentRepository.save(document);
-                                Delivery delivery = orderDTO.getDeliveryDTO().fromDeliveryDTOtoDelivery(address, order);
+                                Delivery delivery = orderDTO.getDelivery().fromDeliveryDTOtoDelivery(address, order);
                                 deliveryRepository.save(delivery);
 
                                 return new ResponseEntity<>(HttpStatus.OK);

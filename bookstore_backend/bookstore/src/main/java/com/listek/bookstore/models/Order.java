@@ -27,16 +27,16 @@ public class Order {
     private OrderStatus orderStatus;
     @Column(name="NumerZamowienia")
     private String orderNumber;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="KoszykID")
     private Cart cart;
-    @OneToOne(mappedBy = "order")
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Document document;
-    @OneToOne(mappedBy = "order")
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Payment payment;
-    @OneToOne(mappedBy = "order")
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Delivery delivery;
-    @OneToOne(mappedBy = "order")
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Complaint complaint;
     @ManyToOne
     @JoinColumn(name="HistoriaZamowienID")
@@ -76,20 +76,12 @@ public class Order {
         return sum;
     }
 
-    public void computeSum(){
+    public double computeSum(){
         double sum = computeSumWithoutDeliveryAndDiscount();
         sum += delivery.getCost();
         sum -= discount;
         this.sum = sum;
-    }
-
-    public void computeSumWithoutDiscount(){
-        double sum = 0;
-        sum += delivery.getCost();
-        for (CartItem cartItem: cart.getCartItems()){
-            sum += cartItem.getCosts();
-        }
-        this.sum = sum;
+        return sum;
     }
 
     public double computeSumWithoutDeliveryAndDiscount(){

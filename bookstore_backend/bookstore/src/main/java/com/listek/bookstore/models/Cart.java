@@ -21,7 +21,7 @@ public class Cart {
     private LocalDateTime lastActivity;
     @OneToMany(mappedBy = "cart", cascade= CascadeType.ALL)
     private List<CartItem> cartItems;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "KlientID")
     private Client client;
     @JsonInclude
