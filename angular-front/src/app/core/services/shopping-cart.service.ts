@@ -28,7 +28,6 @@ export class ShoppingCartService {
   getShoppingCart(): Observable<ShoppingCart> {
     return this.http.get(this.baseUrl + 'cart/' + this.userService.getUserId()).pipe(
       map((res: any) => {
-        console.log(res);
         const shoppingCartPositions: ShoppingCartPosition[] = res.cartItems.map(
           (item) =>
             new ShoppingCartPosition(
@@ -50,7 +49,6 @@ export class ShoppingCartService {
   }
 
   incrementProductAmount(productId: number): Observable<boolean> {
-    console.log(this.userService.getUserId(), productId, ' id before post, product id');
     return this.http
       .post(
         this.baseUrl + 'addCartItem',
@@ -59,7 +57,6 @@ export class ShoppingCartService {
       )
       .pipe(
         map((res) => {
-          console.log('odbior', res);
           if (res === 'OK') {
             this.getShoppingCart()
               .subscribe((cart) => this.shoppingCartChanged.emit(cart))
@@ -74,7 +71,6 @@ export class ShoppingCartService {
   }
 
   decrementProductAmount(productId: number) {
-    console.log(this.userService.getUserId(), productId);
     return this.http
       .post(
         this.baseUrl + 'removeCartItem',
@@ -83,7 +79,6 @@ export class ShoppingCartService {
       )
       .pipe(
         map((res) => {
-          console.log('odbior', res);
           if (res === 'OK') {
             this.getShoppingCart()
               .subscribe((cart) => this.shoppingCartChanged.emit(cart))
@@ -109,7 +104,7 @@ export class ShoppingCartService {
     surname?: string,
     NIP?: string,
     companyName?: string
-  ) {
+  ): Observable<number> {
     const headers = { 'content-type': 'application/json' };
     const obj = JSON.stringify({
       forname: forname,
