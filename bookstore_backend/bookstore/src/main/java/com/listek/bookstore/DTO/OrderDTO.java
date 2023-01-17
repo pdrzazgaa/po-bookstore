@@ -15,17 +15,34 @@ import java.time.LocalDateTime;
 public class OrderDTO {
 
     // imie, nazwisko, mail, telefon, adres{}, sposobDostawy, sposobPlatnosci, bookcoiny, idK,
-    private Long cartID;
+    private Long cartId;
     private String forname;
     private String surname;
-    private String NIP;
+    private String nip;
     private String companyName;
     private String mail;
     private String phoneNumber;
-    private DocumentDTO documentDTO;
-    private AddressDTO addressDTO;
-    private DeliveryDTO deliveryDTO;
-    private PaymentDTO paymentDTO;
+    private String document;
+    private AddressDTO address;
+    private DeliveryDTO delivery;
+    private String payment;
     private int bookcoins;
 
+    @Override
+    public String toString() {
+        return "OrderDTO{" +
+                "cartId=" + cartId +
+                ", forname='" + forname + '\'' +
+                ", surname='" + surname + '\'' +
+                ", NIP='" + nip + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", mail='" + mail + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", document='" + document + '\'' +
+                ", address=" + address +
+                ", delivery=" + delivery +
+                ", payment='" + payment + '\'' +
+                ", bookcoins=" + bookcoins +
+                '}';
+    }
 }
