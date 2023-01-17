@@ -2,13 +2,15 @@ package com.listek.bookstore.services;
 
 import com.listek.bookstore.DTO.OrderDTO;
 import com.listek.bookstore.DTO.OrdersDTO;
+import com.listek.bookstore.DTO.PaymentDTO;
 import com.listek.bookstore.models.*;
-import com.listek.bookstore.repositories.ClientRepository;
-import com.listek.bookstore.repositories.OrderRepository;
+import com.listek.bookstore.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,13 +18,22 @@ import java.util.Optional;
 @Service
 public class OrderService {
 
+    @Autowired
     ClientRepository clientRepository;
+    @Autowired
     OrderRepository orderRepository;
-
-    public OrderService(ClientRepository clientRepository, OrderRepository orderRepository) {
-        this.clientRepository = clientRepository;
-        this.orderRepository = orderRepository;
-    }
+    @Autowired
+    CartRepository cartRepository;
+    @Autowired
+    OrderHistoryRepository orderHistoryRepository;
+    @Autowired
+    PaymentRepository paymentRepository;
+    @Autowired
+    DeliveryRepository deliveryRepository;
+    @Autowired
+    DocumentRepository documentRepository;
+    @Autowired
+    AddressRepository addressRepository;
 
     public ResponseEntity getOrders(Long clientID){
         Optional<Client> client = clientRepository.findClientById(clientID);
@@ -65,6 +76,30 @@ public class OrderService {
     }
 
     public ResponseEntity createOrder(OrderDTO orderDTO){
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
+
+        Optional<Cart> cart = cartRepository.findById(orderDTO.getCartID());
+        return cart
+                .map(foundCart -> {
+                    Optional<OrderHistory> orderHistory = orderHistoryRepository.findOrderHistoryByClientId(foundCart.getClient().getId());
+                    return orderHistory
+                            .map(foundOrderHistory -> {
+                                // #TODO generating order number;
+                                String orderNumber = "123-2023";
+                                Order order = new Order(LocalDateTime.now(), orderDTO.getBookcoins(), OrderStatus.OrderPaymentDue, orderNumber, foundCart, foundOrderHistory);
+                                Address address = orderDTO.getAddressDTO().fromAddressDTOtoAddress(orderDTO.getForname(), orderDTO.getSurname(), orderDTO.getMail(), orderDTO.getPhoneNumber());
+                                addressRepository.save(address);
+                                Payment payment = orderDTO.getPaymentDTO().fromPaymentDTOtoPayment(order);
+                                paymentRepository.save(payment);
+                                Document document = orderDTO.getDocumentDTO().fromDocumentDTOtoDocument(order, orderDTO.getNIP(), orderDTO.getCompanyName());
+                                documentRepository.save(document);
+                                Delivery delivery = orderDTO.getDeliveryDTO().fromDeliveryDTOtoDelivery(address, order);
+                                deliveryRepository.save(delivery);
+
+                                return new ResponseEntity<>(HttpStatus.OK);
+                            })
+                            .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                })
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+
     }
 }

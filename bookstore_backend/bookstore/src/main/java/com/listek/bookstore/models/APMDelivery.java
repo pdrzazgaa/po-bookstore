@@ -15,11 +15,13 @@ import lombok.Setter;
 @Entity
 public class APMDelivery extends Delivery {
 
+    private static final double APMDELIVERYCOST = 9.99;
+
     @Column(name = "numerPaczkomatu")
     private String APMNumber;
 
-    public APMDelivery(double cost, Address address, String APMNumber, Order order) {
-        super(cost, address, order);
+    public APMDelivery(Address address, String APMNumber, Order order) {
+        super(APMDELIVERYCOST, address, order);
         this.APMNumber = APMNumber;
     }
 
