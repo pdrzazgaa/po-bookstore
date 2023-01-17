@@ -28,7 +28,6 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   popupMessage?: string;
   popupMode?: 'accept' | 'deny';
   disabledButton: boolean = false;
-  private showPopupSub?: Subscription;
   private route: ActivatedRoute;
   private routeSub?: Subscription;
   private router: Router;
@@ -64,31 +63,32 @@ export class ProductPageComponent implements OnInit, OnDestroy {
 
   onButtonClick() {
     if (this.authorizationService.isLoggedIn()) {
-      const popupMessageStatus = this.shoppingCartService.incrementProductAmount(
-        this.product!.id
-      );
-      if (popupMessageStatus) {
-        this.popupMessage = PopupMessage.accept;
-        this.popupMode = 'accept';
-      } else {
-        this.popupMessage = PopupMessage.deny;
-        this.popupMode = 'deny';
-      }
-      this.showPopup = true;
-      this.disabledButton = true;
-      this.popupMessage = PopupMessage[this.popupMode];
-      this.showPopupSub?.unsubscribe();
-      this.showPopupSub = timer(3000).subscribe(() => {
-        this.showPopup = false;
-        this.disabledButton = false;
-      });
+      this.shoppingCartService
+        .incrementProductAmount(this.product!.id)
+        .subscribe((isAdded) => {
+          if (isAdded) {
+            this.popupMessage = PopupMessage.accept;
+            this.popupMode = 'accept';
+          } else {
+            this.popupMessage = PopupMessage.deny;
+            this.popupMode = 'deny';
+          }
+          this.showPopup = true;
+          this.disabledButton = true;
+          this.popupMessage = PopupMessage[this.popupMode];
+          timer(3000)
+            .subscribe(() => {
+              this.showPopup = false;
+              this.disabledButton = false;
+            })
+            .unsubscribe();
+        });
     } else {
       this.router.navigate(['/log-in']);
     }
   }
 
   ngOnDestroy(): void {
-    this.showPopupSub?.unsubscribe();
     this.routeSub?.unsubscribe();
     this.productSub?.unsubscribe();
   }
