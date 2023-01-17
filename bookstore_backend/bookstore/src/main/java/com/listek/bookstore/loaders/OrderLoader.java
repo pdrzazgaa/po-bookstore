@@ -49,7 +49,7 @@ public class OrderLoader implements CommandLineRunner {
                 Address address = new Address("Maria", "Markowiak", "m.a.markowiak@gmail.com", "123 456 789",
                         "Traugutta", "132/47", "12-345", "Wrocław", "Polska");
                 addressRepository.save(address);
-                Delivery delivery = new APMDelivery(9.99, address, "WRO12B", order);
+                Delivery delivery = new APMDelivery(address, "WRO12B", order);
                 deliveryRepository.save(delivery);
                 Payment payment = new TransferPayment(LocalDateTime.now(), "72 1234 5678 0000 9820", order);
                 paymentRepository.save(payment);

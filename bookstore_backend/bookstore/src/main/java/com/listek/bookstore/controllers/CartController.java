@@ -19,7 +19,7 @@ public class CartController {
     }
 
     @GetMapping("/cart/{id}")
-    //@CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity getCart(@PathVariable int id) {
         Optional<Cart> cart = cartService.getCart(id);
         return cart
@@ -35,13 +35,13 @@ public class CartController {
     }
 
     @PostMapping("/addCartItem")
-    //@CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity addCartItem(@RequestBody CartItemDTO cartItemDTO) {
         return cartService.addItemToCart(cartItemDTO.getClientID(), cartItemDTO.getProductID());
     }
 
     @PostMapping("/removeCartItem")
-    //@CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity removeCartItem(@RequestBody CartItemDTO cartItemDTO) {
         return cartService.removeCartItem(cartItemDTO.getClientID(), cartItemDTO.getProductID());
     }
