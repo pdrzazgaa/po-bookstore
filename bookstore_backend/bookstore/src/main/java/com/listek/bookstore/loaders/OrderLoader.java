@@ -57,7 +57,7 @@ public class OrderLoader implements CommandLineRunner {
             }
 
         }
-        System.out.println(orderRepository.count());
+        System.out.println("Orders: "+orderRepository.count());
 
     }
 }
