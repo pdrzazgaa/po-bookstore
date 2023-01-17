@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Table(name="Zamowienia")
-@JsonIgnoreProperties("orderHistory")
+@JsonIgnoreProperties(value = {"orderHistory", "document", "payment", "delivery", "orderHistory"})
 @Entity
 public class Order {
     @Id
@@ -41,17 +41,25 @@ public class Order {
     @Transient
     private int usedBookCoins;
 
-    public Order(Long id, LocalDateTime date, int discount, OrderStatus orderStatus, String orderNumber, Cart cart, Document document, Payment payment, Delivery delivery, Complaint complaint, OrderHistory orderHistory) {
-        this.id = id;
+
+    public Order(LocalDateTime date, int bookCoins, OrderStatus orderStatus, String orderNumber, Cart cart,
+                OrderHistory orderHistory) {
         this.date = date;
-        this.discount = discount;
+        this.orderStatus = orderStatus;
+        this.orderNumber = orderNumber;
+        this.cart = cart;
+        this.orderHistory = orderHistory;
+    }
+
+    public Order(LocalDateTime date, int bookCoins, OrderStatus orderStatus, String orderNumber, Cart cart,
+                 Document document, Payment payment, Delivery delivery, OrderHistory orderHistory) {
+        this.date = date;
         this.orderStatus = orderStatus;
         this.orderNumber = orderNumber;
         this.cart = cart;
         this.document = document;
         this.payment = payment;
         this.delivery = delivery;
-        this.complaint = complaint;
         this.orderHistory = orderHistory;
     }
 

@@ -33,6 +33,6 @@ public class OrderController {
     @PostMapping("/createOrder")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity createOrder(@RequestBody OrderDTO orderDTO){
-        return new ResponseEntity(HttpStatus.CHECKPOINT);
+        return orderService.createOrder(orderDTO);
     }
 }

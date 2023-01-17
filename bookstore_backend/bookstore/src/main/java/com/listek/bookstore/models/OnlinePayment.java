@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @Entity
 public class OnlinePayment extends Payment{
 
-    public OnlinePayment(Long id, LocalDateTime paymentDate) {
-        super(id, paymentDate);
+    public OnlinePayment(LocalDateTime paymentDate, Order order) {
+        super(paymentDate, order);
     }
 
     public OnlinePayment() {

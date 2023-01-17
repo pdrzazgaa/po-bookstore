@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -18,7 +19,7 @@ public class OrderHistory {
     @JoinColumn(name="KlientID")
     private Client client;
     @OneToMany(mappedBy = "orderHistory")
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 
     public OrderHistory() {
 

@@ -7,8 +7,8 @@ import jakarta.persistence.Table;
 @Entity
 public class BookstoreDelivery extends Delivery{
 
-    public BookstoreDelivery(Long id, float cost, Address address) {
-        super(id, cost, address);
+    public BookstoreDelivery(double cost, Address address, Order order) {
+        super(cost, address, order);
     }
 
     public BookstoreDelivery() {
