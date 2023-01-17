@@ -9,6 +9,7 @@ public enum OrderStatus {
     OrderReadyForSend,
     OrderInTransit,
     OrderDelivered,
-    OrderReturned
+    OrderReturned,
+    OrderInComplaint
 
 }
