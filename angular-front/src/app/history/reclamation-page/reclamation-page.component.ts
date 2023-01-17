@@ -56,7 +56,7 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe((params) => {
-      this.order = this.ordersService.getOrderDetails(+params['orderId']);
+      this.order = this.ordersService.getOrderDetails(params['orderId']);
     });
     this.productsForm = this.formBuilder.group(this.createForm(), {
       validator: HasCheckedBox,

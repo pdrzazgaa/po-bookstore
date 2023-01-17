@@ -22,7 +22,7 @@ export class OrderPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe((params) => {
-      this.order = this.ordersService.getOrderDetails(+params['id']);
+      this.order = this.ordersService.getOrderDetails(params['id']);
     });
   }
 

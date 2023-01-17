@@ -40,8 +40,15 @@ export class OrdersService {
       );
   }
 
-  getOrderDetails(orderId: number) {
-    const order = this.orders.find(({ id }) => id === orderId);
+  fetchOrderDetails(orderNumber: any): Observable<any> {
+    return this.http
+      .get(this.baseUrl + 'order/' + orderNumber + '/' + this.userService.getUserId())
+      .pipe(map((res) => console.log(res)));
+  }
+
+  getOrderDetails(orderNumber: string) {
+    this.fetchOrderDetails(orderNumber).subscribe();
+    const order = this.orders.find(({ id }) => id === 112345);
 
     return (
       order &&
