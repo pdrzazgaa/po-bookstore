@@ -49,4 +49,17 @@ public class LoyaltyProgram {
     public void setClient(Client client) {
         this.client = client;
     }
+
+    public void addBookCoins(int bookcoins){
+        this.bookcoins += bookcoins;
+    }
+
+    public boolean removeBookCoins(int bookcoins){
+        if (this.bookcoins > bookcoins) {
+            this.bookcoins -= bookcoins;
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

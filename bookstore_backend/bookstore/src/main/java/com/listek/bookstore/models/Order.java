@@ -38,7 +38,8 @@ public class Order {
     @Transient
     @JsonInclude
     private double sum;
-
+    @Transient
+    private int usedBookCoins;
 
     public Order(Long id, LocalDateTime date, int discount, OrderStatus orderStatus, String orderNumber, Cart cart, Document document, Payment payment, Delivery delivery, Complaint complaint, OrderHistory orderHistory) {
         this.id = id;
@@ -159,5 +160,38 @@ public class Order {
             sum += cartItem.getCosts();
         }
         this.sum = sum;
+    }
+
+    /**
+        Function returns remaining BookCoins (if client passed more than he should)
+     **/
+    public int grantDiscount(int bookCoins){
+        int usedBookCoins;
+        computeSum();
+        usedBookCoins = Math.min(bookCoins, (int)(0.3 * sum));
+        this.discount = usedBookCoins;
+        return bookCoins - usedBookCoins;
+    }
+
+    public void placeOrder(){
+        this.orderStatus = OrderStatus.OrderPaymentDue;
+    }
+
+    public void payForOrder(){
+        this.orderStatus = OrderStatus.OrderPaid;
+            addBookCoinsToClient();
+    }
+
+    public void addBookCoinsToClient(){
+        computeSum();
+        this.orderHistory.getClient().getLoyaltyProgram().addBookCoins(
+                (int) (this.sum / 20)
+        );
+    }
+
+    public boolean takeBookCoinsFromClient(){
+        computeSum();
+        return this.orderHistory.getClient().getLoyaltyProgram().removeBookCoins(
+                usedBookCoins);
     }
 }
