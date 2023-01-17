@@ -32,6 +32,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   private route: ActivatedRoute;
   private routeSub?: Subscription;
   private router: Router;
+  private productSub?: Subscription;
   buttonMessage?: 'Dodaj do koszyka' | 'Zaloguj się, aby dodać do koszyka';
 
   constructor(
@@ -50,7 +51,11 @@ export class ProductPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe((params) => {
-      this.product = this.productsService.getProduct(+params['id']);
+      this.productSub = this.productsService
+        .getProduct(+params['id'])
+        .subscribe((res) => {
+          this.product = res;
+        });
     });
     this.buttonMessage = this.authorizationService.isLoggedIn()
       ? 'Dodaj do koszyka'
@@ -85,5 +90,6 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.showPopupSub?.unsubscribe();
     this.routeSub?.unsubscribe();
+    this.productSub?.unsubscribe();
   }
 }

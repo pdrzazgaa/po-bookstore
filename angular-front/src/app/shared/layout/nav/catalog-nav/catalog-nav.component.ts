@@ -20,6 +20,7 @@ export class CatalogNavComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.categories = this.categoriesService.getCategories();
     this.categoriesService.categoriesChanged.subscribe((categories: Category[]) => {
+      console.log('categories subscribe');
       this.categories = categories;
     });
   }

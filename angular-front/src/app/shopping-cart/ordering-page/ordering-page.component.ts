@@ -110,7 +110,6 @@ export class OrderingPageComponent implements OnInit {
     if (bookcoinsControl.valid) {
       this.usedBookcoins = bookcoinsControl.value!;
     }
-    console.log(this.orderForm);
   }
 
   onClientClick() {
