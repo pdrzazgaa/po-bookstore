@@ -35,7 +35,7 @@ public class CartController {
     }
 
     @PostMapping("/addCartItem")
-    @CrossOrigin(origins = "http://localhost:4200")
+    //@CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity addCartItem(@RequestBody CartItemDTO cartItemDTO) {
         return cartService.addItemToCart(cartItemDTO.getClientID(), cartItemDTO.getProductID());
     }
