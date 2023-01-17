@@ -32,6 +32,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   private routeSub?: Subscription;
   private router: Router;
   private productSub?: Subscription;
+  private buttonSub?: Subscription;
   buttonMessage?: 'Dodaj do koszyka' | 'Zaloguj się, aby dodać do koszyka';
 
   constructor(
@@ -76,12 +77,12 @@ export class ProductPageComponent implements OnInit, OnDestroy {
           this.showPopup = true;
           this.disabledButton = true;
           this.popupMessage = PopupMessage[this.popupMode];
-          timer(3000)
-            .subscribe(() => {
-              this.showPopup = false;
-              this.disabledButton = false;
-            })
-            .unsubscribe();
+          this.buttonSub?.unsubscribe();
+          this.buttonSub = timer(3000).subscribe(() => {
+            console.log('button subscribed');
+            this.showPopup = false;
+            this.disabledButton = false;
+          });
         });
     } else {
       this.router.navigate(['/log-in']);
@@ -91,5 +92,6 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.routeSub?.unsubscribe();
     this.productSub?.unsubscribe();
+    this.buttonSub?.unsubscribe();
   }
 }

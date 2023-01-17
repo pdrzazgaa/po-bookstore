@@ -22,12 +22,6 @@ export class OrdersService {
     this.userService = userService;
   }
 
-  // getOrders(userId: number) {
-  //   // this.fetchOrders().subscribe();
-  //   console.log(userId);
-  //   return this.orders;
-  // }
-
   getOrders(): Observable<Order[]> {
     return this.http
       .get<any[]>(this.baseUrl + `orders/${this.userService.getUserId()}`)
@@ -36,7 +30,7 @@ export class OrdersService {
           res.map(
             (order) =>
               new Order(
-                order.id,
+                order.orderNumber,
                 Status[order.orderStatus],
                 order.sum,
                 new Date(order.date)
