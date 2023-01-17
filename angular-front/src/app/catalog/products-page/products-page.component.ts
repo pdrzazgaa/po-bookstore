@@ -14,6 +14,7 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
   public productsToShow: Product[] = [];
   private route: ActivatedRoute;
   private routeSub?: Subscription;
+  private productsSub?: Subscription;
 
   constructor(productsService: ProductsService, route: ActivatedRoute) {
     this.productsService = productsService;
@@ -22,10 +23,13 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe((params) => {
-      this.products = this.productsService.getProducts(
-        params['category'],
-        params['subcategory']
-      );
+      this.productsSub = this.productsService
+        .getProducts(params['idCat'])
+        .subscribe((products) => {
+          this.products = products;
+          this.productsToShow = products;
+          console.log(this.products);
+        });
       this.productsToShow = this.products;
     });
   }
@@ -44,5 +48,6 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.routeSub?.unsubscribe();
+    this.productsSub?.unsubscribe();
   }
 }

@@ -1,7 +1,7 @@
 import { Image, Product, ProductDetails } from '../models';
+import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
 
 @Injectable()
 export class ProductsService {
@@ -129,7 +129,22 @@ export class ProductsService {
     );
   }
 
-  getProducts(category?: string, subcategory?: string) {
-    return this.products;
+  getProducts(idCat: any): Observable<Product[]> {
+    return this.http.get<any[]>(this.productsBaseUrl + `/${idCat}`).pipe(
+      map((res) => {
+        this.products = res.map(
+          (prod) =>
+            new Product(
+              prod.id,
+              prod.name,
+              prod.price,
+              new Image('../../../assets/kubus-puchatek.jpeg', prod.name),
+              prod.coverType == 'HardCover' ? 'twarda' : 'miękka',
+              prod.author
+            )
+        );
+        return this.products;
+      })
+    );
   }
 }

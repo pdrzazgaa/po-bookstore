@@ -199,6 +199,7 @@ export class OrderingPageComponent implements OnInit {
         c.payment.value! as Payment,
         c.bookcoins.value!,
         this.shoppingCart!.cartId,
+        c.document.value!,
         p.forname.value!,
         p.surname.value!
       );
