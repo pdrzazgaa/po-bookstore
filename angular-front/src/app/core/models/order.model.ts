@@ -1,4 +1,15 @@
-export type Status = 'W realizacji' | 'Wysłane' | 'Dostarczone';
+/* eslint-disable no-unused-vars */
+
+export enum Status {
+  OrderCancelled = 'Wycofane',
+  OrderPaymentDue = 'Do zapłaty',
+  OrderPaid = 'Opłacone',
+  OrderProcessing = 'W realizacji',
+  OrderReadyForSend = 'Gotowe do wysyłki',
+  OrderInTransit = 'W drodze do dostarczenia',
+  OrderDelivered = 'Dostarczone',
+  OrderReturned = 'Zwrócone',
+}
 
 export class Order {
   public id: number;

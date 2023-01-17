@@ -1,18 +1,49 @@
-import { Image, Order, OrderDetails, Product, Reclamation } from '../models';
+import { Image, Order, OrderDetails, Product, Reclamation, Status } from '../models';
+import { Observable, map } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { UserService } from './user.service';
 
 @Injectable()
 export class OrdersService {
+  private http: HttpClient;
+  private userService: UserService;
+  private baseUrl = 'http://localhost:6060/';
+
   private orders: Order[] = [
-    new Order(112345, 'Dostarczone', 150.99, new Date('2022-05-20')),
-    new Order(121234, 'W realizacji', 10.99, new Date('2022-05-20')),
-    new Order(378653, 'W realizacji', 550.39, new Date('2022-05-20')),
-    new Order(234234, 'Wysłane', 300, new Date('2022-05-20')),
+    new Order(112345, Status.OrderPaid, 150.99, new Date('2022-05-20')),
+    new Order(121234, Status.OrderPaid, 10.99, new Date('2022-05-20')),
+    new Order(378653, Status.OrderPaid, 550.39, new Date('2022-05-20')),
+    new Order(234234, Status.OrderPaid, 300, new Date('2022-05-20')),
   ];
 
-  getOrders(userId: number) {
-    console.log(userId);
-    return this.orders;
+  constructor(http: HttpClient, userService: UserService) {
+    this.http = http;
+    this.userService = userService;
+  }
+
+  // getOrders(userId: number) {
+  //   // this.fetchOrders().subscribe();
+  //   console.log(userId);
+  //   return this.orders;
+  // }
+
+  getOrders(): Observable<Order[]> {
+    return this.http
+      .get<any[]>(this.baseUrl + `orders/${this.userService.getUserId()}`)
+      .pipe(
+        map((res) =>
+          res.map(
+            (order) =>
+              new Order(
+                order.id,
+                Status[order.orderStatus],
+                order.sum,
+                new Date(order.date)
+              )
+          )
+        )
+      );
   }
 
   getOrderDetails(orderId: number) {
