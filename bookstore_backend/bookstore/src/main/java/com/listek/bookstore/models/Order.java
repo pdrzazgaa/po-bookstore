@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Getter
 @Setter
@@ -46,6 +47,8 @@ public class Order {
     private double sum;
     @Transient
     private int usedBookCoins;
+    @Transient
+    private boolean isPossibleComplaint = isPossibleComplaint();
 
 
     public Order(LocalDateTime date, int bookCoins, OrderStatus orderStatus, String orderNumber, Cart cart,
@@ -90,6 +93,12 @@ public class Order {
             sum += cartItem.getCosts();
         }
         return sum;
+    }
+
+    public boolean isPossibleComplaint(){
+        if (complaint != null || date == null) return false;
+        long days = ChronoUnit.DAYS.between(date, LocalDateTime.now());
+        return days < 30 && orderStatus == OrderStatus.OrderDelivered;
     }
 
     /**

@@ -62,6 +62,7 @@ public class OrderService {
                     return order
                             .map(foundOrder -> {
                                 foundOrder.computeSum();
+                                foundOrder.isPossibleComplaint();
                                 System.out.println("Order found.");
                                 return new ResponseEntity(foundOrder, HttpStatus.OK);
                             })
