@@ -1,4 +1,4 @@
-package com.listek.bookstore.fromToModels;
+package com.listek.bookstore.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoyaltyProgramToData {
+public class LoyaltyProgramDTO {
 
     private boolean isParticipant;
     private int bookcoins;

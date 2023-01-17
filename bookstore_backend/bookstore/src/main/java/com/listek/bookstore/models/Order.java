@@ -1,10 +1,13 @@
 package com.listek.bookstore.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Table(name="Zamowienia")
+@JsonIgnoreProperties("orderHistory")
 @Entity
 public class Order {
     @Id
@@ -32,6 +35,9 @@ public class Order {
     @ManyToOne
     @JoinColumn(name="HistoriaZamowienID")
     private OrderHistory orderHistory;
+    @Transient
+    @JsonInclude
+    private double sum;
 
 
     public Order(Long id, LocalDateTime date, int discount, OrderStatus orderStatus, String orderNumber, Cart cart, Document document, Payment payment, Delivery delivery, Complaint complaint, OrderHistory orderHistory) {
@@ -138,5 +144,20 @@ public class Order {
 
     public void setOrderHistory(OrderHistory orderHistory) {
         this.orderHistory = orderHistory;
+    }
+
+    public double getSum() {
+        computeSum();
+        return sum;
+    }
+
+    public void computeSum(){
+        double sum = 0;
+        sum += delivery.getCost();
+        sum -= discount;
+        for (CartItem cartItem: cart.getCartItems()){
+            sum += cartItem.getCosts();
+        }
+        this.sum = sum;
     }
 }

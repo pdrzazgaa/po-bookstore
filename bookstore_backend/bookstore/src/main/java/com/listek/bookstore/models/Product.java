@@ -1,12 +1,16 @@
 package com.listek.bookstore.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
 
 @Inheritance(strategy = TABLE_PER_CLASS)
+@JsonIgnoreProperties(value = { "category" })
 @Table(name="Produkty")
 @Entity
 public class Product {
@@ -21,11 +25,14 @@ public class Product {
     private String name;
     @Column(name="Opis")
     private String description;
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },mappedBy = "products")
+
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "ProduktyKategorie",
+            joinColumns = { @JoinColumn(name = "ProduktID") },
+            inverseJoinColumns = { @JoinColumn(name = "KategoriaID") }
+    )
     private List<Category> categories;
 
     public Product(Long id, double price, int numberOfItemsInStock, String name, String description, List<Category> category) {
@@ -42,6 +49,7 @@ public class Product {
         this.numberOfItemsInStock = numberOfItemsInStock;
         this.name = name;
         this.description = description;
+        this.categories = new ArrayList<>();
     }
 
     public Product() {
@@ -95,4 +103,27 @@ public class Product {
     public void setCategory(List<Category> category) {
         this.categories = category;
     }
+
+    public void addCategory(Category category){
+        if (category != null) {
+            if (!this.categories.contains(category)) {
+                this.categories.add(category);
+                this.categories.add(category.getParentCategory());
+            }
+        }
+    }
+
+    public boolean decreaseNumberOfItemsInStock(){
+        if (this.numberOfItemsInStock > 0) {
+            this.numberOfItemsInStock--;
+            return true;
+        }
+        return false;
+    }
+
+    public void increaseNumberOfItemsInStock(){
+        this.numberOfItemsInStock++;
+    }
+
+
 }

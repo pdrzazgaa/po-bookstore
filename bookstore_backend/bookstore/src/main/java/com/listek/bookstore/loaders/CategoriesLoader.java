@@ -32,7 +32,6 @@ public class CategoriesLoader implements CommandLineRunner {
             Category category9 = new Category("Zdrowie", category3);
             Category category10 = new Category("Sport", category3);
             Category category11 = new Category("Psychologia", category3);
-            Category category12 = new Category("Książki", category4);
             Category category13 = new Category("Literatura brytyjska", category4);
             Category category14 = new Category("Literatura francuska", category4);
             Category category15 = new Category("Literatura amerykańska", category4);
@@ -58,7 +57,6 @@ public class CategoriesLoader implements CommandLineRunner {
             categoryRepository.save(category9);
             categoryRepository.save(category10);
             categoryRepository.save(category11);
-            categoryRepository.save(category12);
             categoryRepository.save(category13);
             categoryRepository.save(category14);
             categoryRepository.save(category15);
