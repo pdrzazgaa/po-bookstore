@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface CartRepository extends CrudRepository<Cart, Long> {
 
-    @Query(value = "select * from koszyki left join zamowienia on koszyki.id = zamowienia.koszykid " +
+    @Query(value = "select koszyki.id, koszyki.ostatnia_aktywnosc, koszyki.klientid from koszyki left join zamowienia on koszyki.id = zamowienia.koszykid " +
             "where zamowienia.id is null and ostatnia_aktywnosc between (now()- interval "+Cart.EXPIRATION_TIME+" minute) and " +
             "now() and klientid = :clientID order by ostatnia_aktywnosc desc limit 1", nativeQuery = true)
     Optional<Cart> isAvailableCart(@Param("clientID") Long clientID);
