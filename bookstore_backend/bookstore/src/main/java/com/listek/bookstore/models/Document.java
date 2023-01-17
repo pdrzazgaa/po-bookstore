@@ -12,16 +12,15 @@ import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
 @Setter
 @NoArgsConstructor
 @Inheritance(strategy = TABLE_PER_CLASS)
-@Table(name="Dokumenty")
 @Entity
-public class Document {
+public abstract class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name="DataWystawienia")
     private LocalDateTime dateOfIssue;
     @JoinColumn(name = "ZamowienieID")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Order order;
 
     public Document(LocalDateTime dateOfIssue, Order order) {

@@ -32,7 +32,7 @@ public class Address {
     private String town;
     @Column(name="Kraj")
     private String country;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="KlientID")
     private Client client;
 

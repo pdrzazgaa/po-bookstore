@@ -1,9 +1,6 @@
 package com.listek.bookstore.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.List;
@@ -12,13 +9,13 @@ import java.util.List;
 @Entity
 public class Client extends UserAccount{
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Address> addresses;
-    @OneToOne(mappedBy = "client")
+    @OneToOne(mappedBy = "client", cascade = CascadeType.MERGE)
     private OrderHistory orderHistory;
-    @OneToOne(mappedBy = "client")
+    @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
     private LoyaltyProgram loyaltyProgram;
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Cart> carts;
 
     public Client(String firstname, String surname, String email, String phoneNumber, String password) {

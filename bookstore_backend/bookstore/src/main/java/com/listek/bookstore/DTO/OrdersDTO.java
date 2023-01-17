@@ -27,7 +27,7 @@ public class OrdersDTO {
         ordersDTO.orderNumber = order.getOrderNumber();
         ordersDTO.orderStatus = order.getOrderStatus();
         ordersDTO.date = order.getDate();
-        ordersDTO.sum = order.getSum();
+        ordersDTO.sum = order.computeSum();
         return ordersDTO;
     }
 }

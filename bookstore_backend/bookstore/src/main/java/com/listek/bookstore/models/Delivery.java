@@ -9,18 +9,17 @@ import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
 @Getter
 @Setter
 @Inheritance(strategy = TABLE_PER_CLASS)
-@Table(name="Dostawy")
 @Entity
-public class Delivery {
+public abstract class Delivery {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name="koszt")
     private double cost;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ZamowienieID")
     private Order order;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "AdresID")
     private Address address;
 
