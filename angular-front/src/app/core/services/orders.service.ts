@@ -69,17 +69,28 @@ export class OrdersService {
             Status[res.orderStatus],
             res.sum,
             new Date(res.date),
-            orderPositions
+            orderPositions,
+            res.isPossibleComplaint
           );
         })
       );
   }
 
-  sendReclamation(reclamation: Reclamation) {
+  sendReclamation(reclamation: Reclamation): Observable<number> {
     console.log(JSON.stringify(reclamation));
     const headers = { 'content-type': 'application/json' };
-    this.http.post(this.baseUrl + 'createComplaint', JSON.stringify(reclamation), {
-      headers: headers,
-    });
+    return this.http
+      .post(this.baseUrl + 'createComplaint', JSON.stringify(reclamation), {
+        headers: headers,
+      })
+      .pipe(
+        map((res) => {
+          if (res === 'OK') {
+            return 1;
+          } else {
+            return -1;
+          }
+        })
+      );
   }
 }
