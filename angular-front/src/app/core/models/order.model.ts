@@ -12,13 +12,13 @@ export enum Status {
 }
 
 export class Order {
-  public id: number;
+  public orderNum: number;
   public status: Status;
   public totalPrice: number;
   public date: Date;
 
-  constructor(id: number, status: Status, totalPrice: number, date: Date) {
-    this.id = id;
+  constructor(orderNum: number, status: Status, totalPrice: number, date: Date) {
+    this.orderNum = orderNum;
     this.status = status;
     this.totalPrice = totalPrice;
     this.date = date;
