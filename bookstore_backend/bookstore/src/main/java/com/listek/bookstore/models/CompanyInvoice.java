@@ -16,11 +16,11 @@ import java.time.LocalDateTime;
 @Entity
 public class CompanyInvoice extends Invoice {
     @Column
-    private int NIP;
+    private String NIP;
     @Column(name="NazwaFirmy")
     private String companyName;
 
-    public CompanyInvoice(LocalDateTime dateOfIssue, String invoiceNumber, int NIP, String companyName, Order order) {
+    public CompanyInvoice(LocalDateTime dateOfIssue, String invoiceNumber, String NIP, String companyName, Order order) {
         super(dateOfIssue, invoiceNumber, order);
         this.NIP = NIP;
         this.companyName = companyName;
