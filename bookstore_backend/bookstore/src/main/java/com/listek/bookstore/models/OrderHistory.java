@@ -1,9 +1,13 @@
 package com.listek.bookstore.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Getter
+@Setter
 @Table(name="HistorieZamowien")
 @Entity
 public class OrderHistory {
@@ -16,21 +20,7 @@ public class OrderHistory {
     @OneToMany(mappedBy = "orderHistory")
     private List<Order> orders;
 
-
-    public OrderHistory(Long id) {
-        this.id = id;
-    }
-
     public OrderHistory() {
 
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
 }

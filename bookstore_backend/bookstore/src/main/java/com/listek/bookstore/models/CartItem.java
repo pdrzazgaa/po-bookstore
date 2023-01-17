@@ -1,8 +1,10 @@
 package com.listek.bookstore.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Table(name="PozycjeKoszyka")
+@JsonIgnoreProperties("cart")
 @Entity
 public class CartItem {
     @Id
@@ -22,6 +24,12 @@ public class CartItem {
         this.quantity = quantity;
         this.product = product;
         this.cart = cart;
+    }
+
+    public CartItem(Product product, Cart cart) {
+        this.product = product;
+        this.cart = cart;
+        this.quantity = 1;
     }
 
     public CartItem() {
@@ -58,5 +66,21 @@ public class CartItem {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public boolean increase(){
+        if (product.decreaseNumberOfItemsInStock()) {
+            this.quantity++;
+            return true;
+        }
+        return false;
+    }
+
+    public void decrease(){
+        this.quantity--;
+    }
+
+    public double getCosts(){
+        return this.quantity * this.product.getPrice();
     }
 }
