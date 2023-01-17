@@ -16,13 +16,17 @@ public class Invoice extends Document{
     @Column(name="NumerFaktury")
     private String invoiceNumber;
 
-    public Invoice(LocalDateTime dateOfIssue, String invoiceNumber, Order order) {
+    public Invoice(LocalDateTime dateOfIssue, Order order) {
         super(dateOfIssue, order);
-        this.invoiceNumber = invoiceNumber;
+        generateInvoiceNumber();
     }
 
     public Invoice() {
 
+    }
+
+    protected void generateInvoiceNumber(){
+        this.invoiceNumber =  (int)(Math.random() * 1000) +"/2023";
     }
 
     public String getInvoiceNumber() {
