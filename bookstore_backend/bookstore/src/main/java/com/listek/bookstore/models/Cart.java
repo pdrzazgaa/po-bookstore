@@ -14,7 +14,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Table(name="Koszyki")
 @JsonIgnoreProperties("client")
 @Entity
@@ -44,7 +43,6 @@ public class Cart {
     public Cart() {
         lastActivity = LocalDateTime.now();
     }
-
 
     public CartItem addProductItem(Product product) {
         CartItem foundCartItem = isProductInCart(product);
