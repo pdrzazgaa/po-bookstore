@@ -31,18 +31,22 @@ public class ComplaintService {
                     Optional<Order> order = orderRepository.findByOrderNumber(complaintDTO.getOrderNumber(), foundClient.getId());
                     return order
                             .map(foundOrder -> {
-                                Complaint complaint = new Complaint(foundOrder);
-                                complaintRepository.save(complaint);
-                                for (ProductComplaintDTO productComplaintDTO : complaintDTO.getReclamationPositions()) {
-                                    Optional<Book> book = bookRepository.findById(productComplaintDTO.getProductID());
-                                    if (book.isPresent()) {
-                                        ComplaintItem complaintItem = productComplaintDTO.fromProductComplaintDTOtoComplaintItem(book.get(), complaint);
-                                        complaintItemRepository.save(complaintItem);
-                                        complaint.addComplaintItem(complaintItem);
+                                if (foundOrder.getComplaint() == null) {
+                                    Complaint complaint = new Complaint(foundOrder);
+                                    complaintRepository.save(complaint);
+                                    for (ProductComplaintDTO productComplaintDTO : complaintDTO.getReclamationPositions()) {
+                                        Optional<Book> book = bookRepository.findById(productComplaintDTO.getProductId());
+                                        if (book.isPresent()) {
+                                            ComplaintItem complaintItem = productComplaintDTO.fromProductComplaintDTOtoComplaintItem(book.get(), complaint);
+                                            complaintItemRepository.save(complaintItem);
+                                            complaint.addComplaintItem(complaintItem);
+                                        }
                                     }
+                                    System.out.println("Complaint created.");
+                                    return ResponseEntity.ok(HttpStatus.OK);
+                                } else {
+                                    return ResponseEntity.ok(HttpStatus.FOUND);
                                 }
-                                System.out.println("Complaint created.");
-                                return ResponseEntity.ok(HttpStatus.OK);
                             })
                             .orElseGet(() -> {
                                 System.out.println("Complaint not created. Order not found.");

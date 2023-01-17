@@ -1,5 +1,6 @@
 package com.listek.bookstore.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonIgnoreProperties({"order"})
 @Table(name="Reklamacje")
 @Entity
 public class Complaint {
@@ -35,6 +37,7 @@ public class Complaint {
         generateAccountNumber();
         this.complaintStatus = ComplaintStatus.ComplaintPending;
         this.order = order;
+        this.order.setOrderStatus(OrderStatus.OrderInComplaint);
         complaintItems = new ArrayList<>();
     }
 
