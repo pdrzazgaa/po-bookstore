@@ -3,10 +3,16 @@ package com.listek.bookstore.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name="Kategorie")
 @Entity
 public class Category {
@@ -30,58 +36,10 @@ public class Category {
     @OneToMany(mappedBy = "parentCategory")
     private List<Category> children;
 
-
     public Category(String name, Category parentCategory) {
         this.name = name;
         this.parentCategory = parentCategory;
         this.products = new ArrayList<>();
     }
 
-    public Category() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
-    public Category getParentCategory() {
-        return parentCategory;
-    }
-
-    public void setParentCategory(Category parentCategory) {
-        this.parentCategory = parentCategory;
-    }
-
-    public List<Category> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<Category> children) {
-        this.children = children;
-    }
-
-    public void addProduct(Product product){
-        this.products.add(product);
-    }
 }

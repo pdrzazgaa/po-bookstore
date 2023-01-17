@@ -14,7 +14,7 @@ import java.time.temporal.ChronoUnit;
 @Setter
 @NoArgsConstructor
 @Table(name="Zamowienia")
-@JsonIgnoreProperties(value = {"orderHistory", "document", "payment", "delivery", "orderHistory"})
+@JsonIgnoreProperties(value = {"orderHistory", "document", "payment", "delivery", "orderHistory", "usedBookCoins"})
 @Entity
 public class Order {
     @Id
@@ -51,32 +51,13 @@ public class Order {
     private boolean isPossibleComplaint = isPossibleComplaint();
 
 
-    public Order(LocalDateTime date, int bookCoins, OrderStatus orderStatus, String orderNumber, Cart cart,
-                OrderHistory orderHistory) {
-        this.date = date;
-        this.orderStatus = orderStatus;
-        this.orderNumber = orderNumber;
+    public Order(int bookCoins, Cart cart, OrderHistory orderHistory) {
+        this.date = LocalDateTime.now();
+        this.orderStatus = OrderStatus.OrderPaymentDue;
+        generateOrderNumber();
         this.cart = cart;
         this.orderHistory = orderHistory;
         grantDiscount(bookCoins);
-    }
-
-    public Order(LocalDateTime date, int bookCoins, OrderStatus orderStatus, String orderNumber, Cart cart,
-                 Document document, Payment payment, Delivery delivery, OrderHistory orderHistory) {
-        this.date = date;
-        this.orderStatus = orderStatus;
-        this.orderNumber = orderNumber;
-        this.cart = cart;
-        this.document = document;
-        this.payment = payment;
-        this.delivery = delivery;
-        this.orderHistory = orderHistory;
-        grantDiscount(bookCoins);
-    }
-
-    public double getSum() {
-        computeSum();
-        return sum;
     }
 
     public double computeSum(){
@@ -93,6 +74,10 @@ public class Order {
             sum += cartItem.getCosts();
         }
         return sum;
+    }
+
+    private void generateOrderNumber(){
+        this.orderNumber = (int)(Math.random() * 1000) +"/2023";
     }
 
     public boolean isPossibleComplaint(){

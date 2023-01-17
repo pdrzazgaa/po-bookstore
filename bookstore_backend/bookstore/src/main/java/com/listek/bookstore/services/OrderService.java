@@ -87,7 +87,7 @@ public class OrderService {
                             .map(foundOrderHistory -> {
                                 // #TODO generating order number;
                                 String orderNumber = "123-2023";
-                                Order order = new Order(LocalDateTime.now(), orderDTO.getBookcoins(), OrderStatus.OrderPaymentDue, orderNumber, foundCart, foundOrderHistory);
+                                Order order = new Order(orderDTO.getBookcoins(), foundCart, foundOrderHistory);
                                 Address address = orderDTO.getAddress().fromAddressDTOtoAddress(orderDTO.getForname(), orderDTO.getSurname(), orderDTO.getMail(), orderDTO.getPhoneNumber());
                                 addressRepository.save(address);
                                 Payment payment = new PaymentDTO(orderDTO.getPayment()).fromPaymentDTOtoPayment(order);

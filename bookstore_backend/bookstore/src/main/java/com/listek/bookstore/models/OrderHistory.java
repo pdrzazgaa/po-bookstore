@@ -2,11 +2,13 @@ package com.listek.bookstore.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
 @Getter
 @Setter
 @Table(name="HistorieZamowien")
@@ -20,8 +22,4 @@ public class OrderHistory {
     private Client client;
     @OneToMany(mappedBy = "orderHistory", cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
-
-    public OrderHistory() {
-
-    }
 }

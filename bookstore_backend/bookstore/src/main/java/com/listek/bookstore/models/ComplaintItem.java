@@ -1,10 +1,18 @@
 package com.listek.bookstore.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name="PozycjeReklamacji")
+@JsonIgnoreProperties("complaint")
 @Entity
 public class ComplaintItem {
 
@@ -15,10 +23,10 @@ public class ComplaintItem {
     private String complaintReason;
     @Column(name = "ilosc")
     private int quantity;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name ="ProduktID", nullable = false)
-    private Product products;
-    @ManyToOne
+    private Product product;
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="ReklamacjaID")
     private Complaint complaint;
 
@@ -29,31 +37,5 @@ public class ComplaintItem {
         this.quantity = quantity;
     }
 
-    public ComplaintItem() {
 
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getComplaintReason() {
-        return complaintReason;
-    }
-
-    public void setComplaintReason(String complaintReason) {
-        this.complaintReason = complaintReason;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 }
