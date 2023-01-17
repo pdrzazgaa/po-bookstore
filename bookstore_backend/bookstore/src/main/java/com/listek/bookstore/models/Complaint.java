@@ -39,8 +39,8 @@ public class Complaint {
     }
 
     private void generateAccountNumber(){
-        accountNumber = (Math.random() * 100) +  " ";
-        for (int i=0; i<6; i++) accountNumber += accountNumber + (Math.random() * 10000) + " ";
+        accountNumber =(int) (Math.random() * 100) +  " ";
+        for (int i=0; i<6; i++) accountNumber += (int) (Math.random() * 10000) + " ";
     }
 
    public void addComplaintItem(ComplaintItem complaintItem){

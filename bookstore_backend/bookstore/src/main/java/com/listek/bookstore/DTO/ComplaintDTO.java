@@ -11,17 +11,17 @@ import java.util.List;
 @NoArgsConstructor
 public class ComplaintDTO {
     private String orderNumber;
-    private Long clientId;
+    private Long userId;
     private DeliveryDTO delivery;
-    private List<ProductComplaintDTO> reclamationPosition;
+    private List<ProductComplaintDTO> reclamationPositions;
 
     @Override
     public String toString() {
         return "ComplaintDTO{" +
                 "orderNumber='" + orderNumber + '\'' +
-                ", clientId=" + clientId +
+                ", userId=" + userId +
                 ", delivery=" + delivery +
-                ", reclamationPosition=" + reclamationPosition +
+                ", reclamationPosition=" + reclamationPositions +
                 '}';
     }
 }
