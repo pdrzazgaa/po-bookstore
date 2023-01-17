@@ -1,7 +1,9 @@
 import {
   Address,
   Delivery,
+  Image,
   Payment,
+  Product,
   ShoppingCart,
   ShoppingCartPosition,
 } from '../models';
@@ -26,7 +28,22 @@ export class ShoppingCartService {
   getShoppingCart(): Observable<ShoppingCart> {
     return this.http.get(this.baseUrl + 'cart/' + this.userService.getUserId()).pipe(
       map((res: any) => {
-        const shoppingCartPositions: ShoppingCartPosition[] = [];
+        console.log(res);
+        const shoppingCartPositions: ShoppingCartPosition[] = res.cartItems.map(
+          (item) =>
+            new ShoppingCartPosition(
+              new Product(
+                item.product.id,
+                item.product.name,
+                item.product.price,
+                new Image('../../../assets/kubus-puchatek.jpeg', item.product.name),
+                item.product.coverType === 'HardCover' ? 'twarda' : 'miękka',
+                item.product.author
+              ),
+              item.quantity
+            )
+        );
+
         return new ShoppingCart(shoppingCartPositions, res.id, res.cartSum);
       })
     );
