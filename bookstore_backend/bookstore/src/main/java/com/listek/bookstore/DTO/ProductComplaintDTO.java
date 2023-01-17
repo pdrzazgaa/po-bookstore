@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ProductComplaintDTO {
-    private long productID;
+    private long productId;
     private int amount;
     private String reason;
 

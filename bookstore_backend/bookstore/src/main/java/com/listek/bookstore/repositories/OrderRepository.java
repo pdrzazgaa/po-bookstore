@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface OrderRepository extends CrudRepository<Order, Long> {
 
     @Query("select o from Order o " +
-            "where o.orderHistory.client.id = :clientID")
+            "where o.orderHistory.client.id = :clientID order by o.date desc")
     List<Order> findByOrderHistoryClient_Id(Long clientID);
 
     @Query("select o from Order o " +
