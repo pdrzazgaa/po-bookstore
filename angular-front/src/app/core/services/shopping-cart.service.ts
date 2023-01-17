@@ -92,6 +92,7 @@ export class ShoppingCartService {
     payment: Payment,
     bookcoins: number,
     cartId: number,
+    document: string,
     forname?: string,
     surname?: string,
     NIP?: string,
@@ -108,7 +109,8 @@ export class ShoppingCartService {
       delivery,
       payment,
       bookcoins,
-      cartId
+      cartId,
+      document
     );
     return 1;
   }
