@@ -1,21 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ShoppingCart, ShoppingCartPosition, ShoppingCartService } from 'src/app/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-shopping-cart-page',
   templateUrl: './shopping-cart-page.component.html',
   styleUrls: ['./shopping-cart-page.component.scss'],
 })
-export class ShoppingCartPageComponent implements OnInit {
+export class ShoppingCartPageComponent implements OnInit, OnDestroy {
   private shoppingCartService: ShoppingCartService;
   shoppingCart?: ShoppingCart;
+  private shoppingCartSub?: Subscription;
 
   constructor(shoppingCartService: ShoppingCartService) {
     this.shoppingCartService = shoppingCartService;
   }
 
   ngOnInit(): void {
-    this.shoppingCart = this.shoppingCartService.getShoppingCart();
+    this.shoppingCartSub = this.shoppingCartService
+      .getShoppingCart()
+      .subscribe((cart) => {
+        this.shoppingCart = cart;
+      });
     this.shoppingCartService.shoppingCartChanged.subscribe(
       (shoppingCart) => (this.shoppingCart = shoppingCart)
     );
@@ -23,5 +29,9 @@ export class ShoppingCartPageComponent implements OnInit {
 
   getProductSum(position: ShoppingCartPosition) {
     return position.amount * position.product.price;
+  }
+
+  ngOnDestroy(): void {
+    this.shoppingCartSub?.unsubscribe();
   }
 }

@@ -1,9 +1,7 @@
 import {
   Address,
   Delivery,
-  Image,
   Payment,
-  Product,
   ShoppingCart,
   ShoppingCartPosition,
 } from '../models';
@@ -25,56 +23,12 @@ export class ShoppingCartService {
     this.http = http;
   }
 
-  getShoppingCart() {
-    return new ShoppingCart(
-      [
-        new ShoppingCartPosition(
-          new Product(
-            1,
-            'Bardzo małe rzeczy w stumilowym lesie',
-            22.99,
-            new Image('../../../assets/lalka.jpeg', 'ksiazka'),
-            'miękka',
-            'Catherine Hapka'
-          ),
-          3
-        ),
-        new ShoppingCartPosition(
-          new Product(
-            1,
-            'Bardzo małe rzeczy w stumilowym lesie',
-            22.99,
-            new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),
-            'miękka',
-            'Catherine Hapka'
-          ),
-          3
-        ),
-        new ShoppingCartPosition(
-          new Product(
-            1,
-            'Bardzo małe rzeczy w stumilowym lesie',
-            22.99,
-            new Image('../../../assets/pan-tadeusz.jpeg', 'ksiazka'),
-            'miękka',
-            'Catherine Hapka'
-          ),
-          3
-        ),
-        new ShoppingCartPosition(
-          new Product(
-            1,
-            'Bardzo małe rzeczy w stumilowym lesie',
-            22.99,
-            new Image('../../../assets/lalka.jpeg', 'ksiazka'),
-            'miękka',
-            'Catherine Hapka'
-          ),
-          3
-        ),
-      ],
-      2020,
-      222.99
+  getShoppingCart(): Observable<ShoppingCart> {
+    return this.http.get(this.baseUrl + 'cart/' + this.userService.getUserId()).pipe(
+      map((res: any) => {
+        const shoppingCartPositions: ShoppingCartPosition[] = [];
+        return new ShoppingCart(shoppingCartPositions, res.id, res.cartSum);
+      })
     );
   }
 
@@ -90,7 +44,10 @@ export class ShoppingCartService {
         map((res) => {
           console.log('odbior', res);
           if (res === 'OK') {
-            this.shoppingCartChanged.emit(this.getShoppingCart());
+            this.getShoppingCart()
+              .subscribe((cart) => this.shoppingCartChanged.emit(cart))
+              .unsubscribe();
+
             return true;
           } else {
             return false;
@@ -111,7 +68,9 @@ export class ShoppingCartService {
         map((res) => {
           console.log('odbior', res);
           if (res === 'OK') {
-            this.shoppingCartChanged.emit(this.getShoppingCart());
+            this.getShoppingCart()
+              .subscribe((cart) => this.shoppingCartChanged.emit(cart))
+              .unsubscribe();
             return true;
           } else {
             return false;

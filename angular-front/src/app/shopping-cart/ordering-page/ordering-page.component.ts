@@ -7,19 +7,21 @@ import {
   ShoppingCartService,
   UserService,
 } from 'src/app/core';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-ordering-page',
   templateUrl: './ordering-page.component.html',
   styleUrls: ['./ordering-page.component.scss'],
 })
-export class OrderingPageComponent implements OnInit {
+export class OrderingPageComponent implements OnInit, OnDestroy {
   private shoppingCartService: ShoppingCartService;
   private userService: UserService;
   private router: Router;
+  private cartSub?: Subscription;
   shoppingCart?: ShoppingCart;
   ordererMode: 'client' | 'company' = 'client';
   public showParcelMachineForm: boolean = false;
@@ -82,7 +84,9 @@ export class OrderingPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.shoppingCart = this.shoppingCartService.getShoppingCart();
+    this.cartSub = this.shoppingCartService.getShoppingCart().subscribe((cart) => {
+      this.shoppingCart = cart;
+    });
     this.orderForm.controls['bookcoins'].addValidators(
       Validators.max(this.userService.getBookcoins())
     );
@@ -225,5 +229,9 @@ export class OrderingPageComponent implements OnInit {
       }
       this.showErrorMessage = true;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.cartSub?.unsubscribe();
   }
 }
