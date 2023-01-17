@@ -110,20 +110,29 @@ export class ShoppingCartService {
     NIP?: string,
     companyName?: string
   ) {
-    console.log(
-      forname,
-      surname,
-      NIP,
-      companyName,
-      mail,
-      phoneNumber,
-      address,
-      delivery,
-      payment,
-      bookcoins,
-      cartId,
-      document
+    const headers = { 'content-type': 'application/json' };
+    const obj = JSON.stringify({
+      forname: forname,
+      surname: surname,
+      nip: NIP,
+      companyName: companyName,
+      mail: mail,
+      phoneNumber: phoneNumber,
+      address: address,
+      delivery: delivery,
+      payment: payment,
+      bookcoins: bookcoins,
+      cartId: cartId,
+      document: document,
+    });
+    return this.http.post(this.baseUrl + 'createOrder', obj, { headers: headers }).pipe(
+      map((res: any) => {
+        if (res === 'OK') {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
     );
-    return 1;
   }
 }

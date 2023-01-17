@@ -186,37 +186,40 @@ export class OrderingPageComponent implements OnInit, OnDestroy {
     const d = c.deliveryOption.controls;
 
     if (this.orderForm.valid) {
-      const response = this.shoppingCartService.makeNewOrder(
-        p.email.value!,
-        p.phoneNumber.value!,
-        new Address(
-          p.street.value!,
-          +p.number.value!,
-          p.city.value!,
-          p.postcode.value!,
-          p.country.value!
-        ),
-        {
-          delivery: d.delivery.value,
-          parcelMachineNumber: d.parcelMachineNumber.value,
-        } as Delivery,
-        c.payment.value! as Payment,
-        c.bookcoins.value!,
-        this.shoppingCart!.cartId,
-        c.document.value!,
-        p.forname.value!,
-        p.surname.value!
-      );
-      if (response) {
-        this.confirmMode = 'green';
-        this.confirmPopupMessage =
-          'Poprawnie złozono zamówienie. Opłać swoje zamówienie. Dodano 13 bookcoinów do twojego konta';
-      } else {
-        this.confirmPopupMessage =
-          'Przepraszamy, coś poszło nie tak... nie udało się złozyc zamowienia';
-        this.confirmMode = 'red';
-      }
-      this.showConfirmPopup = true;
+      this.shoppingCartService
+        .makeNewOrder(
+          p.email.value!,
+          p.phoneNumber.value!,
+          new Address(
+            p.street.value!,
+            p.number.value!,
+            p.city.value!,
+            p.postcode.value!,
+            p.country.value!
+          ),
+          {
+            delivery: d.delivery.value,
+            parcelMachineNumber: d.parcelMachineNumber.value,
+          } as Delivery,
+          c.payment.value! as Payment,
+          c.bookcoins.value!,
+          this.shoppingCart!.cartId,
+          c.document.value!,
+          p.forname.value!,
+          p.surname.value!
+        )
+        .subscribe((response) => {
+          if (response) {
+            this.confirmMode = 'green';
+            this.confirmPopupMessage =
+              'Poprawnie złozono zamówienie. Opłać swoje zamówienie. Dodano 13 bookcoinów do twojego konta';
+          } else {
+            this.confirmPopupMessage =
+              'Przepraszamy, coś poszło nie tak... nie udało się złozyc zamowienia';
+            this.confirmMode = 'red';
+          }
+          this.showConfirmPopup = true;
+        });
     } else {
       if (c.bookcoins.invalid) {
         this.errorMessage = 'Zła liczba podanych bookcoinów!';
