@@ -1,13 +1,13 @@
 export class Address {
   street: string;
-  num: number;
+  num: string;
   city: string;
   postcode: string;
   country: string;
 
   constructor(
     street: string,
-    num: number,
+    num: string,
     city: string,
     postcode: string,
     country: string
