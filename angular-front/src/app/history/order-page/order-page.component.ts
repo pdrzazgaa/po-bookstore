@@ -13,6 +13,7 @@ export class OrderPageComponent implements OnInit, OnDestroy {
   private route: ActivatedRoute;
   private routeSub?: Subscription;
   public order?: OrderDetails;
+  public orderSub?: Subscription;
   public canComplain: boolean = true;
 
   constructor(ordersService: OrdersService, route: ActivatedRoute) {
@@ -22,7 +23,9 @@ export class OrderPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe((params) => {
-      this.order = this.ordersService.getOrderDetails(params['id']);
+      this.orderSub = this.ordersService
+        .getOrderDetails(params['id'])
+        .subscribe((order) => (this.order = order));
     });
   }
 
