@@ -1,14 +1,19 @@
 package com.listek.bookstore.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Inheritance(strategy = TABLE_PER_CLASS)
 @JsonIgnoreProperties(value = { "category" })
 @Table(name="Produkty")
@@ -35,73 +40,12 @@ public class Product {
     )
     private List<Category> categories;
 
-    public Product(Long id, double price, int numberOfItemsInStock, String name, String description, List<Category> category) {
-        this.id = id;
-        this.price = price;
-        this.numberOfItemsInStock = numberOfItemsInStock;
-        this.name = name;
-        this.description = description;
-        this.categories = category;
-    }
-
     public Product(double price, int numberOfItemsInStock, String name, String description) {
         this.price = price;
         this.numberOfItemsInStock = numberOfItemsInStock;
         this.name = name;
         this.description = description;
         this.categories = new ArrayList<>();
-    }
-
-    public Product() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public int getNumberOfItemsInStock() {
-        return numberOfItemsInStock;
-    }
-
-    public void setNumberOfItemsInStock(int numberOfItemsInStock) {
-        this.numberOfItemsInStock = numberOfItemsInStock;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<Category> getCategory() {
-        return categories;
-    }
-
-    public void setCategory(List<Category> category) {
-        this.categories = category;
     }
 
     public void addCategory(Category category){

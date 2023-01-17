@@ -4,10 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.listek.bookstore.repositories.CartItemRepository;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name="Koszyki")
 @JsonIgnoreProperties("client")
 @Entity
@@ -38,45 +45,6 @@ public class Cart {
         lastActivity = LocalDateTime.now();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getLastActivity() {
-        return lastActivity;
-    }
-
-    public void setLastActivity(LocalDateTime lastActivity) {
-        this.lastActivity = lastActivity;
-    }
-
-    public List<CartItem> getCartItems() {
-        return cartItems;
-    }
-
-    public void setCartItems(List<CartItem> cartItems) {
-        this.cartItems = cartItems;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public double getCartSum() {
-        return cartSum;
-    }
-
-    public void setCartSum(double cartSum) {
-        this.cartSum = cartSum;
-    }
 
     public CartItem addProductItem(Product product) {
         CartItem foundCartItem = isProductInCart(product);

@@ -18,8 +18,13 @@ public class TransferPayment extends Payment{
     @Column(name="NumerKonta")
     private String accountNumber;
 
-    public TransferPayment(LocalDateTime paymentDate, String accountNumber, Order order) {
-        super(paymentDate, order);
-        this.accountNumber = accountNumber;
+    public TransferPayment(Order order) {
+        super(order);
+        generateAccountNumber();
+    }
+
+    private void generateAccountNumber(){
+        accountNumber = (Math.random() * 100) +  " ";
+        for (int i=0; i<6; i++) accountNumber += accountNumber + (Math.random() * 10000) + " ";
     }
 }

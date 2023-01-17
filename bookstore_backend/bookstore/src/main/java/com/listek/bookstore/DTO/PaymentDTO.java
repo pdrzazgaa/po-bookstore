@@ -26,9 +26,9 @@ public class PaymentDTO {
 
     public Payment fromPaymentDTOtoPayment(Order order){
         if (payment.equals(ONLINEPAYMENT))
-            return new OnlinePayment(LocalDateTime.now(), order);
+            return new OnlinePayment(order);
         else
-            return new TransferPayment(LocalDateTime.now(),"12 3456 7890 0000 1234", order);
+            return new TransferPayment(order);
     }
 
 

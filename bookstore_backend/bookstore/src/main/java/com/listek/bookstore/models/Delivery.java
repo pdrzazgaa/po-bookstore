@@ -2,12 +2,14 @@ package com.listek.bookstore.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Inheritance(strategy = TABLE_PER_CLASS)
 @Entity
 public abstract class Delivery {
@@ -27,10 +29,6 @@ public abstract class Delivery {
         this.cost = cost;
         this.address = address;
         this.order = order;
-    }
-
-    public Delivery() {
-
     }
 
 }
