@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Table(name="Zamowienia")
-@JsonIgnoreProperties("orderHistory")
+@JsonIgnoreProperties(value = {"orderHistory", "document", "payment", "delivery", "orderHistory"})
 @Entity
 public class Order {
     @Id
@@ -38,19 +38,28 @@ public class Order {
     @Transient
     @JsonInclude
     private double sum;
+    @Transient
+    private int usedBookCoins;
 
 
-    public Order(Long id, LocalDateTime date, int discount, OrderStatus orderStatus, String orderNumber, Cart cart, Document document, Payment payment, Delivery delivery, Complaint complaint, OrderHistory orderHistory) {
-        this.id = id;
+    public Order(LocalDateTime date, int bookCoins, OrderStatus orderStatus, String orderNumber, Cart cart,
+                OrderHistory orderHistory) {
         this.date = date;
-        this.discount = discount;
+        this.orderStatus = orderStatus;
+        this.orderNumber = orderNumber;
+        this.cart = cart;
+        this.orderHistory = orderHistory;
+    }
+
+    public Order(LocalDateTime date, int bookCoins, OrderStatus orderStatus, String orderNumber, Cart cart,
+                 Document document, Payment payment, Delivery delivery, OrderHistory orderHistory) {
+        this.date = date;
         this.orderStatus = orderStatus;
         this.orderNumber = orderNumber;
         this.cart = cart;
         this.document = document;
         this.payment = payment;
         this.delivery = delivery;
-        this.complaint = complaint;
         this.orderHistory = orderHistory;
     }
 
@@ -159,5 +168,38 @@ public class Order {
             sum += cartItem.getCosts();
         }
         this.sum = sum;
+    }
+
+    /**
+        Function returns remaining BookCoins (if client passed more than he should)
+     **/
+    public int grantDiscount(int bookCoins){
+        int usedBookCoins;
+        computeSum();
+        usedBookCoins = Math.min(bookCoins, (int)(0.3 * sum));
+        this.discount = usedBookCoins;
+        return bookCoins - usedBookCoins;
+    }
+
+    public void placeOrder(){
+        this.orderStatus = OrderStatus.OrderPaymentDue;
+    }
+
+    public void payForOrder(){
+        this.orderStatus = OrderStatus.OrderPaid;
+            addBookCoinsToClient();
+    }
+
+    public void addBookCoinsToClient(){
+        computeSum();
+        this.orderHistory.getClient().getLoyaltyProgram().addBookCoins(
+                (int) (this.sum / 20)
+        );
+    }
+
+    public boolean takeBookCoinsFromClient(){
+        computeSum();
+        return this.orderHistory.getClient().getLoyaltyProgram().removeBookCoins(
+                usedBookCoins);
     }
 }

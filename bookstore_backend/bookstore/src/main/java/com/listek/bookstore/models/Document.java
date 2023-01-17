@@ -1,9 +1,16 @@
 package com.listek.bookstore.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Inheritance(strategy = TABLE_PER_CLASS)
 @Table(name="Dokumenty")
 @Entity
@@ -17,28 +24,8 @@ public class Document {
     @OneToOne
     private Order order;
 
-    public Document(Long id, LocalDateTime dateOfIssue) {
-        this.id = id;
+    public Document(LocalDateTime dateOfIssue, Order order) {
         this.dateOfIssue = dateOfIssue;
-    }
-
-    public Document() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getDateOfIssue() {
-        return dateOfIssue;
-    }
-
-    public void setDateOfIssue(LocalDateTime dateOfIssue) {
-        this.dateOfIssue = dateOfIssue;
+        this.order = order;
     }
 }

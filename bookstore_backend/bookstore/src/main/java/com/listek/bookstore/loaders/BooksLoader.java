@@ -11,8 +11,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -44,7 +42,7 @@ public class BooksLoader implements CommandLineRunner {
             book1.addCategory(categories.get(8));
             Book book2 = new Book(19.99, 5, "Pan Tadeusz",
                     "Polska epopeja narodowa",
-                    "Pan Tadeusz - Ostatni zjazd na Litwie", "Adam Mickiewicz",
+                    "Pan Tadeusz - Ostatni zajazd na Litwie", "Adam Mickiewicz",
                     "NASZA KSIĘGARNIA",
                     LocalDateTime.of(1997, 5, 23, 0, 0),
                     578, "polski", "12346", CoverType.SoftCover);

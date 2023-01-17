@@ -1,10 +1,20 @@
 package com.listek.bookstore.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.aspectj.weaver.ast.Or;
+
 import java.time.LocalDateTime;
 import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Inheritance(strategy = TABLE_PER_CLASS)
+@JsonIgnoreProperties("order")
 @Table(name="Platnosci")
 @Entity
 public class Payment {
@@ -18,28 +28,9 @@ public class Payment {
     @OneToOne
     private Order order;
 
-    public Payment(Long id, LocalDateTime paymentDate) {
-        this.id = id;
+    public Payment(LocalDateTime paymentDate, Order order) {
         this.paymentDate = paymentDate;
+        this.order = order;
     }
 
-    public Payment() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getPaymentDate() {
-        return paymentDate;
-    }
-
-    public void setPaymentDate(LocalDateTime paymentDate) {
-        this.paymentDate = paymentDate;
-    }
 }
