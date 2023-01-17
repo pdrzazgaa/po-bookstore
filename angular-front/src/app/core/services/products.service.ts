@@ -1,8 +1,13 @@
 import { Image, Product, ProductDetails } from '../models';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map, Observable } from 'rxjs';
 
 @Injectable()
 export class ProductsService {
+  private productsBaseUrl = 'http://localhost:6060/products';
+  private productBaseUrl = 'http://localhost:6060/product';
+  private http: HttpClient;
   private products: Product[] = [
     new Product(
       1,
@@ -86,6 +91,9 @@ export class ProductsService {
     ),
   ];
 
+  constructor(http: HttpClient) {
+    this.http = http;
+  }
   private product: ProductDetails = new ProductDetails(
     1,
     'Bardzo małe rzeczy',
@@ -100,29 +108,28 @@ export class ProductsService {
     'Bardzo małe rzeczy. Proste refleksje o zyciu i przyjaźni ze Stumilowego Lasu'
   );
 
-  getProduct(productId: number) {
-    const product = this.products.find(({ id }) => id === +productId);
-
-    return (
-      product &&
-      new ProductDetails(
-        product?.id,
-        product?.name,
-        product?.price,
-        product?.image,
-        'Refleksje o zyciu i przyjaźni podniosą na duchu czytelników w kazdym wieku dzięki prostym i pięknie ilustrowanym afirmacjom. Chwile spędzone na wędrówce po Stumilowym Lesie w towarzystwie Kubusia Puchatka przypominają, ze nawet najmniejsze rzeczy są źródłem szczęścia i wdzięczności.',
-        'miękka',
-        product?.author,
-        'Olesiejuk',
-        new Date('2022-05-20'),
-        128,
-        product?.name
-      )
+  getProduct(productId: number): Observable<any> {
+    return this.http.get(this.productBaseUrl + `/${productId}`).pipe(
+      map((res: any) => {
+        const cover = res.coverType == 'HardCover' ? 'twarda' : 'miękka';
+        return new ProductDetails(
+          res.id,
+          res.name,
+          res.price,
+          new Image('../../../assets/kubus-puchatek.jpeg', res.name),
+          res.description,
+          cover,
+          res.author,
+          res.publisher,
+          res.releaseDate,
+          res.numberOfPages,
+          res.title
+        );
+      })
     );
   }
 
   getProducts(category?: string, subcategory?: string) {
-    console.log(category, subcategory);
-    return [...this.products];
+    return this.products;
   }
 }

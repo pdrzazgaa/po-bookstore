@@ -9,6 +9,7 @@ export class UserService {
   private authorizationService: AuthorizationService;
   private http: HttpClient;
   private baseUrl: string = 'http://localhost:6060/';
+
   loyaltyProgram = new EventEmitter<{ isInLoyaltyProgram: boolean }>();
 
   constructor(authorizationService: AuthorizationService, http: HttpClient) {
