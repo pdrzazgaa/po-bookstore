@@ -63,6 +63,6 @@ public class LoyaltyProgramService {
                             loyaltyProgramDTOResponse.setBookcoins(0);
                             return new ResponseEntity(loyaltyProgramDTOResponse, HttpStatus.OK);
                         }))
-                .orElseGet(() -> new ResponseEntity(HttpStatus.NOT_FOUND));
+                .orElseGet(() -> ResponseEntity.ok(HttpStatus.NOT_FOUND));
     }
 }

@@ -50,10 +50,10 @@ public class CartService {
                                                 cartItemRepository.save(cartItem);
                                                 cartRepository.save(foundCart);
                                                 System.out.println("Cart exists. Added product.");
-                                                return new ResponseEntity<>(HttpStatus.OK);
+                                                return ResponseEntity.ok(HttpStatus.OK);
                                             } else {
                                                 System.out.println("Cart exists. Not enough products.");
-                                                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                                                return ResponseEntity.ok(HttpStatus.NO_CONTENT);
                                             }
                                         })
                                         .orElseGet(() -> {
@@ -63,21 +63,21 @@ public class CartService {
                                                 cartItemRepository.save(cartItem);
                                                 cartRepository.save(newCart);
                                                 System.out.println("Cart does not exists. Added product.");
-                                                return new ResponseEntity<>(HttpStatus.OK);
+                                                return ResponseEntity.ok(HttpStatus.OK);
                                             } else {
                                                 System.out.println("Cart does not exists. Not enough products.");
-                                                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                                                return ResponseEntity.ok(HttpStatus.NO_CONTENT);
                                             }
                                         });
                             })
                             .orElseGet(() -> {
                                 System.out.println("Product not found.");
-                                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                                return ResponseEntity.ok(HttpStatus.NOT_FOUND);
                             });
                 })
                 .orElseGet(() -> {
                     System.out.println("Client not found.");
-                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                    return ResponseEntity.ok(HttpStatus.NOT_FOUND);
                 });
     }
 
@@ -94,26 +94,26 @@ public class CartService {
                                         .map(foundCart -> {
                                             if (foundCart.removeProductItem(foundProduct)) {
                                                 System.out.println("Cart found. Product removed.");
-                                                return new ResponseEntity(HttpStatus.OK);
+                                                return ResponseEntity.ok(HttpStatus.OK);
                                             } else {
                                                 System.out.println("Cart found. Product not removed.");
-                                                return new ResponseEntity(HttpStatus.NOT_FOUND);
+                                                return ResponseEntity.ok(HttpStatus.NOT_FOUND);
                                             }
 
                                         })
                                         .orElseGet(() -> {
                                             System.out.println("Cart not found.");
-                                            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                                            return ResponseEntity.ok(HttpStatus.NOT_FOUND);
                                         });
                             })
                             .orElseGet(() -> {
                                 System.out.println("Product not found.");
-                                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                                return ResponseEntity.ok(HttpStatus.NOT_FOUND);
                             });
                 })
                 .orElseGet(()-> {
                     System.out.println("Client not found.");
-                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                    return ResponseEntity.ok(HttpStatus.NOT_FOUND);
                 });
     }
 }
