@@ -130,7 +130,11 @@ export class ProductsService {
   }
 
   getProducts(idCat: any): Observable<Product[]> {
-    return this.http.get<any[]>(this.productsBaseUrl + `/${idCat}`).pipe(
+    let url = this.productsBaseUrl;
+    if (idCat) {
+      url = this.productsBaseUrl + `/${idCat}`;
+    }
+    return this.http.get<any[]>(url).pipe(
       map((res) => {
         this.products = res.map(
           (prod) =>
