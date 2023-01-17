@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -85,8 +84,6 @@ public class OrderService {
                     Optional<OrderHistory> orderHistory = orderHistoryRepository.findOrderHistoryByClientId(foundCart.getClient().getId());
                     return orderHistory
                             .map(foundOrderHistory -> {
-                                // #TODO generating order number;
-                                String orderNumber = "123-2023";
                                 Order order = new Order(orderDTO.getBookcoins(), foundCart, foundOrderHistory);
                                 Address address = orderDTO.getAddress().fromAddressDTOtoAddress(orderDTO.getForname(), orderDTO.getSurname(), orderDTO.getMail(), orderDTO.getPhoneNumber());
                                 addressRepository.save(address);

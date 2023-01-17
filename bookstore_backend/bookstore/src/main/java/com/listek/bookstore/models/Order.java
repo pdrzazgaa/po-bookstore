@@ -50,14 +50,13 @@ public class Order {
     @Transient
     private boolean isPossibleComplaint = isPossibleComplaint();
 
-
     public Order(int bookCoins, Cart cart, OrderHistory orderHistory) {
         this.date = LocalDateTime.now();
         this.orderStatus = OrderStatus.OrderPaymentDue;
-        generateOrderNumber();
         this.cart = cart;
         this.orderHistory = orderHistory;
         grantDiscount(bookCoins);
+        generateOrderNumber();
     }
 
     public double computeSum(){
@@ -77,7 +76,7 @@ public class Order {
     }
 
     private void generateOrderNumber(){
-        this.orderNumber = (int)(Math.random() * 1000) +"/2023";
+        this.orderNumber = (int)(Math.random() * 10000) +"-2023";
     }
 
     public boolean isPossibleComplaint(){
