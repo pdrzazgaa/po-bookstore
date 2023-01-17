@@ -9,10 +9,11 @@ import java.util.List;
 
 public interface BookRepository extends CrudRepository<Book, Long> {
 
-    @Query(value = "select id, nazwa, autor, cena, typ_okladki from ksiazki", nativeQuery = true)
+    @Query(value = "select id, nazwa, autor, cena, typ_okladki from ksiazki where liczba_sztuk_na_stanie > 0", nativeQuery = true)
     List<Object[]> findBooks();
 
     @Query(value = "select id, nazwa, autor, cena, typ_okladki from ksiazki as K " +
-            "where :idK in (select PK.kategoriaid from produkty_kategorie as PK where K.id = PK.produktid)", nativeQuery = true)
+            "where :idK in (select PK.kategoriaid from produkty_kategorie as PK " +
+            "where K.id = PK.produktid and liczba_sztuk_na_stanie > 0)", nativeQuery = true)
     List<Object[]> findBooksByCategory(@Param("idK") Long idK);
 }

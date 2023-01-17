@@ -1,10 +1,17 @@
 package com.listek.bookstore.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name="Reklamacje")
 @Entity
 public class Complaint {
@@ -23,64 +30,20 @@ public class Complaint {
     @OneToMany(mappedBy="complaint", cascade = CascadeType.ALL)
     private List<ComplaintItem> complaintItems;
 
-    public Complaint(Long id, LocalDateTime complaintDate, String accountNumber, ComplaintStatus complaintStatus, Order order, List<ComplaintItem> complaintItems) {
-        this.id = id;
-        this.complaintDate = complaintDate;
-        this.accountNumber = accountNumber;
-        this.complaintStatus = complaintStatus;
+    public Complaint(Order order) {
+        this.complaintDate = LocalDateTime.now();
+        generateAccountNumber();
+        this.complaintStatus = ComplaintStatus.ComplaintPending;
         this.order = order;
-        this.complaintItems = complaintItems;
+        complaintItems = new ArrayList<>();
     }
 
-    public Complaint() {
-
+    private void generateAccountNumber(){
+        accountNumber =(int) (Math.random() * 100) +  " ";
+        for (int i=0; i<6; i++) accountNumber += (int) (Math.random() * 10000) + " ";
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getComplaintDate() {
-        return complaintDate;
-    }
-
-    public void setComplaintDate(LocalDateTime complaintDate) {
-        this.complaintDate = complaintDate;
-    }
-
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    public ComplaintStatus getComplaintStatus() {
-        return complaintStatus;
-    }
-
-    public void setComplaintStatus(ComplaintStatus complaintStatus) {
-        this.complaintStatus = complaintStatus;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public List<ComplaintItem> getComplaintItems() {
-        return complaintItems;
-    }
-
-    public void setComplaintItems(List<ComplaintItem> complaintItems) {
-        this.complaintItems = complaintItems;
-    }
+   public void addComplaintItem(ComplaintItem complaintItem){
+        this.complaintItems.add(complaintItem);
+   }
 }

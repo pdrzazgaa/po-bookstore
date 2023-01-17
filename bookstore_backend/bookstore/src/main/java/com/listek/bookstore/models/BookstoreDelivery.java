@@ -2,7 +2,9 @@ package com.listek.bookstore.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Table(name="DostawyDoKsiegarni")
 @Entity
 public class BookstoreDelivery extends Delivery{
@@ -13,7 +15,4 @@ public class BookstoreDelivery extends Delivery{
         super(BOOKSTOREDELIVERYCOST, address, order);
     }
 
-    public BookstoreDelivery() {
-
-    }
 }

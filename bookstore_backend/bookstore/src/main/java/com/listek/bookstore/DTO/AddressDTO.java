@@ -21,15 +21,4 @@ public class AddressDTO {
     public Address fromAddressDTOtoAddress(String forename, String surname, String mail, String phoneNumber){
         return new Address(forename, surname, mail, phoneNumber, street, num, postcode, city, country);
     }
-
-    @Override
-    public String toString() {
-        return "AddressDTO{" +
-                "street='" + street + '\'' +
-                ", city='" + city + '\'' +
-                ", postcode='" + postcode + '\'' +
-                ", country='" + country + '\'' +
-                ", num='" + num + '\'' +
-                '}';
-    }
 }

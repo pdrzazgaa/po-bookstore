@@ -42,8 +42,7 @@ public class OrderLoader implements CommandLineRunner {
             Optional<Cart> cart = cartRepository.findFirst();
             if (orderHistory.isPresent() && cart.isPresent()) {
                 com.listek.bookstore.models.Order order = new com.listek.bookstore.models.Order(
-                        LocalDateTime.now(), 10, OrderStatus.OrderPaymentDue, "1-2023",
-                        cart.get(), orderHistory.get());
+                        10, cart.get(), orderHistory.get());
                 orderRepository.save(order);
 
                 Address address = new Address("Maria", "Markowiak", "m.a.markowiak@gmail.com", "123 456 789",
@@ -51,7 +50,7 @@ public class OrderLoader implements CommandLineRunner {
                 addressRepository.save(address);
                 Delivery delivery = new APMDelivery(address, "WRO12B", order);
                 deliveryRepository.save(delivery);
-                Payment payment = new TransferPayment(LocalDateTime.now(), "72 1234 5678 0000 9820", order);
+                Payment payment = new TransferPayment(order);
                 paymentRepository.save(payment);
                 Document document = new Receipt(LocalDateTime.now(), order);
                 documentRepository.save(document);
