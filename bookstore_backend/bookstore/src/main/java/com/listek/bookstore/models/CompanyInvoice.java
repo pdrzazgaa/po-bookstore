@@ -20,8 +20,8 @@ public class CompanyInvoice extends Invoice {
     @Column(name="NazwaFirmy")
     private String companyName;
 
-    public CompanyInvoice(LocalDateTime dateOfIssue, String invoiceNumber, String NIP, String companyName, Order order) {
-        super(dateOfIssue, invoiceNumber, order);
+    public CompanyInvoice(LocalDateTime dateOfIssue, String NIP, String companyName, Order order) {
+        super(dateOfIssue, order);
         this.NIP = NIP;
         this.companyName = companyName;
     }
