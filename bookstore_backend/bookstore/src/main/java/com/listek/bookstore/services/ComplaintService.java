@@ -25,7 +25,7 @@ public class ComplaintService {
     ClientRepository clientRepository;
 
     public ResponseEntity placeComplaint(ComplaintDTO complaintDTO) {
-        Optional<Client> client = clientRepository.findClientById(complaintDTO.getClientId());
+        Optional<Client> client = clientRepository.findClientById(complaintDTO.getUserId());
         return client
                 .map(foundClient -> {
                     Optional<Order> order = orderRepository.findByOrderNumber(complaintDTO.getOrderNumber(), foundClient.getId());
@@ -33,7 +33,7 @@ public class ComplaintService {
                             .map(foundOrder -> {
                                 Complaint complaint = new Complaint(foundOrder);
                                 complaintRepository.save(complaint);
-                                for (ProductComplaintDTO productComplaintDTO : complaintDTO.getReclamationPosition()) {
+                                for (ProductComplaintDTO productComplaintDTO : complaintDTO.getReclamationPositions()) {
                                     Optional<Book> book = bookRepository.findById(productComplaintDTO.getProductID());
                                     if (book.isPresent()) {
                                         ComplaintItem complaintItem = productComplaintDTO.fromProductComplaintDTOtoComplaintItem(book.get(), complaint);
