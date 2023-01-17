@@ -20,6 +20,10 @@ public class PaymentDTO {
 
     private String payment;
 
+    public PaymentDTO(String payment) {
+        this.payment = payment;
+    }
+
     public Payment fromPaymentDTOtoPayment(Order order){
         if (payment.equals(ONLINEPAYMENT))
             return new OnlinePayment(LocalDateTime.now(), order);

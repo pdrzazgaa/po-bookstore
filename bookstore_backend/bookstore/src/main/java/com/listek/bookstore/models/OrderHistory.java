@@ -15,10 +15,10 @@ public class OrderHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="KlientID")
     private Client client;
-    @OneToMany(mappedBy = "orderHistory")
+    @OneToMany(mappedBy = "orderHistory", cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
 
     public OrderHistory() {

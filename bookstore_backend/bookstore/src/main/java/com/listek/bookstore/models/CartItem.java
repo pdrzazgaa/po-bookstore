@@ -12,10 +12,10 @@ public class CartItem {
     private Long id;
     @Column(name="ilosc")
     private int quantity;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="ProductID")
     private Product product;
-    @ManyToOne
+    @ManyToOne(cascade= CascadeType.ALL)
     @JoinColumn(name="KoszykID")
     private Cart cart;
 

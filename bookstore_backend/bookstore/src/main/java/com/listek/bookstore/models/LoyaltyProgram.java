@@ -12,7 +12,7 @@ public class LoyaltyProgram {
     @Column(name="Bookcoiny")
     private int bookcoins = 0;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="KlientID")
     private Client client;
 

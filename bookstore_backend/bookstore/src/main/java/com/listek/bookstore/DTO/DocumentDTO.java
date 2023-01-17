@@ -17,6 +17,10 @@ public class DocumentDTO {
     private static final String RECEIPT = "receipt";
     private String document;
 
+    public DocumentDTO(String document) {
+        this.document = document;
+    }
+
     public Document fromDocumentDTOtoDocument(Order order, String NIP, String companyName){
         if (document.equals(RECEIPT))
             return new Receipt(LocalDateTime.now(), order);

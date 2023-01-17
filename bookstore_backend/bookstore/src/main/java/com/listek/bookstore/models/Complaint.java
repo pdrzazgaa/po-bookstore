@@ -17,10 +17,10 @@ public class Complaint {
     private String accountNumber;
     @Column(name="StatusReklamacji")
     private ComplaintStatus complaintStatus;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="ZamowienieID")
     private Order order;
-    @OneToMany(mappedBy="complaint")
+    @OneToMany(mappedBy="complaint", cascade = CascadeType.ALL)
     private List<ComplaintItem> complaintItems;
 
     public Complaint(Long id, LocalDateTime complaintDate, String accountNumber, ComplaintStatus complaintStatus, Order order, List<ComplaintItem> complaintItems) {

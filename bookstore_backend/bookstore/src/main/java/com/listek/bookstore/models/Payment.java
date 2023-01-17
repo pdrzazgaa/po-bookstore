@@ -15,9 +15,8 @@ import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
 @NoArgsConstructor
 @Inheritance(strategy = TABLE_PER_CLASS)
 @JsonIgnoreProperties("order")
-@Table(name="Platnosci")
 @Entity
-public class Payment {
+public abstract class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -25,7 +24,7 @@ public class Payment {
     @Column(name = "DataPlatnosci")
     private LocalDateTime paymentDate;
     @JoinColumn(name = "ZamowienieID")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Order order;
 
     public Payment(LocalDateTime paymentDate, Order order) {

@@ -26,4 +26,12 @@ public class DeliveryDTO {
         else
             return new CourierDelivery(address, order);
     }
+
+    @Override
+    public String toString() {
+        return "DeliveryDTO{" +
+                "delivery='" + delivery + '\'' +
+                ", parcelMachineNumber='" + parcelMachineNumber + '\'' +
+                '}';
+    }
 }
