@@ -41,11 +41,18 @@ public class ComplaintService {
                                         complaint.addComplaintItem(complaintItem);
                                     }
                                 }
+                                System.out.println("Complaint created.");
                                 return ResponseEntity.ok(HttpStatus.OK);
                             })
-                            .orElseGet(() -> ResponseEntity.ok(HttpStatus.NOT_FOUND));
+                            .orElseGet(() -> {
+                                System.out.println("Complaint not created. Order not found.");
+                                return ResponseEntity.ok(HttpStatus.NOT_FOUND);}
+                            );
                 })
-                .orElseGet(() -> ResponseEntity.ok(HttpStatus.NOT_FOUND));
+                .orElseGet(() -> {
+                    System.out.println("Complaint not created. Client not found.");
+                    return ResponseEntity.ok(HttpStatus.NOT_FOUND);}
+                );
     }
 
 }
