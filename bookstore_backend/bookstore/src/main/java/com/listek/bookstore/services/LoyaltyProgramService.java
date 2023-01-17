@@ -22,11 +22,6 @@ public class LoyaltyProgramService {
     @Autowired
     ClientRepository clientRepository;
 
-    public LoyaltyProgramService(LoyaltyProgramRepository loyaltyProgramRepository, ClientRepository clientRepository) {
-        this.loyaltyProgramRepository = loyaltyProgramRepository;
-        this.clientRepository = clientRepository;
-    }
-
     public ResponseEntity<HttpStatus> joinLoyaltyProgram(IdDTO clientID) {
         Optional<Client> client = clientRepository.findClientById(Long.valueOf(clientID.getId()));
         return client

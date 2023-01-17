@@ -101,29 +101,34 @@ public class Order {
     }
 
     /**
-        Function returns remaining BookCoins (if client passed more than he should)
+        Function computes a discount for the order.
+        Discount equals passed number of bookcoins or 30% of the orders cost.
+        (the lower value)
      **/
-    public int grantDiscount(int bookCoins){
+
+    public void grantDiscount(int bookCoins){
         this.discount = Math.min(bookCoins, (int)(0.3 * computeSumWithoutDeliveryAndDiscount()));
-        return bookCoins - this.discount;
     }
 
-    public void placeOrder(){
-        this.orderStatus = OrderStatus.OrderPaymentDue;
-    }
-
+    /**
+     * Not used. Not included in use case.
+     */
     public void payForOrder(){
         this.orderStatus = OrderStatus.OrderPaid;
             addBookCoinsToClient();
     }
-
+    /**
+     * Not used. Not included in use case.
+     */
     public void addBookCoinsToClient(){
         computeSum();
         this.orderHistory.getClient().getLoyaltyProgram().addBookCoins(
                 (int) (this.sum / 20)
         );
     }
-
+    /**
+     * Not used. Not included in use case.
+     */
     public boolean takeBookCoinsFromClient(){
         computeSum();
         return this.orderHistory.getClient().getLoyaltyProgram().removeBookCoins(
