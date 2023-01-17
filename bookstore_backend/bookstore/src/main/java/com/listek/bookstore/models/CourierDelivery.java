@@ -7,8 +7,8 @@ import jakarta.persistence.Table;
 @Entity
 public class CourierDelivery extends Delivery{
 
-    public CourierDelivery(Long id, float cost, Address address) {
-        super(id, cost, address);
+    public CourierDelivery(double cost, Address address, Order order) {
+        super(cost, address, order);
     }
 
     public CourierDelivery() {

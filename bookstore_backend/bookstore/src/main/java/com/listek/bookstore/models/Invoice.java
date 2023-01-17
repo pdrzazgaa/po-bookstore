@@ -16,8 +16,8 @@ public class Invoice extends Document{
     @Column(name="NumerFaktury")
     private String invoiceNumber;
 
-    public Invoice(Long id, LocalDateTime dateOfIssue, String invoiceNumber) {
-        super(id, dateOfIssue);
+    public Invoice(LocalDateTime dateOfIssue, String invoiceNumber, Order order) {
+        super(dateOfIssue, order);
         this.invoiceNumber = invoiceNumber;
     }
 

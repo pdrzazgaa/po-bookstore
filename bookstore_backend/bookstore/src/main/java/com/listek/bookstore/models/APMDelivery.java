@@ -4,28 +4,23 @@ package com.listek.bookstore.models;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name="DostawyPaczkomatem")
 @Entity
-public class APMDelivery extends Delivery{
+public class APMDelivery extends Delivery {
 
-    @Column(name="numerPaczkomatu")
+    @Column(name = "numerPaczkomatu")
     private String APMNumber;
 
-    public APMDelivery(Long id, float cost, Address address, String APMNumber) {
-        super(id, cost, address);
+    public APMDelivery(double cost, Address address, String APMNumber, Order order) {
+        super(cost, address, order);
         this.APMNumber = APMNumber;
     }
 
-    public APMDelivery() {
-
-    }
-
-    public String getAPMNumber() {
-        return APMNumber;
-    }
-
-    public void setAPMNumber(String APMNumber) {
-        this.APMNumber = APMNumber;
-    }
 }

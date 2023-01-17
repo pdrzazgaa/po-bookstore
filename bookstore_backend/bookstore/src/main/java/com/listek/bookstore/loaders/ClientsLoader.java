@@ -27,8 +27,10 @@ public class ClientsLoader implements CommandLineRunner {
         if (clientRepository.count() == 0) {
             Client user1 = new Client("Paulina", "Drzazga", "paudrza@gmail.com", "723242716", "paulinamapsa");
             Client user2 = new Client("Maria", "Markowiak", "m.a.markowiak@gmail.com", "123456789", "mariamakota");
-            clientRepository.save(user1);
-            clientRepository.save(user2);
+            user1 = clientRepository.save(user1);
+            user2 = clientRepository.save(user2);
+
+            //#TODO Czemu nie działa dodawanie historii zamówień??
 
             OrderHistory orderHistory1 = new OrderHistory();
             orderHistory1.setClient(user1);
