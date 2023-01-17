@@ -33,6 +33,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   private router: Router;
   private productSub?: Subscription;
   private buttonSub?: Subscription;
+  private cartSub?: Subscription;
   buttonMessage?: 'Dodaj do koszyka' | 'Zaloguj się, aby dodać do koszyka';
 
   constructor(
@@ -64,7 +65,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
 
   onButtonClick() {
     if (this.authorizationService.isLoggedIn()) {
-      this.shoppingCartService
+      this.cartSub = this.shoppingCartService
         .incrementProductAmount(this.product!.id)
         .subscribe((isAdded) => {
           if (isAdded) {
@@ -78,7 +79,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
           this.disabledButton = true;
           this.popupMessage = PopupMessage[this.popupMode];
           this.buttonSub?.unsubscribe();
-          this.buttonSub = timer(3000).subscribe(() => {
+          this.buttonSub = timer(2500).subscribe(() => {
             console.log('button subscribed');
             this.showPopup = false;
             this.disabledButton = false;
@@ -93,5 +94,6 @@ export class ProductPageComponent implements OnInit, OnDestroy {
     this.routeSub?.unsubscribe();
     this.productSub?.unsubscribe();
     this.buttonSub?.unsubscribe();
+    this.cartSub?.unsubscribe();
   }
 }
