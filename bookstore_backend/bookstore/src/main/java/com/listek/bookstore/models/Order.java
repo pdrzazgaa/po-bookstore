@@ -3,9 +3,15 @@ package com.listek.bookstore.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name="Zamowienia")
 @JsonIgnoreProperties(value = {"orderHistory", "document", "payment", "delivery", "orderHistory"})
 @Entity
@@ -49,6 +55,7 @@ public class Order {
         this.orderNumber = orderNumber;
         this.cart = cart;
         this.orderHistory = orderHistory;
+        grantDiscount(bookCoins);
     }
 
     public Order(LocalDateTime date, int bookCoins, OrderStatus orderStatus, String orderNumber, Cart cart,
@@ -61,98 +68,7 @@ public class Order {
         this.payment = payment;
         this.delivery = delivery;
         this.orderHistory = orderHistory;
-    }
-
-    public Order() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
-    public int getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(int discount) {
-        this.discount = discount;
-    }
-
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
-
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
-    }
-
-    public Delivery getDelivery() {
-        return delivery;
-    }
-
-    public void setDelivery(Delivery delivery) {
-        this.delivery = delivery;
-    }
-
-    public Complaint getComplaint() {
-        return complaint;
-    }
-
-    public void setComplaint(Complaint complaint) {
-        this.complaint = complaint;
-    }
-
-    public Document getDocument() {
-        return document;
-    }
-
-    public void setDocument(Document document) {
-        this.document = document;
-    }
-
-    public OrderHistory getOrderHistory() {
-        return orderHistory;
-    }
-
-    public void setOrderHistory(OrderHistory orderHistory) {
-        this.orderHistory = orderHistory;
+        grantDiscount(bookCoins);
     }
 
     public double getSum() {
@@ -161,24 +77,35 @@ public class Order {
     }
 
     public void computeSum(){
-        double sum = 0;
+        double sum = computeSumWithoutDeliveryAndDiscount();
         sum += delivery.getCost();
         sum -= discount;
+        this.sum = sum;
+    }
+
+    public void computeSumWithoutDiscount(){
+        double sum = 0;
+        sum += delivery.getCost();
         for (CartItem cartItem: cart.getCartItems()){
             sum += cartItem.getCosts();
         }
         this.sum = sum;
     }
 
+    public double computeSumWithoutDeliveryAndDiscount(){
+        double sum = 0;
+        for (CartItem cartItem: cart.getCartItems()){
+            sum += cartItem.getCosts();
+        }
+        return sum;
+    }
+
     /**
         Function returns remaining BookCoins (if client passed more than he should)
      **/
     public int grantDiscount(int bookCoins){
-        int usedBookCoins;
-        computeSum();
-        usedBookCoins = Math.min(bookCoins, (int)(0.3 * sum));
-        this.discount = usedBookCoins;
-        return bookCoins - usedBookCoins;
+        this.discount = Math.min(bookCoins, (int)(0.3 * computeSumWithoutDeliveryAndDiscount()));
+        return bookCoins - this.discount;
     }
 
     public void placeOrder(){
@@ -200,6 +127,6 @@ public class Order {
     public boolean takeBookCoinsFromClient(){
         computeSum();
         return this.orderHistory.getClient().getLoyaltyProgram().removeBookCoins(
-                usedBookCoins);
+                discount);
     }
 }
