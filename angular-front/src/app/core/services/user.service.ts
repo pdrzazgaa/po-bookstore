@@ -47,7 +47,6 @@ export class UserService {
           headers: headers,
         })
         .subscribe((res) => {
-          console.log(res);
           if (res === 'OK') {
             this.loyaltyProgram.emit({ isInLoyaltyProgram: true });
           }

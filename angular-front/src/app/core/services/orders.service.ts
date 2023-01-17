@@ -76,6 +76,10 @@ export class OrdersService {
   }
 
   sendReclamation(reclamation: Reclamation) {
-    console.log(reclamation);
+    console.log(JSON.stringify(reclamation));
+    const headers = { 'content-type': 'application/json' };
+    this.http.post(this.baseUrl + 'createComplaint', JSON.stringify(reclamation), {
+      headers: headers,
+    });
   }
 }
