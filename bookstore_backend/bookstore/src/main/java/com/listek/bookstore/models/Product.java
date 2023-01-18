@@ -28,7 +28,7 @@ public class Product {
     private int numberOfItemsInStock;
     @Column(name="Nazwa")
     private String name;
-    @Column(name="Opis")
+    @Column(name="Opis", length=2000)
     private String description;
 
     @ManyToMany(fetch = FetchType.EAGER,
