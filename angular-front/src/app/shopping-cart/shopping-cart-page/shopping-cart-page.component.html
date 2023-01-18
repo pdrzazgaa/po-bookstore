@@ -19,7 +19,7 @@
             <input type="number" [value]="position.amount" disabled />
             <button (click)="incrementAmount(position.product.id)">+</button>
           </div>
-          <div class="price">{{ getProductSum(position) }} zł</div>
+          <div class="price">{{ getProductSum(position) | number : '.2'  }} zł</div>
         </td>
       </tr>
     </table>
