@@ -41,8 +41,10 @@ public class OrderService {
                 .map(foundClient -> {
                     List<Order> orders = orderRepository.findByOrderHistoryClient_Id(clientID);
                     List<OrdersDTO> ordersDTOs = new ArrayList<>();
-                    for (Order order : orders)
-                        ordersDTOs.add(OrdersDTO.fromOrderToOrdersDTO(order));
+                    for (Order order : orders) {
+                        if (order.getDelivery() != null && order.getPayment() != null && order.getDocument() != null)
+                            ordersDTOs.add(OrdersDTO.fromOrderToOrdersDTO(order));
+                    }
                     System.out.println("Orders found.");
                     return new ResponseEntity(ordersDTOs, HttpStatus.OK);
                 })

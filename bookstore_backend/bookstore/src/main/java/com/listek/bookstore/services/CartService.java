@@ -4,10 +4,7 @@ import com.listek.bookstore.models.Cart;
 import com.listek.bookstore.models.CartItem;
 import com.listek.bookstore.models.Client;
 import com.listek.bookstore.models.Product;
-import com.listek.bookstore.repositories.CartItemRepository;
-import com.listek.bookstore.repositories.CartRepository;
-import com.listek.bookstore.repositories.ClientRepository;
-import com.listek.bookstore.repositories.ProductRepository;
+import com.listek.bookstore.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -92,7 +89,11 @@ public class CartService {
                                 Optional<Cart> cart = cartRepository.isAvailableCart(clientID);
                                 return cart
                                         .map(foundCart -> {
-                                            if (foundCart.removeProductItem(foundProduct)) {
+                                            CartItem foundCartItem = foundCart.removeProductItem(foundProduct);
+                                            if (foundCartItem != null) {
+                                                cartItemRepository.save(foundCartItem);
+                                                productRepository.save(foundProduct);
+                                                cartRepository.save(foundCart);
                                                 System.out.println("Cart found. Product removed.");
                                                 return ResponseEntity.ok(HttpStatus.OK);
                                             } else {
