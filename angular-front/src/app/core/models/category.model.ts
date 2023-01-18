@@ -1,9 +1,11 @@
 export class Category {
-  public category: string;
-  public subcategories: string[];
+  public name: string;
+  public id: number;
+  public subcategories: Category[];
 
-  constructor(category: string, subcategories: string[]) {
-    this.category = category;
+  constructor(id: number, name: string, subcategories: Category[]) {
+    this.id = id;
+    this.name = name;
     this.subcategories = [...subcategories];
   }
 }

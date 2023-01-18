@@ -1,6 +1,6 @@
 <app-nav></app-nav>
 <main *ngIf="order">
-  <h1>Reklamacja - zamówienie nr {{ order.id }}</h1>
+  <h1>Reklamacja - zamówienie nr {{ order.orderNum }}</h1>
   <section class="status">
     <div class="status--bar" [ngClass]="{ active: step === 'choose-data' }">
       <p>Wybór zamówienia i dane</p>

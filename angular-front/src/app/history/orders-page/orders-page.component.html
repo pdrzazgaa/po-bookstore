@@ -15,14 +15,14 @@
         <th>Szczegóły</th>
       </tr>
       <tr *ngFor="let order of orders">
-        <td>{{ order.id }}</td>
+        <td>{{ order.orderNum }}</td>
         <td [ngClass]="{ delivered: order.status === 'Dostarczone' }">
           {{ order.status }}
         </td>
-        <td class="price">{{ order.totalPrice }} zł</td>
+        <td class="price">{{ order.totalPrice | number : '.2-2' }} zł</td>
         <td>{{ order.date | date : 'd.M.y r.' }}</td>
         <td>
-          <a class="details" [routerLink]="['/order', order.id]">Pokaz szczegóły</a>
+          <a class="details" [routerLink]="['/order', order.orderNum]">Pokaz szczegóły</a>
         </td>
       </tr>
     </table>

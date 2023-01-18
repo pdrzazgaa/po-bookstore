@@ -8,7 +8,7 @@ export interface ReclamationPosition {
 
 export interface Reclamation {
   reclamationPositions: ReclamationPosition[];
-  orderId: number;
+  orderNumber: number;
   userId: number;
   delivery: Delivery;
 }

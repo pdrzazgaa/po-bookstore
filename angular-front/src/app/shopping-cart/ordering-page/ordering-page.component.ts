@@ -7,19 +7,23 @@ import {
   ShoppingCartService,
   UserService,
 } from 'src/app/core';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-ordering-page',
   templateUrl: './ordering-page.component.html',
   styleUrls: ['./ordering-page.component.scss'],
 })
-export class OrderingPageComponent implements OnInit {
+export class OrderingPageComponent implements OnInit, OnDestroy {
   private shoppingCartService: ShoppingCartService;
   private userService: UserService;
   private router: Router;
+  private cartSub?: Subscription;
+  private bookcoinsSub?: Subscription;
+  availableBookcoins: number = 0;
   shoppingCart?: ShoppingCart;
   ordererMode: 'client' | 'company' = 'client';
   public showParcelMachineForm: boolean = false;
@@ -82,10 +86,18 @@ export class OrderingPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.shoppingCart = this.shoppingCartService.getShoppingCart();
-    this.orderForm.controls['bookcoins'].addValidators(
-      Validators.max(this.userService.getBookcoins())
-    );
+    this.cartSub = this.shoppingCartService.getShoppingCart().subscribe((cart) => {
+      this.shoppingCart = cart;
+      this.bookcoinsSub = this.userService.verifyLoyaltyProgram().subscribe((res) => {
+        this.availableBookcoins = Math.floor(
+          Math.min(this.shoppingCart!.totalAmount * 0.3, res.bookcoins)
+        );
+        this.orderForm.controls['bookcoins'].addValidators(
+          Validators.max(this.availableBookcoins!)
+        );
+      });
+    });
+
     const personalData = this.orderForm.controls['personalData'];
     personalData.controls['NIP'].disable();
     personalData.controls['companyName'].disable();
@@ -101,16 +113,11 @@ export class OrderingPageComponent implements OnInit {
     } else return 0;
   }
 
-  getBookcoins() {
-    return this.userService.getBookcoins();
-  }
-
   onBookcoinsChange() {
     const bookcoinsControl = this.orderForm.controls['bookcoins'];
     if (bookcoinsControl.valid) {
       this.usedBookcoins = bookcoinsControl.value!;
     }
-    console.log(this.orderForm);
   }
 
   onClientClick() {
@@ -183,36 +190,42 @@ export class OrderingPageComponent implements OnInit {
     const d = c.deliveryOption.controls;
 
     if (this.orderForm.valid) {
-      const response = this.shoppingCartService.makeNewOrder(
-        p.email.value!,
-        p.phoneNumber.value!,
-        new Address(
-          p.street.value!,
-          +p.number.value!,
-          p.city.value!,
-          p.postcode.value!,
-          p.country.value!
-        ),
-        {
-          delivery: d.delivery.value,
-          parcelMachineNumber: d.parcelMachineNumber.value,
-        } as Delivery,
-        c.payment.value! as Payment,
-        c.bookcoins.value!,
-        this.shoppingCart!.cartId,
-        p.forname.value!,
-        p.surname.value!
-      );
-      if (response) {
-        this.confirmMode = 'green';
-        this.confirmPopupMessage =
-          'Poprawnie złozono zamówienie. Opłać swoje zamówienie. Dodano 13 bookcoinów do twojego konta';
-      } else {
-        this.confirmPopupMessage =
-          'Przepraszamy, coś poszło nie tak... nie udało się złozyc zamowienia';
-        this.confirmMode = 'red';
-      }
-      this.showConfirmPopup = true;
+      this.shoppingCartService
+        .makeNewOrder(
+          p.email.value!,
+          p.phoneNumber.value!,
+          new Address(
+            p.street.value!,
+            p.number.value!,
+            p.city.value!,
+            p.postcode.value!,
+            p.country.value!
+          ),
+          {
+            delivery: d.delivery.value,
+            parcelMachineNumber: d.parcelMachineNumber.value,
+          } as Delivery,
+          c.payment.value! as Payment,
+          c.bookcoins.value!,
+          this.shoppingCart!.cartId,
+          c.document.value!,
+          p.forname.value!,
+          p.surname.value!,
+          p.NIP.value!,
+          p.companyName.value!
+        )
+        .subscribe((response) => {
+          if (response) {
+            this.confirmMode = 'green';
+            this.confirmPopupMessage =
+              'Poprawnie złozono zamówienie. Opłać swoje zamówienie.';
+          } else {
+            this.confirmPopupMessage =
+              'Przepraszamy, coś poszło nie tak... nie udało się złozyc zamowienia';
+            this.confirmMode = 'red';
+          }
+          this.showConfirmPopup = true;
+        });
     } else {
       if (c.bookcoins.invalid) {
         this.errorMessage = 'Zła liczba podanych bookcoinów!';
@@ -225,5 +238,9 @@ export class OrderingPageComponent implements OnInit {
       }
       this.showErrorMessage = true;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.cartSub?.unsubscribe();
   }
 }

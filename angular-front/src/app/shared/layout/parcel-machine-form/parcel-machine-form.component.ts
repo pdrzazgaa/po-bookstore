@@ -24,6 +24,7 @@ export class ParcelMachineFormComponent implements OnInit, AfterViewInit, OnDest
   private parcelMachineService: ParcelMachineService;
   public parcelMachines: ParcelMachine[] = [];
   private inputSub?: Subscription;
+  private parcelSub?: Subscription;
 
   constructor(parcelMachineService: ParcelMachineService) {
     this.parcelMachineService = parcelMachineService;
@@ -31,6 +32,11 @@ export class ParcelMachineFormComponent implements OnInit, AfterViewInit, OnDest
 
   ngOnInit(): void {
     this.parcelMachines = this.parcelMachineService.getParcelMachines();
+    this.parcelSub = this.parcelMachineService.parcelsChanged.subscribe(
+      (parcels: ParcelMachine[]) => {
+        this.parcelMachines = parcels;
+      }
+    );
   }
 
   ngAfterViewInit(): void {
@@ -54,5 +60,6 @@ export class ParcelMachineFormComponent implements OnInit, AfterViewInit, OnDest
 
   ngOnDestroy(): void {
     this.inputSub?.unsubscribe();
+    this.parcelSub?.unsubscribe();
   }
 }

@@ -1,8 +1,11 @@
 <div class="container">
   <div class="inner">
-    <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()" novalidate>
+    <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
       <svg-icon name="user"></svg-icon>
       <h2>Zaloguj się</h2>
+      <span class="login-failure" *ngIf="incorrectData"
+        >Incorrect email or password...</span
+      >
       <p class="input-container">
         <span *ngIf="isEmailInvalid()" class="error-message"
           >Please, enter correct email</span
