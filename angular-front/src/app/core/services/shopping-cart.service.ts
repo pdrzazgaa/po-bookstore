@@ -8,7 +8,7 @@ import {
   ShoppingCartPosition,
 } from '../models';
 import { EventEmitter, Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from './user.service';
 
@@ -27,6 +27,9 @@ export class ShoppingCartService {
 
   getShoppingCart(): Observable<ShoppingCart | null> {
     return this.http.get(this.baseUrl + 'cart/' + this.userService.getUserId()).pipe(
+      catchError(() => {
+        return of(null);
+      }),
       map((res: any) => {
         if (res) {
           const shoppingCartPositions: ShoppingCartPosition[] = res.cartItems.map(
