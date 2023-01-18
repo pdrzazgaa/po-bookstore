@@ -65,7 +65,7 @@ public class Cart {
         }
     }
 
-    public boolean removeProductItem(Product product){
+    public CartItem removeProductItem(Product product){
         CartItem foundCartItem = isProductInCart(product);
 
         if (foundCartItem != null) {
@@ -75,9 +75,9 @@ public class Cart {
             computeSumCart();
             if (foundCartItem.getQuantity() == 0)
                 this.cartItems.remove(foundCartItem);
-            return true;
+            return foundCartItem;
         } else {
-            return false;
+            return null;
         }
     }
 
