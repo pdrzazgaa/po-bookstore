@@ -22,7 +22,9 @@ export class ShoppingCartPageComponent implements OnInit, OnDestroy {
     this.shoppingCartSub = this.shoppingCartService
       .getShoppingCart()
       .subscribe((cart) => {
-        this.shoppingCart = cart;
+        if (cart) {
+          this.shoppingCart = cart;
+        }
       });
     this.shoppingCartService.shoppingCartChanged.subscribe((shoppingCart) => {
       this.shoppingCart = shoppingCart;

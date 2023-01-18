@@ -77,7 +77,6 @@ export class OrdersService {
   }
 
   sendReclamation(reclamation: Reclamation): Observable<number> {
-    console.log(JSON.stringify(reclamation));
     const headers = { 'content-type': 'application/json' };
     return this.http
       .post(this.baseUrl + 'createComplaint', JSON.stringify(reclamation), {
