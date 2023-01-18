@@ -15,9 +15,9 @@
         </td>
         <td class="amount-data">
           <div class="buttons">
-            <button>-</button>
+            <button (click)="incrementAmount(position.product.id)">-</button>
             <input type="number" [value]="position.amount" />
-            <button>+</button>
+            <button (click)="decrementAmount(position.product.id)">+</button>
           </div>
           <div class="price">{{ getProductSum(position) }} zł</div>
         </td>

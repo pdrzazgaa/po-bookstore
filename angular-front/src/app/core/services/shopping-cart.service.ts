@@ -35,7 +35,7 @@ export class ShoppingCartService {
                 item.product.id,
                 item.product.name,
                 item.product.price,
-                new Image('../../../assets/kubus-puchatek.jpeg', item.product.name),
+                new Image(`../../../assets/${res.id}.jpg`, item.product.name),
                 item.product.coverType === 'HardCover' ? 'twarda' : 'miękka',
                 item.product.author
               ),

@@ -211,7 +211,7 @@
           Suma: <span>{{ getTotalCartAmount() + deliveryCost | number : '.2' }} zł</span>
         </div>
         <div>
-          Dostępne bookcoiny: <span>{{ availableBookcoins }}</span>
+          Dostępne bookcoiny: <span>{{ availableBookcoins | number : '1.0-0'}}</span>
         </div>
         <div class="bookcoins">
           <label for="bookcoins">Wpisz liczbę bookcoinów:</label>
