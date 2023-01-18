@@ -89,9 +89,8 @@ export class OrderingPageComponent implements OnInit, OnDestroy {
     this.cartSub = this.shoppingCartService.getShoppingCart().subscribe((cart) => {
       this.shoppingCart = cart;
       this.bookcoinsSub = this.userService.verifyLoyaltyProgram().subscribe((res) => {
-        this.availableBookcoins = Math.min(
-          this.shoppingCart!.totalAmount * 0.3,
-          res.bookcoins
+        this.availableBookcoins = Math.floor(
+          Math.min(this.shoppingCart!.totalAmount * 0.3, res.bookcoins)
         );
         this.orderForm.controls['bookcoins'].addValidators(
           Validators.max(this.availableBookcoins!)
@@ -211,7 +210,9 @@ export class OrderingPageComponent implements OnInit, OnDestroy {
           this.shoppingCart!.cartId,
           c.document.value!,
           p.forname.value!,
-          p.surname.value!
+          p.surname.value!,
+          p.NIP.value!,
+          p.companyName.value!
         )
         .subscribe((response) => {
           if (response) {
