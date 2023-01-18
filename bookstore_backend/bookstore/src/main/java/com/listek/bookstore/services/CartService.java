@@ -91,7 +91,10 @@ public class CartService {
                                         .map(foundCart -> {
                                             CartItem foundCartItem = foundCart.removeProductItem(foundProduct);
                                             if (foundCartItem != null) {
-                                                cartItemRepository.save(foundCartItem);
+                                                if (foundCartItem.getQuantity() == 0)
+                                                    cartItemRepository.save(foundCartItem);
+                                                else
+                                                    cartItemRepository.delete(foundCartItem);
                                                 productRepository.save(foundProduct);
                                                 cartRepository.save(foundCart);
                                                 System.out.println("Cart found. Product removed.");
