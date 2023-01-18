@@ -11,6 +11,8 @@ export class ShoppingCartPageComponent implements OnInit, OnDestroy {
   private shoppingCartService: ShoppingCartService;
   shoppingCart?: ShoppingCart;
   private shoppingCartSub?: Subscription;
+  errorMessage: string = '';
+  showErrorPopup: boolean = false;
 
   constructor(shoppingCartService: ShoppingCartService) {
     this.shoppingCartService = shoppingCartService;
@@ -22,9 +24,9 @@ export class ShoppingCartPageComponent implements OnInit, OnDestroy {
       .subscribe((cart) => {
         this.shoppingCart = cart;
       });
-    this.shoppingCartService.shoppingCartChanged.subscribe(
-      (shoppingCart) => (this.shoppingCart = shoppingCart)
-    );
+    this.shoppingCartService.shoppingCartChanged.subscribe((shoppingCart) => {
+      this.shoppingCart = shoppingCart;
+    });
   }
 
   getProductSum(position: ShoppingCartPosition) {
@@ -32,11 +34,24 @@ export class ShoppingCartPageComponent implements OnInit, OnDestroy {
   }
 
   incrementAmount(productId: number) {
-    console.log(productId);
+    this.shoppingCartService.incrementProductAmount(productId).subscribe((res) => {
+      if (!res) {
+        this.errorMessage = 'Brak większej liczby produktów na stanie';
+        this.showErrorPopup = true;
+      }
+    });
   }
 
   decrementAmount(productId: number) {
-    console.log(productId);
+    this.shoppingCartService.decrementProductAmount(productId).subscribe((res) => {
+      console.log(res, ' from decrement');
+    });
+  }
+
+  onErrorMessagePopupClose(isClosed: boolean) {
+    if (isClosed) {
+      this.showErrorPopup = false;
+    }
   }
 
   ngOnDestroy(): void {

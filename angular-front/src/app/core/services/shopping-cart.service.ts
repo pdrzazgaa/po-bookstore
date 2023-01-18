@@ -35,7 +35,7 @@ export class ShoppingCartService {
                 item.product.id,
                 item.product.name,
                 item.product.price,
-                new Image(`../../../assets/${res.id}.jpg`, item.product.name),
+                new Image(`../../../assets/${item.product.id}.jpg`, item.product.name),
                 item.product.coverType === 'HardCover' ? 'twarda' : 'miękka',
                 item.product.author
               ),
@@ -58,10 +58,9 @@ export class ShoppingCartService {
       .pipe(
         map((res) => {
           if (res === 'OK') {
-            this.getShoppingCart()
-              .subscribe((cart) => this.shoppingCartChanged.emit(cart))
-              .unsubscribe();
-
+            this.getShoppingCart().subscribe((cart) =>
+              this.shoppingCartChanged.emit(cart)
+            );
             return true;
           } else {
             return false;
@@ -70,7 +69,7 @@ export class ShoppingCartService {
       );
   }
 
-  decrementProductAmount(productId: number) {
+  decrementProductAmount(productId: number): Observable<boolean> {
     return this.http
       .post(
         this.baseUrl + 'removeCartItem',
@@ -80,9 +79,9 @@ export class ShoppingCartService {
       .pipe(
         map((res) => {
           if (res === 'OK') {
-            this.getShoppingCart()
-              .subscribe((cart) => this.shoppingCartChanged.emit(cart))
-              .unsubscribe();
+            this.getShoppingCart().subscribe((cart) =>
+              this.shoppingCartChanged.emit(cart)
+            );
             return true;
           } else {
             return false;
