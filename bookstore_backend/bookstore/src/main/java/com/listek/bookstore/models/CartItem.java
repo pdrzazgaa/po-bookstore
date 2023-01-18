@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Table(name="PozycjeKoszyka")
-@JsonIgnoreProperties("cart")
+@JsonIgnoreProperties({"cart", "product.category"})
 @Entity
 public class CartItem {
     @Id

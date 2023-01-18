@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name="Koszyki")
-@JsonIgnoreProperties("client")
+@JsonIgnoreProperties({"client"})
 @Entity
 public class Cart {
 
