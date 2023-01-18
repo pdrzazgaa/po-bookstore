@@ -87,7 +87,9 @@ export class OrderingPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.cartSub = this.shoppingCartService.getShoppingCart().subscribe((cart) => {
-      this.shoppingCart = cart;
+      if (cart) {
+        this.shoppingCart = cart;
+      }
       this.bookcoinsSub = this.userService.verifyLoyaltyProgram().subscribe((res) => {
         this.availableBookcoins = Math.floor(
           Math.min(this.shoppingCart!.totalAmount * 0.3, res.bookcoins)

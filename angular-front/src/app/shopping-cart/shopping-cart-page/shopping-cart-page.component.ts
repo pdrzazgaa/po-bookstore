@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 })
 export class ShoppingCartPageComponent implements OnInit, OnDestroy {
   private shoppingCartService: ShoppingCartService;
-  shoppingCart?: ShoppingCart;
+  shoppingCart?: ShoppingCart | null;
   private shoppingCartSub?: Subscription;
   errorMessage: string = '';
   showErrorPopup: boolean = false;
@@ -43,9 +43,7 @@ export class ShoppingCartPageComponent implements OnInit, OnDestroy {
   }
 
   decrementAmount(productId: number) {
-    this.shoppingCartService.decrementProductAmount(productId).subscribe((res) => {
-      console.log(res, ' from decrement');
-    });
+    this.shoppingCartService.decrementProductAmount(productId).subscribe();
   }
 
   onErrorMessagePopupClose(isClosed: boolean) {
