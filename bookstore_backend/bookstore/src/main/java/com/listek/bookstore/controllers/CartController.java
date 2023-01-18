@@ -19,7 +19,7 @@ public class CartController {
     }
 
     @GetMapping("/cart/{id}")
-    @CrossOrigin(origins = "http://localhost:4200")
+    //@CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity getCart(@PathVariable int id) {
         Optional<Cart> cart = cartService.getCart(id);
         return cart
@@ -32,6 +32,12 @@ public class CartController {
                     System.out.println("Cart not found.");
                     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
                 });
+    }
+
+    @GetMapping("/cartOptimized/{id}")
+    //@CrossOrigin(origins = "http://localhost:4200")
+    public ResponseEntity getCartOptimized(@PathVariable int id) {
+        return cartService.getCartOptimized(id);
     }
 
     @PostMapping("/addCartItem")

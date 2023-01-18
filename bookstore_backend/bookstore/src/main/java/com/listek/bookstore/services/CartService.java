@@ -1,5 +1,7 @@
 package com.listek.bookstore.services;
 
+import com.listek.bookstore.DTO.CartDTO;
+import com.listek.bookstore.DTO.CartItemProductDTO;
 import com.listek.bookstore.models.Cart;
 import com.listek.bookstore.models.CartItem;
 import com.listek.bookstore.models.Client;
@@ -11,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,6 +35,27 @@ public class CartService {
 
     public Optional<Cart> getCart(int clientID){
         return cartRepository.isAvailableCart(Long.valueOf(clientID));
+    }
+
+    public ResponseEntity getCartOptimized(int clientID) {
+        Optional<Object[]> cartObj = cartRepository.isAvailableCartOptimized(Long.valueOf(clientID));
+        return cartObj
+                .map(foundCartObj -> {
+                    CartDTO cartDTO = new CartDTO(foundCartObj);
+                    List<CartItemProductDTO> cartItemProductDTOS = new ArrayList<>();
+                    List<Object[]> cartItemsObj = cartItemRepository.getCartItemsByCartId(cartDTO.getId());
+                    for (Object[] cartItemObj : cartItemsObj){
+                        cartItemProductDTOS.add(new CartItemProductDTO(cartItemObj));
+                    }
+                    cartDTO.setCartItems(cartItemProductDTOS);
+                    cartDTO.computeSumCart();
+                    System.out.println("Cart found.");
+                    return new ResponseEntity(cartDTO, HttpStatus.OK);
+                })
+                .orElseGet(() -> {
+                    System.out.println("Cart not found.");
+                    return ResponseEntity.ok(HttpStatus.NOT_FOUND);
+                });
     }
 
     public ResponseEntity addItemToCart(Long clientID, Long productID) {
