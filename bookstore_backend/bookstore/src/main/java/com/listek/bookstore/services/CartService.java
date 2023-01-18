@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -79,6 +80,7 @@ public class CartService {
     }
 
 
+    @Transactional
     public ResponseEntity removeCartItem(Long clientID, Long productID){
         Optional<Client> client = clientRepository.findClientById(clientID);
         return client
@@ -94,6 +96,8 @@ public class CartService {
                                                 cartItemRepository.save(foundCartItem);
                                                 productRepository.save(foundProduct);
                                                 cartRepository.save(foundCart);
+                                                cartItemRepository.removeEmptyCartItem();
+                                                cartRepository.removeEmptyCart();
                                                 System.out.println("Cart found. Product removed.");
                                                 return ResponseEntity.ok(HttpStatus.OK);
                                             } else {
