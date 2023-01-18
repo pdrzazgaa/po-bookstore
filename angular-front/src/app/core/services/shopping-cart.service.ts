@@ -8,7 +8,7 @@ import {
   ShoppingCartPosition,
 } from '../models';
 import { EventEmitter, Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from './user.service';
 
@@ -25,25 +25,29 @@ export class ShoppingCartService {
     this.http = http;
   }
 
-  getShoppingCart(): Observable<ShoppingCart> {
+  getShoppingCart(): Observable<ShoppingCart | null> {
     return this.http.get(this.baseUrl + 'cart/' + this.userService.getUserId()).pipe(
+      catchError(() => {
+        return of(null);
+      }),
       map((res: any) => {
-        const shoppingCartPositions: ShoppingCartPosition[] = res.cartItems.map(
-          (item) =>
-            new ShoppingCartPosition(
-              new Product(
-                item.product.id,
-                item.product.name,
-                item.product.price,
-                new Image(`../../../assets/${item.product.id}.jpg`, item.product.name),
-                item.product.coverType === 'HardCover' ? 'twarda' : 'miękka',
-                item.product.author
-              ),
-              item.quantity
-            )
-        );
-
-        return new ShoppingCart(shoppingCartPositions, res.id, res.cartSum);
+        if (res) {
+          const shoppingCartPositions: ShoppingCartPosition[] = res.cartItems.map(
+            (item) =>
+              new ShoppingCartPosition(
+                new Product(
+                  item.product.id,
+                  item.product.name,
+                  item.product.price,
+                  new Image(`../../../assets/${item.product.id}.jpg`, item.product.name),
+                  item.product.coverType === 'HardCover' ? 'twarda' : 'miękka',
+                  item.product.author
+                ),
+                item.quantity
+              )
+          );
+          return new ShoppingCart(shoppingCartPositions, res.id, res.cartSum);
+        } else return null;
       })
     );
   }
@@ -58,9 +62,11 @@ export class ShoppingCartService {
       .pipe(
         map((res) => {
           if (res === 'OK') {
-            this.getShoppingCart().subscribe((cart) =>
-              this.shoppingCartChanged.emit(cart)
-            );
+            this.getShoppingCart().subscribe((cart) => {
+              if (cart) {
+                this.shoppingCartChanged.emit(cart);
+              }
+            });
             return true;
           } else {
             return false;
@@ -79,9 +85,11 @@ export class ShoppingCartService {
       .pipe(
         map((res) => {
           if (res === 'OK') {
-            this.getShoppingCart().subscribe((cart) =>
-              this.shoppingCartChanged.emit(cart)
-            );
+            this.getShoppingCart().subscribe((cart) => {
+              if (cart) {
+                this.shoppingCartChanged.emit(cart);
+              }
+            });
             return true;
           } else {
             return false;
