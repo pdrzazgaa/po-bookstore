@@ -58,7 +58,7 @@ export class OrdersService {
               item.product.id,
               item.product.name,
               item.product.price,
-              new Image('../../../assets/kubus-puchatek.jpeg', item.product.name),
+              new Image(`../../../assets/${res.id}.jpg`, item.product.name),
               'twarda',
               item.product.author
             ),
@@ -70,7 +70,7 @@ export class OrdersService {
             res.sum,
             new Date(res.date),
             orderPositions,
-            res.isPossibleComplaint
+            res.possibleComplaint
           );
         })
       );

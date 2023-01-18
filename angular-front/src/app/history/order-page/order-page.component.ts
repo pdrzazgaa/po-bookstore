@@ -14,7 +14,6 @@ export class OrderPageComponent implements OnInit, OnDestroy {
   private routeSub?: Subscription;
   public order?: OrderDetails;
   public orderSub?: Subscription;
-  public canComplain: boolean = true;
 
   constructor(ordersService: OrdersService, route: ActivatedRoute) {
     this.ordersService = ordersService;
@@ -25,7 +24,10 @@ export class OrderPageComponent implements OnInit, OnDestroy {
     this.routeSub = this.route.params.subscribe((params) => {
       this.orderSub = this.ordersService
         .getOrderDetails(params['id'])
-        .subscribe((order) => (this.order = order));
+        .subscribe((order) => {
+          this.order = order;
+          console.log(this.order?.canComplain);
+        });
     });
   }
 

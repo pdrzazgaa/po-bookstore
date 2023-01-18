@@ -31,6 +31,14 @@ export class ShoppingCartPageComponent implements OnInit, OnDestroy {
     return position.amount * position.product.price;
   }
 
+  incrementAmount(productId: number) {
+    console.log(productId);
+  }
+
+  decrementAmount(productId: number) {
+    console.log(productId);
+  }
+
   ngOnDestroy(): void {
     this.shoppingCartSub?.unsubscribe();
   }
