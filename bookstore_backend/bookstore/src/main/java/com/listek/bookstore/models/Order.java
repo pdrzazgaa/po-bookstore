@@ -59,6 +59,10 @@ public class Order {
         generateOrderNumber();
     }
 
+    /**
+     * Function computes a sum of the order (with delivery costs and discount)
+    **/
+
     public double computeSum(){
         double sum = computeSumWithoutDeliveryAndDiscount();
         sum += delivery.getCost();
@@ -66,6 +70,10 @@ public class Order {
         this.sum = sum;
         return sum;
     }
+
+    /**
+     * Function computes a sum of the order (without delivery costs and discount)
+     **/
 
     public double computeSumWithoutDeliveryAndDiscount(){
         double sum = 0;
@@ -75,14 +83,30 @@ public class Order {
         return sum;
     }
 
+    /**
+     * Function generates an order number.
+     **/
+
     private void generateOrderNumber(){
         this.orderNumber = (int)(Math.random() * 10000) +"-2023";
     }
+
+    /**
+     * Function checks if there is possibility to plain a complaint
+     **/
 
     public boolean isPossibleComplaint(){
         if (complaint != null || date == null) return false;
         long days = ChronoUnit.DAYS.between(date, LocalDateTime.now());
         return days < 30 && orderStatus == OrderStatus.OrderDelivered;
+    }
+
+    /**
+     * Function checks if the order has a complaint.
+     **/
+
+    public boolean isComplained(){
+        return complaint != null;
     }
 
     /**
@@ -96,14 +120,14 @@ public class Order {
     }
 
     /**
-     * Not used. Not included in use case.
+     * Function changes the order status and adds bookcoins to client's loyalty program.
      */
     public void payForOrder(){
         this.orderStatus = OrderStatus.OrderPaid;
             addBookCoinsToClient();
     }
     /**
-     * Not used. Not included in use case.
+     * Function adds bookcoins to client's loyalty program
      */
     public void addBookCoinsToClient(){
         computeSum();
@@ -112,7 +136,7 @@ public class Order {
         );
     }
     /**
-     * Not used. Not included in use case.
+     * Function takes bookcoins from client's loyalty program
      */
     public boolean takeBookCoinsFromClient(){
         computeSum();

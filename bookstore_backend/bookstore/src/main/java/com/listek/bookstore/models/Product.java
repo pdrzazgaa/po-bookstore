@@ -48,14 +48,22 @@ public class Product {
         this.categories = new ArrayList<>();
     }
 
+    /**
+     * Function adds category and parents of the category to product (if there is no existing one)
+     **/
+
     public void addCategory(Category category){
         if (category != null) {
             if (!this.categories.contains(category)) {
                 this.categories.add(category);
-                this.categories.add(category.getParentCategory());
+                this.addCategory(category.getParentCategory());
             }
         }
     }
+
+    /**
+     * Function decreases number of item in Stock (if there is more than 0)
+     **/
 
     public boolean decreaseNumberOfItemsInStock(){
         if (this.numberOfItemsInStock > 0) {
@@ -64,6 +72,10 @@ public class Product {
         }
         return false;
     }
+
+    /**
+     * Function increase number of item in Stock
+     **/
 
     public void increaseNumberOfItemsInStock(){
         this.numberOfItemsInStock++;

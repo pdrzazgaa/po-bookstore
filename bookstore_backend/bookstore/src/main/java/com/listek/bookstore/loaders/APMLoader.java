@@ -7,6 +7,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+/**
+ * Class creates default data
+ */
 
 @Component
 @Order(1)
@@ -18,6 +21,10 @@ public class APMLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
         loadAPMsData();
     }
+
+    /**
+     * Function creates examples of APM's / Parcel Machines.
+     */
 
     private void loadAPMsData() {
         if (apmRepository.count() == 0) {

@@ -25,14 +25,18 @@ public class CartService {
     @Autowired
     CartItemRepository cartItemRepository;
 
-    private Cart createCart(Cart cart){
-        return cartRepository.save(cart);
-    }
-
     public Optional<Cart> getCart(int clientID){
         return cartRepository.isAvailableCart(Long.valueOf(clientID));
     }
 
+    /**
+     * Function adds a cart item to cart. Function checks if client, which carts is going to be updated exists.
+     * Also checks if the product exists.
+     * If not, function return NOT_FOUND response.
+     * @param clientID
+     * @param productID
+     * @return
+     */
     public ResponseEntity addItemToCart(Long clientID, Long productID) {
         Optional<Client> client = clientRepository.findClientById(clientID);
         return client
@@ -80,6 +84,13 @@ public class CartService {
     }
 
 
+    /**
+     * Function removes a cart item from cart. Function checks if client, which carts is going to be removed exists.
+     * If not, function return NOT_FOUND response.
+     * @param clientID
+     * @param productID
+     * @return
+     */
     @Transactional
     public ResponseEntity removeCartItem(Long clientID, Long productID){
         Optional<Client> client = clientRepository.findClientById(clientID);

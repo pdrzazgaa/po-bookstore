@@ -7,6 +7,10 @@ import lombok.Setter;
 
 import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
 
+/**
+ * An abstract class for deliveries
+ */
+
 @Getter
 @Setter
 @NoArgsConstructor

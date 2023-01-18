@@ -16,7 +16,7 @@ public class ComplaintController {
 
     @PostMapping("/createComplaint")
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity createOrder(@RequestBody ComplaintDTO complaintDTO){
+    public ResponseEntity createComplaint(@RequestBody ComplaintDTO complaintDTO){
         return complaintService.placeComplaint(complaintDTO);
     }
 

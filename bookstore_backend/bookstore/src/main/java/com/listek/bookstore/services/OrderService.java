@@ -35,6 +35,12 @@ public class OrderService {
     @Autowired
     AddressRepository addressRepository;
 
+    /**
+     * Function return all client's orders.
+     * @param clientID
+     * @return
+     */
+
     public ResponseEntity getOrders(Long clientID){
         Optional<Client> client = clientRepository.findClientById(clientID);
         return client
@@ -53,6 +59,13 @@ public class OrderService {
                     return ResponseEntity.ok(HttpStatus.NOT_FOUND);
                 });
     }
+
+    /**
+     * Client returns all data about specific order.
+     * @param orderNumber
+     * @param clientID
+     * @return
+     */
 
     public ResponseEntity getOrder(String orderNumber, Long clientID){
         Optional<Client> client = clientRepository.findClientById(clientID);
@@ -77,6 +90,12 @@ public class OrderService {
                     return ResponseEntity.ok(HttpStatus.NOT_FOUND);
                 });
     }
+
+    /**
+     * Function creates an order.
+     * @param orderDTO
+     * @return
+     */
 
     public ResponseEntity createOrder(OrderDTO orderDTO){
         System.out.println(orderDTO);

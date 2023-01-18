@@ -9,6 +9,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+/**
+ * Class creates default data
+ */
 @Component
 @Order(3)
 public class ClientsLoader implements CommandLineRunner {
@@ -23,14 +26,16 @@ public class ClientsLoader implements CommandLineRunner {
         loadUserData();
     }
 
+    /**
+     * Function creates 2 example clients and inserts them to database.
+     */
+
     private void loadUserData() {
         if (clientRepository.count() == 0) {
             Client user1 = new Client("Paulina", "Drzazga", "paudrza@gmail.com", "723242716", "paulinamapsa");
             Client user2 = new Client("Maria", "Markowiak", "m.a.markowiak@gmail.com", "123456789", "mariamakota");
             user1 = clientRepository.save(user1);
             user2 = clientRepository.save(user2);
-
-            //#TODO Czemu nie działa dodawanie historii zamówień??
 
             OrderHistory orderHistory1 = new OrderHistory();
             orderHistory1.setClient(user1);

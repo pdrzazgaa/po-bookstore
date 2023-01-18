@@ -22,6 +22,11 @@ public class LoyaltyProgramService {
     @Autowired
     ClientRepository clientRepository;
 
+    /**
+     * Function joins client to loyalty program.
+     * @param clientID
+     * @return
+     */
     public ResponseEntity<HttpStatus> joinLoyaltyProgram(IdDTO clientID) {
         Optional<Client> client = clientRepository.findClientById(Long.valueOf(clientID.getId()));
         return client
@@ -46,6 +51,12 @@ public class LoyaltyProgramService {
                     return ResponseEntity.ok(HttpStatus.NOT_FOUND);
                 });
     }
+
+    /**
+     * Function checks if client is member of loyalty program.
+     * @param clientID
+     * @return
+     */
 
     public ResponseEntity checkLoyaltyProgram(int clientID) {
         LoyaltyProgramDTO loyaltyProgramDTOResponse = new LoyaltyProgramDTO();

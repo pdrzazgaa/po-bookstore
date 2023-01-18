@@ -31,7 +31,7 @@ public class ComplaintService {
                     Optional<Order> order = orderRepository.findByOrderNumber(complaintDTO.getOrderNumber(), foundClient.getId());
                     return order
                             .map(foundOrder -> {
-                                if (foundOrder.getComplaint() == null) {
+                                if (!foundOrder.isComplained()) {
                                     Complaint complaint = new Complaint(foundOrder);
                                     complaintRepository.save(complaint);
                                     for (ProductComplaintDTO productComplaintDTO : complaintDTO.getReclamationPositions()) {

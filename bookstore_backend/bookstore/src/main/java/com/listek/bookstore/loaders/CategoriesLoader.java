@@ -7,6 +7,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+/**
+ * Class creates default data
+ */
 @Component
 @Order(2)
 public class CategoriesLoader implements CommandLineRunner {
@@ -18,6 +21,10 @@ public class CategoriesLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
         loadCategoryData();
     }
+
+    /**
+     * Function creates categories
+     */
 
     private void loadCategoryData() {
         if (categoryRepository.count() == 0) {

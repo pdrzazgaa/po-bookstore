@@ -9,6 +9,10 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import static jakarta.persistence.InheritanceType.TABLE_PER_CLASS;
 
+/**
+ * An abstract class for payments
+ */
+
 @Getter
 @Setter
 @NoArgsConstructor

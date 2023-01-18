@@ -28,9 +28,21 @@ public class LoyaltyProgram {
         this.client = client;
     }
 
+    /**
+     * Function adds bookcoins to loyalty program
+     * @param bookcoins
+     */
+
     public void addBookCoins(int bookcoins){
         this.bookcoins += bookcoins;
     }
+
+    /**
+     * function removes bookcoins from loyalty program
+     * @param bookcoins
+     * @return
+     */
+
 
     public boolean removeBookCoins(int bookcoins){
         if (this.bookcoins > bookcoins) {

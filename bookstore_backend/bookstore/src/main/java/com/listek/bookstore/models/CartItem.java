@@ -31,6 +31,11 @@ public class CartItem {
         this.quantity = 1;
     }
 
+    /**
+     * Function increases number of items in cart if there is more than 1 item in stock
+     * @return
+     */
+
     public boolean increase(){
         if (product.decreaseNumberOfItemsInStock()) {
             this.quantity++;
@@ -39,9 +44,18 @@ public class CartItem {
         return false;
     }
 
+    /**
+     * Function decreases amount of the item in cart
+     */
+
     public void decrease(){
         this.quantity--;
     }
+
+    /**
+     * Function return cost of the item (quantity times product's price
+     * @return
+     */
 
     public double getCosts(){
         return this.quantity * this.product.getPrice();

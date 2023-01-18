@@ -27,6 +27,9 @@ public class Invoice extends Document{
         generateInvoiceNumber();
     }
 
+    /**
+     * Function generates an invoice number
+     */
     protected void generateInvoiceNumber(){
         this.invoiceNumber =  (int)(Math.random() * 1000) +"/2023";
     }

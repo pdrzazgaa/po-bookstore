@@ -13,6 +13,9 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Class creates default data
+ */
 @Component
 @Order(4)
 public class BooksLoader implements CommandLineRunner {
@@ -27,6 +30,9 @@ public class BooksLoader implements CommandLineRunner {
         loadBooksData();
     }
 
+    /**
+     * Class creates books
+     */
 
     private void loadBooksData() {
 
