@@ -15,9 +15,9 @@
         </td>
         <td class="amount-data">
           <div class="buttons">
-            <button>-</button>
-            <input type="number" [value]="position.amount" />
-            <button>+</button>
+            <button (click)="decrementAmount(position.product.id)">-</button>
+            <input type="number" [value]="position.amount" disabled/>
+            <button (click)="incrementAmount(position.product.id)">+</button>
           </div>
           <div class="price">{{ getProductSum(position) }} zł</div>
         </td>
@@ -28,10 +28,16 @@
     <h3>Podsumowanie</h3>
     <div>
       <span>Wartość koszyka:</span>
-      <span class="totalAmount">{{ shoppingCart.totalAmount }} zł</span>
+      <span class="totalAmount">{{ shoppingCart.totalAmount | number : '.2'}} zł</span>
     </div>
     <a routerLink="/ordering">Złóz zamówienie</a>
   </aside>
+  <app-close-message-popup
+      *ngIf="showErrorPopup"
+      mode="red"
+      [message]="errorMessage"
+      (isClosed)="onErrorMessagePopupClose($event)"
+    ></app-close-message-popup>
 </main>
 <app-footer></app-footer>
 

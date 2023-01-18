@@ -1,7 +1,7 @@
 <app-nav></app-nav>
 <div class="container">
   <main *ngIf="order; else noOrder">
-    <h1>Moje zamówienie nr {{ order.id }}</h1>
+    <h1>Moje zamówienie nr {{ order.orderNum }}</h1>
     <table>
       <tr>
         <th class="product">Produkt</th>
@@ -24,7 +24,7 @@
         </td>
       </tr>
     </table>
-    <a *ngIf="canComplain" [routerLink]="['/reclamation', order.id]"
+    <a *ngIf="order.canComplain" [routerLink]="['/reclamation', order.orderNum]"
       >Przejdź do panelu reklamacji</a
     >
   </main>

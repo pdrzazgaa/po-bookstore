@@ -8,80 +8,86 @@ import {
   ShoppingCartPosition,
 } from '../models';
 import { EventEmitter, Injectable } from '@angular/core';
+import { Observable, map } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { UserService } from './user.service';
 
 @Injectable()
 export class ShoppingCartService {
   private userService: UserService;
+  private http: HttpClient;
+  private baseUrl = 'http://localhost:6060/';
+  private headers = { 'content-type': 'application/json' };
   shoppingCartChanged = new EventEmitter<ShoppingCart>();
 
-  constructor(userService: UserService) {
+  constructor(userService: UserService, http: HttpClient) {
     this.userService = userService;
+    this.http = http;
   }
 
-  getShoppingCart() {
-    return new ShoppingCart(
-      [
-        new ShoppingCartPosition(
-          new Product(
-            1,
-            'Bardzo małe rzeczy w stumilowym lesie',
-            22.99,
-            new Image('../../../assets/lalka.jpeg', 'ksiazka'),
-            'miękka',
-            'Catherine Hapka'
-          ),
-          3
-        ),
-        new ShoppingCartPosition(
-          new Product(
-            1,
-            'Bardzo małe rzeczy w stumilowym lesie',
-            22.99,
-            new Image('../../../assets/kubus-puchatek.jpeg', 'ksiazka'),
-            'miękka',
-            'Catherine Hapka'
-          ),
-          3
-        ),
-        new ShoppingCartPosition(
-          new Product(
-            1,
-            'Bardzo małe rzeczy w stumilowym lesie',
-            22.99,
-            new Image('../../../assets/pan-tadeusz.jpeg', 'ksiazka'),
-            'miękka',
-            'Catherine Hapka'
-          ),
-          3
-        ),
-        new ShoppingCartPosition(
-          new Product(
-            1,
-            'Bardzo małe rzeczy w stumilowym lesie',
-            22.99,
-            new Image('../../../assets/lalka.jpeg', 'ksiazka'),
-            'miękka',
-            'Catherine Hapka'
-          ),
-          3
-        ),
-      ],
-      2020,
-      222.99
+  getShoppingCart(): Observable<ShoppingCart> {
+    return this.http.get(this.baseUrl + 'cart/' + this.userService.getUserId()).pipe(
+      map((res: any) => {
+        const shoppingCartPositions: ShoppingCartPosition[] = res.cartItems.map(
+          (item) =>
+            new ShoppingCartPosition(
+              new Product(
+                item.product.id,
+                item.product.name,
+                item.product.price,
+                new Image(`../../../assets/${item.product.id}.jpg`, item.product.name),
+                item.product.coverType === 'HardCover' ? 'twarda' : 'miękka',
+                item.product.author
+              ),
+              item.quantity
+            )
+        );
+
+        return new ShoppingCart(shoppingCartPositions, res.id, res.cartSum);
+      })
     );
   }
 
-  incrementProductAmount(productId: number) {
-    console.log(this.userService.getUserId(), productId);
-    this.shoppingCartChanged.emit(this.getShoppingCart());
-    return 1;
+  incrementProductAmount(productId: number): Observable<boolean> {
+    return this.http
+      .post(
+        this.baseUrl + 'addCartItem',
+        JSON.stringify({ clientID: this.userService.getUserId(), productID: productId }),
+        { headers: this.headers }
+      )
+      .pipe(
+        map((res) => {
+          if (res === 'OK') {
+            this.getShoppingCart().subscribe((cart) =>
+              this.shoppingCartChanged.emit(cart)
+            );
+            return true;
+          } else {
+            return false;
+          }
+        })
+      );
   }
 
-  decrementProductAmount(productId: number) {
-    console.log(this.userService.getUserId(), productId);
-    this.shoppingCartChanged.emit(this.getShoppingCart());
-    return 1;
+  decrementProductAmount(productId: number): Observable<boolean> {
+    return this.http
+      .post(
+        this.baseUrl + 'removeCartItem',
+        JSON.stringify({ clientID: this.userService.getUserId(), productID: productId }),
+        { headers: this.headers }
+      )
+      .pipe(
+        map((res) => {
+          if (res === 'OK') {
+            this.getShoppingCart().subscribe((cart) =>
+              this.shoppingCartChanged.emit(cart)
+            );
+            return true;
+          } else {
+            return false;
+          }
+        })
+      );
   }
 
   makeNewOrder(
@@ -92,24 +98,35 @@ export class ShoppingCartService {
     payment: Payment,
     bookcoins: number,
     cartId: number,
+    document: string,
     forname?: string,
     surname?: string,
     NIP?: string,
     companyName?: string
-  ) {
-    console.log(
-      forname,
-      surname,
-      NIP,
-      companyName,
-      mail,
-      phoneNumber,
-      address,
-      delivery,
-      payment,
-      bookcoins,
-      cartId
+  ): Observable<number> {
+    const headers = { 'content-type': 'application/json' };
+    const obj = JSON.stringify({
+      forname: forname,
+      surname: surname,
+      nip: NIP,
+      companyName: companyName,
+      mail: mail,
+      phoneNumber: phoneNumber,
+      address: address,
+      delivery: delivery,
+      payment: payment,
+      bookcoins: bookcoins,
+      cartId: cartId,
+      document: document,
+    });
+    return this.http.post(this.baseUrl + 'createOrder', obj, { headers: headers }).pipe(
+      map((res: any) => {
+        if (res === 'OK') {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
     );
-    return 1;
   }
 }

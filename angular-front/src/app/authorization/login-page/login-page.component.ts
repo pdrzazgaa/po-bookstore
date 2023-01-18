@@ -15,6 +15,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   private router: Router;
   private activatedRoute: ActivatedRoute;
   private routeSub?: Subscription;
+  incorrectData: boolean = false;
 
   public loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -51,11 +52,15 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         this.loginForm.controls.email.value!,
         this.loginForm.controls.password.value!
       )
-      .subscribe(() => {
-        if (this.retUrl != null) {
-          this.router.navigate([this.retUrl]);
+      .subscribe((res) => {
+        if (res) {
+          if (this.retUrl != null) {
+            this.router.navigate([this.retUrl]);
+          } else {
+            this.router.navigate(['']);
+          }
         } else {
-          this.router.navigate(['']);
+          this.incorrectData = true;
         }
       });
   }

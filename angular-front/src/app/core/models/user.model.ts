@@ -6,8 +6,8 @@ export class User {
   public surname?: string;
   public companyName?: string;
   public companyNIP?: string;
-  public email: string;
-  public phoneNumber: string;
+  public email?: string;
+  public phoneNumber?: string;
   public address?: Address;
 
   constructor(

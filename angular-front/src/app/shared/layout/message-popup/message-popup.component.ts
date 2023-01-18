@@ -17,8 +17,8 @@ export class MessagePopupComponent implements OnInit, OnDestroy {
   constructor() {}
 
   ngOnInit(): void {
-    this.appearSub = timer(500).subscribe(() => (this.appear = true));
-    this.disappearSub = timer(2500).subscribe(() => (this.disappear = true));
+    this.appearSub = timer(10).subscribe(() => (this.appear = true));
+    this.disappearSub = timer(2000).subscribe(() => (this.disappear = true));
   }
 
   ngOnDestroy(): void {

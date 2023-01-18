@@ -24,7 +24,9 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
   private route: ActivatedRoute;
   private router: Router;
   private routeSub?: Subscription;
+  private orderSub?: Subscription;
   private formBuilder: FormBuilder;
+  private reclamationSub?: Subscription;
 
   public order?: OrderDetails;
   public step: 'choose-data' | 'choose-delivery' = 'choose-data';
@@ -56,10 +58,14 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe((params) => {
-      this.order = this.ordersService.getOrderDetails(+params['orderId']);
-    });
-    this.productsForm = this.formBuilder.group(this.createForm(), {
-      validator: HasCheckedBox,
+      this.orderSub = this.ordersService
+        .getOrderDetails(params['orderId'])
+        .subscribe((orderDetails) => {
+          this.order = orderDetails;
+          this.productsForm = this.formBuilder.group(this.createForm(), {
+            validator: HasCheckedBox,
+          });
+        });
     });
   }
 
@@ -164,7 +170,7 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
   onReclamationFormSubmit() {
     const reclamation = {
       reclamationPositions: this.reclamationPositions,
-      orderId: this.order!.id,
+      orderNumber: this.order!.orderNum,
       userId: this.userService.getUserId()!,
       delivery: { delivery: this.deliveryForm!.controls['delivery'].value } as Delivery,
     } as Reclamation;
@@ -175,8 +181,14 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
       reclamation.delivery.parcelMachineNumber = parcelMachineNumber;
     }
 
-    this.ordersService.sendReclamation(reclamation);
-    this.showConfirmPopup = true;
+    this.reclamationSub = this.ordersService
+      .sendReclamation(reclamation)
+      .subscribe((res) => {
+        console.log('got response: ', res);
+        if (res > 0) {
+          this.showConfirmPopup = true;
+        }
+      });
   }
 
   onConfirmPopupClose(isClosed: boolean) {
@@ -188,5 +200,7 @@ export class ReclamationPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.routeSub?.unsubscribe();
+    this.orderSub?.unsubscribe();
+    this.reclamationSub?.unsubscribe();
   }
 }

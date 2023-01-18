@@ -1,62 +1,61 @@
-import { Address, User } from '../models';
 import { EventEmitter, Injectable } from '@angular/core';
+import { Observable, map } from 'rxjs';
 import { AuthorizationService } from './authorization.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class UserService {
-  private user?: User | null;
+  private userId?: number;
   private authorizationService: AuthorizationService;
+  private http: HttpClient;
+  private baseUrl: string = 'http://localhost:6060/';
+
   loyaltyProgram = new EventEmitter<{ isInLoyaltyProgram: boolean }>();
 
-  constructor(authorizationService: AuthorizationService) {
+  constructor(authorizationService: AuthorizationService, http: HttpClient) {
+    this.http = http;
     this.authorizationService = authorizationService;
     if (this.authorizationService.isLoggedIn()) {
-      this.user = new User(
-        1,
-        'Anna',
-        'Nowak',
-        'anna.nowak@gmail.com',
-        '+48 518 999 134',
-        new Address('Tadeusza Kościuszki', 14, 'Wrocław', '50-430', 'Poland')
-      );
+      this.userId = authorizationService.getUserId();
     }
     this.authorizationService.isLoggedInChanged.subscribe(({ loggedIn }) => {
       if (loggedIn) {
-        this.user = new User(
-          1,
-          'Anna',
-          'Nowak',
-          'anna.nowak@gmail.com',
-          '+48 518 999 134',
-          new Address('Tadeusza Kościuszki', 14, 'Wrocław', '50-430', 'Poland')
-        );
+        this.userId = this.authorizationService.getUserId();
       } else {
         this.clearUser();
       }
     });
   }
 
-  isInLoyaltyProgram() {
-    return true;
-  }
-  joinLoyaltyProgram() {
-    this.loyaltyProgram.emit({ isInLoyaltyProgram: true });
+  verifyLoyaltyProgram(): Observable<any> {
+    return this.http.get(this.baseUrl + 'checkLoyaltyProgram/' + this.userId).pipe(
+      map((res: any) => {
+        return { isInLoyaltyProgram: res.participant, bookcoins: res.bookcoins };
+      })
+    );
   }
 
-  getBookcoins() {
-    return 30;
+  joinLoyaltyProgram() {
+    const headers = { 'content-type': 'application/json' };
+    if (this.userId) {
+      this.http
+        .post(this.baseUrl + 'joinLoyaltyProgram', JSON.stringify({ id: this.userId }), {
+          headers: headers,
+        })
+        .subscribe((res) => {
+          if (res === 'OK') {
+            this.loyaltyProgram.emit({ isInLoyaltyProgram: true });
+          }
+        });
+    }
   }
 
   getUserId() {
-    return this.user?.id;
+    return this.userId;
   }
 
   clearUser() {
-    this.user = null;
+    this.userId = 0;
     this.loyaltyProgram.emit({ isInLoyaltyProgram: false });
-  }
-
-  getUserData() {
-    return this.user;
   }
 }

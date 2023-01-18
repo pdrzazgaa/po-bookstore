@@ -9,6 +9,7 @@
 }
 
 form {
+  position: relative;
   background-color: rgba($grey-light, 0.2);
   width: max-content;
   height: max-content;
@@ -92,6 +93,12 @@ form {
     color: $red;
     font-size: 0.7em;
     margin-bottom: 5px;
+  }
+
+  .login-failure {
+    position: absolute;
+    top: 180px;
+    color: $red;
   }
 
   .register {

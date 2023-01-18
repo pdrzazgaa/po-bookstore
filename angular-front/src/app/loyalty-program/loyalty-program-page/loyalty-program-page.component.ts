@@ -18,10 +18,10 @@ export class LoyaltyProgramPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.inLoyaltyProgram = this.userService.isInLoyaltyProgram();
-    if (this.inLoyaltyProgram) {
-      this.bookcoins = this.userService.getBookcoins();
-    }
+    this.userService.verifyLoyaltyProgram().subscribe((res) => {
+      this.inLoyaltyProgram = res.isInLoyaltyProgram;
+      this.bookcoins = res.bookcoins;
+    });
     this.loyaltyProgramSub = this.userService.loyaltyProgram.subscribe(
       ({ isInLoyaltyProgram }) => {
         this.inLoyaltyProgram = isInLoyaltyProgram;

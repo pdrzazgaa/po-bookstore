@@ -1,18 +1,28 @@
 <div class="catalog-nav">
   <button class="btn-default">{{ title }}</button>
   <nav class="categories" *ngIf="categories.length">
-    <div *ngFor="let category of categories" class="category">
-      <a class="category--a" [routerLink]="['/products', category.category | url]"
-        >{{ category.category }}
-      </a>
-      <nav class="category--nav" *ngIf="category.subcategories.length">
-        <a
-          class="category--nav-subcategory"
-          *ngFor="let subcategory of category.subcategories"
-          [routerLink]="['/products', category.category | url, subcategory | url]"
-          >{{ subcategory }}</a
-        >
-      </nav>
+    <div *ngFor="let category of categories">
+      <a class="category--super category--a" [routerLink]="['/products']">{{
+        category.name
+      }}</a>
+      <div *ngFor="let cat of category.subcategories" class="category">
+        <a class="category--a" [routerLink]="['/products', cat.id, cat.name | url]"
+          >{{ cat.name }}
+        </a>
+        <nav class="category--nav" *ngIf="cat.subcategories.length">
+          <a
+            class="category--nav-subcategory"
+            *ngFor="let subcategory of cat.subcategories"
+            [routerLink]="[
+              '/products',
+              cat.name | url,
+              subcategory.id,
+              subcategory.name | url
+            ]"
+            >{{ subcategory.name }}
+          </a>
+        </nav>
+      </div>
     </div>
   </nav>
 </div>

@@ -55,6 +55,11 @@ button {
       }
     }
 
+    &--super {
+      padding-left: 4vw;
+      font-weight: bold;
+    }
+
     &--nav {
       position: absolute;
       left: 100%;
