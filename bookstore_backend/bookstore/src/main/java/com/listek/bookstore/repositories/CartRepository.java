@@ -16,6 +16,11 @@ public interface CartRepository extends CrudRepository<Cart, Long> {
             "now() and klientid = :clientID order by ostatnia_aktywnosc desc limit 1", nativeQuery = true)
     Optional<Cart> isAvailableCart(@Param("clientID") Long clientID);
 
+    @Query(value = "select koszyki.id from koszyki left join zamowienia on koszyki.id = zamowienia.koszykid " +
+            "where zamowienia.id is null and ostatnia_aktywnosc between (now()- interval "+Cart.EXPIRATION_TIME+" minute) and " +
+            "now() and klientid = :clientID order by ostatnia_aktywnosc desc limit 1", nativeQuery = true)
+    Optional<Object[]> isAvailableCartOptimized(@Param("clientID") Long clientID);
+
     @Query("select c from Cart c order by c.id limit 1")
     Optional<Cart> findFirst();
 

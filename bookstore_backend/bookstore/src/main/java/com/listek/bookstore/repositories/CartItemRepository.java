@@ -16,5 +16,5 @@ public interface CartItemRepository extends CrudRepository<CartItem, Long> {
 
     @Query(value = "select pk.ilosc quantity, k.id, k.nazwa name, k.cena price, k.autor author, k.typ_okladki coverType from pozycje_koszyka pk inner join ksiazki k on k.id = pk.productid " +
             "where pk.koszykid = :cartId", nativeQuery = true)
-    List<CartItemProductDTO> getCartItemsByCartId(@Param("cartId") Long cartId);
+    List<Object[]> getCartItemsByCartId(@Param("cartId") Long cartId);
 }
