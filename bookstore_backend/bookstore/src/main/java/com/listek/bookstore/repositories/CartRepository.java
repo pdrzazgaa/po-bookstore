@@ -16,9 +16,6 @@ public interface CartRepository extends CrudRepository<Cart, Long> {
             "now() and klientid = :clientID order by ostatnia_aktywnosc desc limit 1", nativeQuery = true)
     Optional<Cart> isAvailableCart(@Param("clientID") Long clientID);
 
-    @Query("update Cart set lastActivity = now()")
-    void updateLastActivity(@Param("cartID") Long cartID);
-
     @Query("select c from Cart c order by c.id limit 1")
     Optional<Cart> findFirst();
 
