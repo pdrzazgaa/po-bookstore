@@ -41,16 +41,21 @@ public class CartService {
         Optional<Object[]> cartObj = cartRepository.isAvailableCartOptimized(Long.valueOf(clientID));
         return cartObj
                 .map(foundCartObj -> {
-                    CartDTO cartDTO = new CartDTO(foundCartObj);
-                    List<CartItemProductDTO> cartItemProductDTOS = new ArrayList<>();
-                    List<Object[]> cartItemsObj = cartItemRepository.getCartItemsByCartId(cartDTO.getId());
-                    for (Object[] cartItemObj : cartItemsObj){
-                        cartItemProductDTOS.add(new CartItemProductDTO(cartItemObj));
+                    if (foundCartObj.length > 0) {
+                        CartDTO cartDTO = new CartDTO(foundCartObj);
+                        List<CartItemProductDTO> cartItemProductDTOS = new ArrayList<>();
+                        List<Object[]> cartItemsObj = cartItemRepository.getCartItemsByCartId(cartDTO.getId());
+                        for (Object[] cartItemObj : cartItemsObj) {
+                            cartItemProductDTOS.add(new CartItemProductDTO(cartItemObj));
+                        }
+                        cartDTO.setCartItems(cartItemProductDTOS);
+                        cartDTO.computeSumCart();
+                        System.out.println("Cart found.");
+                        return new ResponseEntity(cartDTO, HttpStatus.OK);
+                    } else {
+                        System.out.println("Cart not found.");
+                        return ResponseEntity.ok(HttpStatus.NOT_FOUND);
                     }
-                    cartDTO.setCartItems(cartItemProductDTOS);
-                    cartDTO.computeSumCart();
-                    System.out.println("Cart found.");
-                    return new ResponseEntity(cartDTO, HttpStatus.OK);
                 })
                 .orElseGet(() -> {
                     System.out.println("Cart not found.");

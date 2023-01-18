@@ -18,8 +18,8 @@ public class CartController {
         this.cartService = cartService;
     }
 
-    @GetMapping("/cart/{id}")
-    //@CrossOrigin(origins = "http://localhost:4200")
+    //@GetMapping("/cart/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity getCart(@PathVariable int id) {
         Optional<Cart> cart = cartService.getCart(id);
         return cart
@@ -34,8 +34,15 @@ public class CartController {
                 });
     }
 
-    @GetMapping("/cartOptimized/{id}")
-    //@CrossOrigin(origins = "http://localhost:4200")
+    /**
+     * Optimized function of getting cart.
+     * @param id
+     * @return
+     */
+
+
+    @GetMapping("/cart/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity getCartOptimized(@PathVariable int id) {
         return cartService.getCartOptimized(id);
     }
