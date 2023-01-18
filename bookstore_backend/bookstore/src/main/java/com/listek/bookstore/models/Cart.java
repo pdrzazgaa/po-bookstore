@@ -44,6 +44,13 @@ public class Cart {
         lastActivity = LocalDateTime.now();
     }
 
+    /**
+     * Function adds a product to the cart. If product item with the product exists in the cart,
+     * quantity of items increases. If not, new CartItem is added to the cart.
+     * Function updates number of items in stock.
+     * @param product
+     * @return
+     */
     public CartItem addProductItem(Product product) {
         CartItem foundCartItem = isProductInCart(product);
         CartItem newCartItem;
@@ -65,6 +72,14 @@ public class Cart {
         }
     }
 
+    /**
+     * Function removes Product Item from the cart and return a cartItem, which the product was in.
+     * If there was no product in the cart, function return null.
+     * Function updates number of items in stock.
+     * @param product
+     * @return
+     */
+
     public CartItem removeProductItem(Product product){
         CartItem foundCartItem = isProductInCart(product);
 
@@ -81,6 +96,12 @@ public class Cart {
         }
     }
 
+    /**
+     * Function checks if there is a product in the cart
+     * @param product
+     * @return
+     */
+
     private CartItem isProductInCart(Product product) {
         for (CartItem cartItem : this.cartItems) {
             if (cartItem.getProduct().equals(product)) {
@@ -89,6 +110,11 @@ public class Cart {
         }
         return null;
     }
+
+    /**
+     * Function computes sum of the cart and saves it to its property.
+     */
+
     public void computeSumCart(){
         double sum = 0;
         for (CartItem cartItem:this.cartItems){
