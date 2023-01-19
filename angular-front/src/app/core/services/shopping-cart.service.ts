@@ -18,7 +18,7 @@ export class ShoppingCartService {
   private http: HttpClient;
   private baseUrl = 'http://localhost:6060/';
   private headers = { 'content-type': 'application/json' };
-  shoppingCartChanged = new EventEmitter<ShoppingCart>();
+  shoppingCartChanged = new EventEmitter<ShoppingCart | null>();
 
   constructor(userService: UserService, http: HttpClient) {
     this.userService = userService;
@@ -63,9 +63,7 @@ export class ShoppingCartService {
         map((res) => {
           if (res === 'OK') {
             this.getShoppingCart().subscribe((cart) => {
-              if (cart) {
-                this.shoppingCartChanged.emit(cart);
-              }
+              this.shoppingCartChanged.emit(cart);
             });
             return true;
           } else {
@@ -86,9 +84,7 @@ export class ShoppingCartService {
         map((res) => {
           if (res === 'OK') {
             this.getShoppingCart().subscribe((cart) => {
-              if (cart) {
-                this.shoppingCartChanged.emit(cart);
-              }
+              this.shoppingCartChanged.emit(cart);
             });
             return true;
           } else {
