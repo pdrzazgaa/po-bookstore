@@ -2,10 +2,9 @@ package com.listek.bookstore.services;
 
 import com.listek.bookstore.DTO.CartDTO;
 import com.listek.bookstore.DTO.CartItemProductDTO;
-import com.listek.bookstore.models.Cart;
-import com.listek.bookstore.models.CartItem;
-import com.listek.bookstore.models.Client;
-import com.listek.bookstore.models.Product;
+import com.listek.bookstore.DTO.ProductDetailsDTO;
+import com.listek.bookstore.DTO.ProductListDTO;
+import com.listek.bookstore.models.*;
 import com.listek.bookstore.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +27,8 @@ public class CartService {
     @Autowired
     ProductRepository productRepository;
     @Autowired
+    BookRepository bookRepository;
+    @Autowired
     CartItemRepository cartItemRepository;
 
     private Cart createCart(Cart cart){
@@ -37,8 +39,8 @@ public class CartService {
         return cartRepository.isAvailableCart(Long.valueOf(clientID));
     }
 
-    public ResponseEntity getCartOptimized(int clientID) {
-        Optional<Object[]> cartObj = cartRepository.isAvailableCartOptimized(Long.valueOf(clientID));
+    public CartDTO getCartOptimized(long clientID) {
+        Optional<Object[]> cartObj = cartRepository.isAvailableCartOptimized(clientID);
         return cartObj
                 .map(foundCartObj -> {
                     if (foundCartObj.length > 0) {
@@ -51,14 +53,71 @@ public class CartService {
                         cartDTO.setCartItems(cartItemProductDTOS);
                         cartDTO.computeSumCart();
                         System.out.println("Cart found.");
-                        return new ResponseEntity(cartDTO, HttpStatus.OK);
+                        return cartDTO;
                     } else {
                         System.out.println("Cart not found.");
-                        return ResponseEntity.ok(HttpStatus.NOT_FOUND);
+                        return null;
                     }
+
+                })
+                .orElseGet(()->{
+                    System.out.println("Cart not found.");
+                    return null;
+                });
+    }
+
+    @Transactional
+    public ResponseEntity addItemToCartOptimized(Long clientID, Long productID) {
+        Optional<Client> client = clientRepository.findClientById(clientID);
+        return client
+                .map(foundClient -> {
+                    Optional<Object[]> productObj = bookRepository.findBook(productID);
+                    if (productObj.isPresent()) {
+                        ProductDetailsDTO productDetailsDTO = new ProductDetailsDTO(productObj.get());
+                        if (productDetailsDTO.getId() == 0) {
+                            System.out.println("Product not found.");
+                            return ResponseEntity.ok(HttpStatus.NOT_FOUND);
+                        } else {
+                            Book product = productDetailsDTO.toBook();
+                            CartDTO cartDTO = getCartOptimized(clientID);
+                            if (cartDTO != null) {
+                                // Cart exists
+                                Cart cart = cartDTO.toCart();
+                                CartItem cartItem = cart.addProductItem(product);
+                                if (cartItem != null) {
+                                    productRepository.updateItemsInStock(product.getNumberOfItemsInStock(), productID);
+                                    cartRepository.updateLastActivity(cart.getLastActivity(), cart.getId());
+                                    cartItemRepository.save(cartItem);
+                                    System.out.println("Cart exists. Added product.");
+                                    return ResponseEntity.ok(HttpStatus.OK);
+                                } else {
+                                    System.out.println("Cart exists. Not enough products.");
+                                    return ResponseEntity.ok(HttpStatus.NO_CONTENT);
+                                }
+
+                            } else {
+                                // Creating new cart
+                                Cart newCart = new Cart(foundClient);
+                                CartItem cartItem = newCart.addProductItem(product);
+                                if (cartItem != null) {
+                                    productRepository.updateItemsInStock(product.getNumberOfItemsInStock(), productID);
+                                    cartRepository.save(newCart);
+                                    cartItemRepository.save(cartItem);
+                                    System.out.println("Cart does not exists. Added product.");
+                                    return ResponseEntity.ok(HttpStatus.OK);
+                                } else {
+                                    System.out.println("Cart does not exists. Not enough products.");
+                                    return ResponseEntity.ok(HttpStatus.NO_CONTENT);
+                                }
+                            }
+                        }
+                    }
+
+                    System.out.println("Product not found.");
+                    return ResponseEntity.ok(HttpStatus.NOT_FOUND);
                 })
                 .orElseGet(() -> {
-                    System.out.println("Cart not found.");
+                    System.out.println("Client not found.");
                     return ResponseEntity.ok(HttpStatus.NOT_FOUND);
                 });
     }

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface CartRepository extends CrudRepository<Cart, Long> {
@@ -23,6 +24,12 @@ public interface CartRepository extends CrudRepository<Cart, Long> {
 
     @Query("select c from Cart c order by c.id limit 1")
     Optional<Cart> findFirst();
+
+
+
+    @Modifying
+    @Query("update Cart set lastActivity = :lastActivity where id = :id")
+    void updateLastActivity(@Param("lastActivity") LocalDateTime lastActivity, @Param("id") long id);
 
     @Modifying
     @Query(value = "delete from koszyki where (select count(pozycje_koszyka.id) from pozycje_koszyka " +
