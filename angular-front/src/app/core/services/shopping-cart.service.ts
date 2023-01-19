@@ -36,12 +36,12 @@ export class ShoppingCartService {
             (item) =>
               new ShoppingCartPosition(
                 new Product(
-                  item.product.id,
-                  item.product.name,
-                  item.product.price,
-                  new Image(`../../../assets/${item.product.id}.jpg`, item.product.name),
-                  item.product.coverType === 'HardCover' ? 'twarda' : 'miękka',
-                  item.product.author
+                  item.id,
+                  item.name,
+                  item.price,
+                  new Image(`../../../assets/${item.id}.jpg`, item.name),
+                  item.coverType === 'HardCover' ? 'twarda' : 'miękka',
+                  item.author
                 ),
                 item.quantity
               )
