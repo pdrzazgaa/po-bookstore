@@ -65,6 +65,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
 
   onButtonClick() {
     if (this.authorizationService.isLoggedIn()) {
+      this.disabledButton = true;
       this.cartSub = this.shoppingCartService
         .incrementProductAmount(this.product!.id)
         .subscribe((isAdded) => {
@@ -76,7 +77,6 @@ export class ProductPageComponent implements OnInit, OnDestroy {
             this.popupMode = 'deny';
           }
           this.showPopup = true;
-          this.disabledButton = true;
           this.popupMessage = PopupMessage[this.popupMode];
           this.buttonSub?.unsubscribe();
           this.buttonSub = timer(2500).subscribe(() => {
