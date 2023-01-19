@@ -11,6 +11,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -25,7 +26,7 @@ public class Cart {
     private Long id;
     @Column(name = "OstatniaAktywnosc")
     private LocalDateTime lastActivity;
-    @OneToMany(mappedBy = "cart", cascade= CascadeType.ALL)
+    @OneToMany(mappedBy = "cart")
     private List<CartItem> cartItems;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "KlientID")
@@ -83,7 +84,7 @@ public class Cart {
 
     private CartItem isProductInCart(Product product) {
         for (CartItem cartItem : this.cartItems) {
-            if (cartItem.getProduct().equals(product)) {
+            if (cartItem.getProduct().getId().longValue() == product.getId().longValue()) {
                 return cartItem;
             }
         }

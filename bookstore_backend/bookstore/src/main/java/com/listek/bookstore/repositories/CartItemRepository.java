@@ -1,6 +1,5 @@
 package com.listek.bookstore.repositories;
 
-import com.listek.bookstore.DTO.CartItemProductDTO;
 import com.listek.bookstore.models.CartItem;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
