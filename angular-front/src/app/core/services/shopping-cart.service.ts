@@ -31,7 +31,7 @@ export class ShoppingCartService {
         return of(null);
       }),
       map((res: any) => {
-        if (res) {
+        if (res.cartItems) {
           const shoppingCartPositions: ShoppingCartPosition[] = res.cartItems.map(
             (item) =>
               new ShoppingCartPosition(
