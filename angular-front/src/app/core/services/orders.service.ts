@@ -58,7 +58,7 @@ export class OrdersService {
               item.product.id,
               item.product.name,
               item.product.price,
-              new Image(`../../../assets/${res.id}.jpg`, item.product.name),
+              new Image(`../../../assets/${item.product.id}.jpg`, item.product.name),
               'twarda',
               item.product.author
             ),

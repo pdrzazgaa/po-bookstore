@@ -18,10 +18,10 @@ public class CartItem {
     private Long id;
     @Column(name="ilosc")
     private int quantity;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="ProductID")
     private Product product;
-    @ManyToOne(cascade= CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="KoszykID")
     private Cart cart;
 

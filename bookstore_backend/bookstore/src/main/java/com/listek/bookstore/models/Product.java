@@ -40,6 +40,11 @@ public class Product {
     )
     private List<Category> categories;
 
+    public Product(Long id) {
+        this.id = id;
+        this.categories = new ArrayList<>();
+    }
+
     public Product(double price, int numberOfItemsInStock, String name, String description) {
         this.price = price;
         this.numberOfItemsInStock = numberOfItemsInStock;

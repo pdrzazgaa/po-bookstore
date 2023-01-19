@@ -31,17 +31,17 @@ export class ShoppingCartService {
         return of(null);
       }),
       map((res: any) => {
-        if (res) {
+        if (res.cartItems) {
           const shoppingCartPositions: ShoppingCartPosition[] = res.cartItems.map(
             (item) =>
               new ShoppingCartPosition(
                 new Product(
-                  item.product.id,
-                  item.product.name,
-                  item.product.price,
-                  new Image(`../../../assets/${item.product.id}.jpg`, item.product.name),
-                  item.product.coverType === 'HardCover' ? 'twarda' : 'miękka',
-                  item.product.author
+                  item.id,
+                  item.name,
+                  item.price,
+                  new Image(`../../../assets/${item.id}.jpg`, item.name),
+                  item.coverType === 'HardCover' ? 'twarda' : 'miękka',
+                  item.author
                 ),
                 item.quantity
               )
