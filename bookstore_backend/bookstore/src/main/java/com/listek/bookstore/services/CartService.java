@@ -134,8 +134,8 @@ public class CartService {
                                         .map(foundCart -> {
                                             CartItem cartItem = foundCart.addProductItem(foundProduct);
                                             if (cartItem != null) {
-                                                cartItemRepository.save(cartItem);
                                                 cartRepository.save(foundCart);
+                                                cartItemRepository.save(cartItem);
                                                 System.out.println("Cart exists. Added product.");
                                                 return ResponseEntity.ok(HttpStatus.OK);
                                             } else {
@@ -147,8 +147,8 @@ public class CartService {
                                             Cart newCart = new Cart(foundClient);
                                             CartItem cartItem = newCart.addProductItem(foundProduct);
                                             if (cartItem != null) {
-                                                cartItemRepository.save(cartItem);
                                                 cartRepository.save(newCart);
+                                                cartItemRepository.save(cartItem);
                                                 System.out.println("Cart does not exists. Added product.");
                                                 return ResponseEntity.ok(HttpStatus.OK);
                                             } else {
