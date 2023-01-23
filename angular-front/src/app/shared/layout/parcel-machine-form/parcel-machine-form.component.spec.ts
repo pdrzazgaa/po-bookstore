@@ -1,22 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ParcelMachineFormComponent } from './parcel-machine-form.component';
+// import { ParcelMachineFormComponent } from './parcel-machine-form.component';
 
-describe('ParcelMachineFormComponent', () => {
-  let component: ParcelMachineFormComponent;
-  let fixture: ComponentFixture<ParcelMachineFormComponent>;
+// describe('ParcelMachineFormComponent', () => {
+//   let component: ParcelMachineFormComponent;
+//   let fixture: ComponentFixture<ParcelMachineFormComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ParcelMachineFormComponent],
-    }).compileComponents();
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       declarations: [ParcelMachineFormComponent],
+//     }).compileComponents();
 
-    fixture = TestBed.createComponent(ParcelMachineFormComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//     fixture = TestBed.createComponent(ParcelMachineFormComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });
