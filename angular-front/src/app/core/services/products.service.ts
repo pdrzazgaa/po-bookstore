@@ -13,23 +13,26 @@ export class ProductsService {
   constructor(http: HttpClient) {
     this.http = http;
   }
+
   getProduct(productId: number): Observable<any> {
     return this.http.get(this.productBaseUrl + `/${productId}`).pipe(
       map((res: any) => {
-        const cover = res.coverType == 'HardCover' ? 'twarda' : 'miękka';
-        return new ProductDetails(
-          res.id,
-          res.name,
-          res.price,
-          new Image(`../../../assets/${res.id}.jpg`, res.name),
-          res.description,
-          cover,
-          res.author,
-          res.publisher,
-          res.releaseDate,
-          res.numberOfPages,
-          res.title
-        );
+        if (res) {
+          const cover = res.coverType == 'HardCover' ? 'twarda' : 'miękka';
+          return new ProductDetails(
+            res.id,
+            res.name,
+            res.price,
+            new Image(`../../../assets/${res.id}.jpg`, res.name),
+            res.description,
+            cover,
+            res.author,
+            res.publisher,
+            res.releaseDate,
+            res.numberOfPages,
+            res.title
+          );
+        } else return null;
       })
     );
   }
@@ -41,17 +44,19 @@ export class ProductsService {
     }
     return this.http.get<any[]>(url).pipe(
       map((res) => {
-        this.products = res.map(
-          (prod) =>
-            new Product(
-              prod.id,
-              prod.name,
-              prod.price,
-              new Image(`../../../assets/${prod.id}.jpg`, prod.name),
-              prod.coverType == 'HardCover' ? 'twarda' : 'miękka',
-              prod.author
-            )
-        );
+        if (res) {
+          this.products = res.map(
+            (prod) =>
+              new Product(
+                prod.id,
+                prod.name,
+                prod.price,
+                new Image(`../../../assets/${prod.id}.jpg`, prod.name),
+                prod.coverType == 'HardCover' ? 'twarda' : 'miękka',
+                prod.author
+              )
+          );
+        }
         return this.products;
       })
     );

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { HttpClient } from '@angular/common/http';
 import { ProductsService } from './products.service';
 import { of } from 'rxjs';
@@ -49,12 +50,33 @@ describe('ProductsService', () => {
     });
   });
 
+  it('should not get a product by http get request', (done: DoneFn) => {
+    httpClientSpy.get.and.returnValue(of(null));
+    productsService.getProduct(0).subscribe((res) => {
+      expect(res).toBe(null);
+      expect(httpClientSpy.get.calls.count()).toBe(1);
+      done();
+    });
+  });
+
   it('should get products by http get request', (done: DoneFn) => {
     httpClientSpy.get.and.returnValue(of(MOCK_PRODUCTS));
     productsService.getProducts(MOCK_CAT_ID).subscribe((res) => {
       expect(res).toBeDefined();
       expect(res instanceof Array<Product>).toBeTrue();
       expect(res.length).toBe(1);
+      expect(httpClientSpy.get.calls.count()).toBe(1);
+      done();
+    });
+  });
+
+  it('should return empty list of products', (done: DoneFn) => {
+    httpClientSpy.get.and.returnValue(of(null));
+    productsService.getProducts(0).subscribe((res) => {
+      console.log(res);
+      expect(res).toBeDefined();
+      expect(res instanceof Array<Product>).toBeTrue();
+      expect(res.length).toBe(0);
       expect(httpClientSpy.get.calls.count()).toBe(1);
       done();
     });
