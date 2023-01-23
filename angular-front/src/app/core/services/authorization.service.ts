@@ -18,7 +18,7 @@ export class AuthorizationService {
     }
   }
 
-  private verify(username: string, password: string): Observable<any> {
+  verify(username: string, password: string): Observable<any> {
     const headers = { 'content-type': 'application/json' };
     return this.http.post(
       this.baseUrl,
