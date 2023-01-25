@@ -43,6 +43,7 @@ public class Cart {
 
     public Cart() {
         lastActivity = LocalDateTime.now();
+        cartItems = new ArrayList<>();
     }
 
     public CartItem addProductItem(Product product) {

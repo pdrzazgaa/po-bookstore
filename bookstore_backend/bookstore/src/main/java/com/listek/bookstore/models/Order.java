@@ -91,8 +91,9 @@ public class Order {
         (the lower value)
      **/
 
-    public void grantDiscount(int bookCoins){
+    public int grantDiscount(int bookCoins){
         this.discount = Math.min(bookCoins, (int)(0.3 * computeSumWithoutDeliveryAndDiscount()));
+        return discount;
     }
 
     /**
