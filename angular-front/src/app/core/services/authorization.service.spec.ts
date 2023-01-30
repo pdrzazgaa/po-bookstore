@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { AuthorizationService } from './authorization.service';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
@@ -28,5 +29,5 @@ describe('AuthorizationService', () => {
   it('should logout the user', () => {
     authService.logout();
     expect(authService.isLoggedIn()).toBe(false);
-  })
+  });
 });

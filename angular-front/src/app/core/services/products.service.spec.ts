@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
+import { Product, ProductDetails } from '../models';
 import { HttpClient } from '@angular/common/http';
 import { ProductsService } from './products.service';
 import { of } from 'rxjs';
-import { Product, ProductDetails } from '../models';
 
 let httpClientSpy: jasmine.SpyObj<HttpClient>;
 let productsService: ProductsService;
